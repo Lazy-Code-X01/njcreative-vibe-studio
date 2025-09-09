@@ -57,10 +57,10 @@ const ServicesSection = () => {
           {services.map((service, index) => {
             const IconComponent = service.icon;
             return (
-              <div
-                key={index}
-                className="service-card group relative overflow-hidden"
-              >
+            <div
+              key={index}
+              className="service-card group relative overflow-hidden"
+            >
                 {/* Background Gradient */}
                 <div className={`absolute inset-0 bg-gradient-to-br ${service.color} opacity-5 group-hover:opacity-10 transition-opacity duration-500`} />
                 

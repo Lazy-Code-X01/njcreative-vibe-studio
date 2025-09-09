@@ -157,7 +157,7 @@
 
   /* Interactive Cards */
   .service-card {
-    @apply glass-card p-8 group cursor-pointer;
+    @apply glass-card p-8 cursor-pointer;
     transition: var(--transition-smooth);
   }
 

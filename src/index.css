@@ -2,67 +2,70 @@
 @tailwind components;
 @tailwind utilities;
 
-/* NJ Creative Firm Design System - Premium Dark Theme with Green Accents */
+/* NJ Creative Firm Design System - Premium Luxury Theme */
 
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Playfair+Display:wght@400;500;600;700;800;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,500;1,600&family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 
 @layer base {
   :root {
-    /* Core Dark Theme */
-    --background: 210 11% 4%;
-    --foreground: 210 20% 98%;
+    /* Luxury Dark Theme - Deep Black & Gold */
+    --background: 0 0% 2%;           /* Rich Black */
+    --foreground: 0 0% 98%;          /* Pure White */
 
     /* Card System */
-    --card: 210 11% 6%;
-    --card-foreground: 210 20% 98%;
-    --card-premium: 210 11% 8%;
+    --card: 0 0% 4%;                 /* Deep Charcoal */
+    --card-foreground: 0 0% 98%;
+    --card-premium: 0 0% 6%;         /* Slightly lighter */
 
     /* Interactive Elements */
-    --popover: 210 11% 8%;
-    --popover-foreground: 210 20% 98%;
+    --popover: 0 0% 6%;
+    --popover-foreground: 0 0% 98%;
 
-    /* Brand Colors - Army & Lemon Green */
-    --primary: 82 39% 30%;        /* Army Green */
-    --primary-foreground: 210 20% 98%;
-    --primary-glow: 82 39% 40%;
+    /* Brand Colors - Luxury Gold & Champagne */
+    --primary: 45 100% 51%;          /* Rich Gold */
+    --primary-foreground: 0 0% 8%;   /* Dark text on gold */
+    --primary-glow: 45 100% 60%;     /* Brighter gold */
 
-    --secondary: 82 61% 55%;      /* Lemon Green */
-    --secondary-foreground: 210 11% 4%;
-    --secondary-glow: 82 61% 65%;
+    --secondary: 39 100% 65%;        /* Champagne Gold */
+    --secondary-foreground: 0 0% 8%;
+    --secondary-glow: 39 100% 75%;
 
-    /* Accent System */
-    --accent: 210 11% 15%;
-    --accent-foreground: 210 20% 98%;
-    --accent-premium: 210 11% 20%;
+    /* Accent System - Bronze & Copper */
+    --accent: 30 25% 15%;            /* Dark Bronze */
+    --accent-foreground: 45 100% 60%;
+    --accent-premium: 25 30% 20%;    /* Rich Copper */
 
     /* Muted Tones */
-    --muted: 210 11% 15%;
-    --muted-foreground: 210 10% 65%;
+    --muted: 0 0% 12%;               /* Dark Grey */
+    --muted-foreground: 0 0% 65%;    /* Medium Grey */
 
     /* Interactive States */
-    --border: 210 11% 20%;
-    --input: 210 11% 15%;
-    --ring: 82 39% 30%;
+    --border: 0 0% 20%;              /* Border Grey */
+    --input: 0 0% 15%;               /* Input Background */
+    --ring: 45 100% 51%;             /* Gold Focus Ring */
 
     /* Destructive */
     --destructive: 0 75% 60%;
     --destructive-foreground: 210 20% 98%;
 
-    /* Premium Gradients */
+    /* Luxury Gradients */
     --gradient-primary: linear-gradient(135deg, hsl(var(--primary)) 0%, hsl(var(--primary-glow)) 100%);
     --gradient-secondary: linear-gradient(135deg, hsl(var(--secondary)) 0%, hsl(var(--secondary-glow)) 100%);
-    --gradient-hero: linear-gradient(135deg, hsl(var(--background)) 0%, hsl(210 11% 8%) 50%, hsl(var(--primary) / 0.1) 100%);
+    --gradient-hero: linear-gradient(135deg, hsl(var(--background)) 0%, hsl(0 0% 6%) 50%, hsl(var(--primary) / 0.15) 100%);
     --gradient-card: linear-gradient(145deg, hsl(var(--card)) 0%, hsl(var(--card-premium)) 100%);
+    --gradient-luxury: linear-gradient(135deg, hsl(45 100% 51%) 0%, hsl(39 100% 65%) 50%, hsl(30 100% 45%) 100%);
 
-    /* Glass Effects */
-    --glass-primary: hsla(var(--primary), 0.1);
-    --glass-secondary: hsla(var(--secondary), 0.1);
-    --glass-backdrop: hsla(210, 11%, 15%, 0.8);
+    /* Premium Glass Effects */
+    --glass-primary: hsla(var(--primary), 0.15);
+    --glass-secondary: hsla(var(--secondary), 0.12);
+    --glass-backdrop: hsla(0, 0%, 8%, 0.85);
+    --glass-luxury: hsla(45, 100%, 51%, 0.08);
 
-    /* Shadows & Glows */
-    --shadow-premium: 0 25px 50px -12px hsla(var(--primary), 0.25);
-    --shadow-glow: 0 0 50px hsla(var(--secondary), 0.3);
-    --shadow-card: 0 8px 32px hsla(210, 11%, 0%, 0.3);
+    /* Luxury Shadows & Glows */
+    --shadow-premium: 0 25px 60px -15px hsla(var(--primary), 0.4);
+    --shadow-glow: 0 0 60px hsla(var(--secondary), 0.25);
+    --shadow-card: 0 12px 40px hsla(0, 0%, 0%, 0.5);
+    --shadow-luxury: 0 20px 80px hsla(45, 100%, 51%, 0.2);
 
     /* Animation Timings */
     --transition-smooth: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
@@ -117,31 +120,32 @@
     box-shadow: var(--shadow-card);
   }
 
-  /* Premium Button Variants */
-  .btn-hero {
-    @apply relative overflow-hidden rounded-full px-8 py-4 font-semibold text-primary-foreground;
-    background: var(--gradient-primary);
-    box-shadow: var(--shadow-premium);
+  /* Luxury Button Variants */
+  .btn-luxury {
+    @apply relative overflow-hidden rounded-2xl px-8 py-4 font-bold text-background;
+    background: var(--gradient-luxury);
+    box-shadow: var(--shadow-luxury);
     transition: var(--transition-smooth);
   }
 
-  .btn-hero:hover {
-    transform: translateY(-2px);
+  .btn-luxury:hover {
+    transform: translateY(-3px) scale(1.02);
     box-shadow: var(--shadow-glow);
   }
 
-  .btn-secondary {
-    @apply relative overflow-hidden rounded-full px-6 py-3 font-medium border-2;
-    border-color: hsl(var(--secondary));
-    color: hsl(var(--secondary));
+  .btn-outline-luxury {
+    @apply relative overflow-hidden rounded-2xl px-6 py-3 font-semibold border-2;
+    border-color: hsl(var(--primary));
+    color: hsl(var(--primary));
     background: transparent;
     transition: var(--transition-smooth);
   }
 
-  .btn-secondary:hover {
-    background: var(--gradient-secondary);
-    color: hsl(var(--secondary-foreground));
-    transform: translateY(-1px);
+  .btn-outline-luxury:hover {
+    background: var(--gradient-luxury);
+    color: hsl(var(--background));
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-luxury);
   }
 
   /* Animated Gradients */

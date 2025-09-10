@@ -46,10 +46,11 @@ const Navigation = () => {
           {/* Logo */}
           <Link to="/" className="flex items-center space-x-3 group">
             <div className="relative">
-              <div className="w-12 h-12 rounded-xl bg-gradient-luxury flex items-center justify-center shadow-luxury">
-                <span className="text-background font-black text-xl font-heading">NJ</span>
-              </div>
-              <div className="absolute inset-0 rounded-xl bg-gradient-luxury opacity-0 group-hover:opacity-20 transition-opacity duration-300 blur-lg" />
+              <img 
+                src="/lovable-uploads/dcb316ef-88a8-412a-9bf9-73bdf0f6b737.png" 
+                alt="DJ Creative Firm Logo" 
+                className="w-12 h-12 object-contain transition-transform duration-300 group-hover:scale-105"
+              />
             </div>
             <div className="flex flex-col">
               <span className="font-serif text-2xl font-bold text-foreground group-hover:text-primary transition-colors duration-300">

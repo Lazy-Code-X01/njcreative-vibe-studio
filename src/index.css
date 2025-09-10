@@ -152,10 +152,10 @@
   .gradient-text {
     @apply bg-clip-text text-transparent;
     background: var(--gradient-secondary);
+    background-size: 200% 200%;
   }
 
   .animate-gradient {
-    background-size: 200% 200%;
     animation: gradient 3s ease infinite;
   }
 

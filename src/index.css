@@ -8,52 +8,52 @@
 
 @layer base {
   :root {
-    /* Luxury Dark Theme - Deep Black & Gold */
-    --background: 0 0% 2%;           /* Rich Black */
-    --foreground: 0 0% 98%;          /* Pure White */
+  /* Brand Dark Theme */
+  --background: 0 0% 0%;             /* Black (#000000) */
+  --foreground: 0 0% 100%;           /* White (#ffffff) */
 
-    /* Card System */
-    --card: 0 0% 4%;                 /* Deep Charcoal */
-    --card-foreground: 0 0% 98%;
-    --card-premium: 0 0% 6%;         /* Slightly lighter */
+  /* Card System */
+  --card: 120 61% 16%;               /* Dark Green (#175502) */
+  --card-foreground: 0 0% 100%;
+  --card-premium: 96 52% 52%;        /* Light Green (#90c73e) */
 
-    /* Interactive Elements */
-    --popover: 0 0% 6%;
-    --popover-foreground: 0 0% 98%;
+  /* Interactive Elements */
+  --popover: 0 0% 0%;                /* Black */
+  --popover-foreground: 0 0% 100%;
 
-    /* Brand Colors - Luxury Gold & Champagne */
-    --primary: 45 100% 51%;          /* Rich Gold */
-    --primary-foreground: 0 0% 8%;   /* Dark text on gold */
-    --primary-glow: 45 100% 60%;     /* Brighter gold */
+  /* Brand Colors - NJ Greens */
+  --primary: 120 61% 16%;            /* Dark Green (#175502) */
+  --primary-foreground: 0 0% 100%;
+  --primary-glow: 120 61% 30%;       /* Brighter version of #175502 */
 
-    --secondary: 39 100% 65%;        /* Champagne Gold */
-    --secondary-foreground: 0 0% 8%;
-    --secondary-glow: 39 100% 75%;
+  --secondary: 96 52% 52%;           /* Light Green (#90c73e) */
+  --secondary-foreground: 0 0% 100%;
+  --secondary-glow: 111 57% 60%;     /* Bright Green (#7ed957) */
 
-    /* Accent System - Bronze & Copper */
-    --accent: 30 25% 15%;            /* Dark Bronze */
-    --accent-foreground: 45 100% 60%;
-    --accent-premium: 25 30% 20%;    /* Rich Copper */
+  /* Accent System */
+  --accent: 111 57% 60%;             /* Bright Green (#7ed957) */
+  --accent-foreground: 0 0% 0%;
+  --accent-premium: 96 52% 52%;      /* Light Green */
 
-    /* Muted Tones */
-    --muted: 0 0% 12%;               /* Dark Grey */
-    --muted-foreground: 0 0% 65%;    /* Medium Grey */
+  /* Muted Tones */
+  --muted: 0 0% 20%;                 /* Dark Grey */
+  --muted-foreground: 0 0% 65%;      /* Medium Grey */
 
-    /* Interactive States */
-    --border: 0 0% 20%;              /* Border Grey */
-    --input: 0 0% 15%;               /* Input Background */
-    --ring: 45 100% 51%;             /* Gold Focus Ring */
+  /* Interactive States */
+  --border: 0 0% 20%;                /* Border Grey */
+  --input: 0 0% 15%;                 /* Input Background */
+  --ring: 111 57% 60%;               /* Bright Green focus */
 
-    /* Destructive */
-    --destructive: 0 75% 60%;
-    --destructive-foreground: 210 20% 98%;
+  /* Destructive */
+  --destructive: 0 75% 60%;
+  --destructive-foreground: 210 20% 98%;
 
-    /* Luxury Gradients */
-    --gradient-primary: linear-gradient(135deg, hsl(var(--primary)) 0%, hsl(var(--primary-glow)) 100%);
-    --gradient-secondary: linear-gradient(135deg, hsl(var(--secondary)) 0%, hsl(var(--secondary-glow)) 100%);
-    --gradient-hero: linear-gradient(135deg, hsl(var(--background)) 0%, hsl(0 0% 6%) 50%, hsl(var(--primary) / 0.15) 100%);
-    --gradient-card: linear-gradient(145deg, hsl(var(--card)) 0%, hsl(var(--card-premium)) 100%);
-    --gradient-luxury: linear-gradient(135deg, hsl(45 100% 51%) 0%, hsl(39 100% 65%) 50%, hsl(30 100% 45%) 100%);
+  /* Gradients with NJ Colors */
+  --gradient-primary: linear-gradient(135deg, hsl(var(--primary)) 0%, hsl(var(--primary-glow)) 100%);
+  --gradient-secondary: linear-gradient(135deg, hsl(var(--secondary)) 0%, hsl(var(--secondary-glow)) 100%);
+  --gradient-hero: linear-gradient(135deg, hsl(var(--background)) 0%, hsl(120 61% 16%) 50%, hsl(var(--secondary) / 0.25) 100%);
+  --gradient-card: linear-gradient(145deg, hsl(var(--card)) 0%, hsl(var(--card-premium)) 100%);
+  --gradient-luxury: linear-gradient(135deg, hsl(120 61% 16%) 0%, hsl(96 52% 52%) 50%, hsl(111 57% 60%) 100%);
 
     /* Premium Glass Effects */
     --glass-primary: hsla(var(--primary), 0.15);
@@ -149,16 +149,24 @@
   }
 
   /* Animated Gradients */
-  .gradient-text {
-    /* Fallback color */
-    color: hsl(45 100% 60%);
-    /* Gradient effect */
-    background: linear-gradient(135deg, hsl(45 100% 60%) 0%, hsl(39 100% 70%) 50%, hsl(45 100% 55%) 100%);
-    background-size: 200% 200%;
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
-  }
+.gradient-text {
+  /* Fallback color */
+  color: hsl(111 57% 60%); /* Bright Green (#7ed957) */
+
+  /* Gradient effect */
+  background: linear-gradient(
+    135deg,
+    hsl(120 61% 16%) 0%,   /* Dark Green (#175502) */
+    hsl(96 52% 52%) 50%,   /* Light Green (#90c73e) */
+    hsl(111 57% 60%) 100%  /* Bright Green (#7ed957) */
+  );
+
+  background-size: 200% 200%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
 
   /* Only apply transparent color if gradient is supported */
   @supports (-webkit-background-clip: text) {

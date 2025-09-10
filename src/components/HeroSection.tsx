@@ -51,7 +51,7 @@ const HeroSection = () => {
           </div>
 
           {/* Stats */}
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 animate-scale-in">
+          {/* <div className="grid grid-cols-2 md:grid-cols-4 gap-8 animate-scale-in">
             {[
               { number: "200+", label: "Premium Projects", icon: "🏆" },
               { number: "99%", label: "Client Satisfaction", icon: "⭐" },
@@ -71,7 +71,7 @@ const HeroSection = () => {
                 </div>
               </div>
             ))}
-          </div>
+          </div> */}
         </div>
       </div>
 

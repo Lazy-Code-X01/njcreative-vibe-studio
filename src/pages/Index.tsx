@@ -4,7 +4,6 @@ import ServicesSection from "@/components/ServicesSection";
 import PortfolioSection from "@/components/PortfolioSection";
 import AboutSection from "@/components/AboutSection";
 import Footer from "@/components/Footer";
-import FloatingChat from "@/components/FloatingChat";
 
 const Index = () => {
   return (
@@ -17,7 +16,6 @@ const Index = () => {
         <AboutSection />
       </main>
       <Footer />
-      <FloatingChat />
     </div>
   );
 };

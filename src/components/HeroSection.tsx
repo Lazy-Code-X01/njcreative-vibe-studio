@@ -4,7 +4,7 @@ import BackgroundSlider from "./BackgroundSlider";
 
 const HeroSection = () => {
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
+    <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-24 md:pt-0">
       {/* Background Slider */}
       <div className="absolute inset-0">
         <BackgroundSlider />

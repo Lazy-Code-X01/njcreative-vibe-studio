@@ -1,4 +1,5 @@
 import { Target, Users, Lightbulb, Award } from "lucide-react";
+import { Link } from "react-router-dom";
 
 const AboutSection = () => {
   const values = [
@@ -134,12 +135,16 @@ const AboutSection = () => {
               your project and show you how we can help bring your vision to life.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <button className="btn-hero">
-                Start a Project
-              </button>
-              <button className="btn-secondary">
-                Meet Our Team
-              </button>
+              <Link to="/contact">
+                <button className="btn-hero btn-outline-luxury">
+                  Start a Project
+                  </button>
+              </Link>
+              {/* <Link to="/about">
+                <button className="btn-secondary">
+                  Meet Our Team
+                </button>
+              </Link> */}
             </div>
           </div>
         </div>

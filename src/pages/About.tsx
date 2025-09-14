@@ -3,6 +3,12 @@ import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Users, Target, Award, Lightbulb } from "lucide-react";
 
+import wealthImg from '@/assets/wealth.png'
+import natashaImg from '@/assets/natasha.jpg'
+import idahImg from '@/assets/idah.png'
+import alexandraImg from '@/assets/alexandra.png'
+import { Link } from "react-router-dom";
+
 const About = () => {
   const values = [
     {
@@ -29,29 +35,29 @@ const About = () => {
 
   const team = [
     {
-      name: "Michael Chen",
+      name: "NATASHA  JUMBO",
       role: "Founder & Creative Director",
-      image: "/api/placeholder/400/400",
+      image: natashaImg,
       bio: "15+ years crafting digital experiences for Fortune 500 companies and innovative startups."
     },
     {
-      name: "Sarah Johnson",
-      role: "Head of Strategy",
-      image: "/api/placeholder/400/400",
-      bio: "Former consultant with expertise in digital transformation and brand positioning."
+      name: "Operations Director",
+      role: "Head of Operations",
+      image: wealthImg,
+      bio: "Experienced operator with expertise in process optimization and organizational efficiency."
     },
     {
-      name: "David Rodriguez",
-      role: "Lead Developer",
-      image: "/api/placeholder/400/400",
-      bio: "Full-stack expert specializing in scalable web applications and modern frameworks."
+      name: "IDAH SHIDU",
+      role: "Human Resources Director",
+      image: idahImg,
+      bio: "People-focused leader with expertise in talent management and organizational development."
     },
     {
-      name: "Emily Watson",
-      role: "Brand Designer",
-      image: "/api/placeholder/400/400",
-      bio: "Award-winning designer creating memorable visual identities for premium brands."
-    }
+      name: "ALEXANDRA APPAH",
+      role: "Brand Director",
+      image: alexandraImg,
+      bio: "Strategic brand leader with expertise in identity development and market positioning."
+    },
   ];
 
   const timeline = [
@@ -140,7 +146,7 @@ const About = () => {
         </section>
 
         {/* Team Section */}
-        <section className="py-20 bg-card">
+        <section className="py-20 bg-card" id="team">
           <div className="container mx-auto px-6">
             <div className="text-center mb-16">
               <h2 className="text-4xl md:text-5xl font-serif font-bold mb-6">
@@ -220,10 +226,12 @@ const About = () => {
               Let's discuss how we can help elevate your digital presence 
               and achieve your business objectives.
             </p>
-            <Button className="btn-luxury group text-lg px-10 py-5">
-              Start a Project
-              <ArrowRight className="ml-3 w-5 h-5 group-hover:translate-x-2 transition-transform" />
-            </Button>
+            <Link to="/contact">
+              <Button className="btn-luxury group text-lg px-10 py-5">
+                Start a Project
+                <ArrowRight className="ml-3 w-5 h-5 group-hover:translate-x-2 transition-transform" />
+                </Button>
+            </Link>
           </div>
         </section>
       </main>

@@ -1,5 +1,6 @@
 import { ArrowRight, Play, Star } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { Link } from "react-router-dom";
 import BackgroundSlider from "./BackgroundSlider";
 
 const HeroSection = () => {
@@ -30,15 +31,19 @@ const HeroSection = () => {
 
           {/* CTA Buttons */}
           <div className="flex flex-col sm:flex-row gap-6 justify-center items-center mb-16 animate-slide-up">
-            <Button className="btn-luxury group text-lg px-10 py-5 font-semibold">
-              Start Your Journey
-              <ArrowRight className="ml-3 w-5 h-5 group-hover:translate-x-2 transition-transform duration-300" />
-            </Button>
+            <Link to="/contact">
+              <Button className="btn-luxury group text-lg px-10 py-5 font-semibold">
+                Start Your Journey
+                <ArrowRight className="ml-3 w-5 h-5 group-hover:translate-x-2 transition-transform duration-300" />
+              </Button>
+            </Link>
             
-            <Button className="btn-outline-luxury group text-lg px-10 py-5 font-medium">
-              <Play className="mr-3 w-5 h-5" />
-              View Our Work
-            </Button>
+            <Link to="/portfolio">
+              <Button className="btn-outline-luxury group text-lg px-10 py-5 font-medium">
+                <Play className="mr-3 w-5 h-5" />
+                View Our Work
+              </Button>
+            </Link>
           </div>
 
           {/* Stats */}

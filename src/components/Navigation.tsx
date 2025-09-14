@@ -119,9 +119,11 @@ const Navigation = () => {
 
           {/* CTA Button */}
           <div className="hidden lg:block">
-            <Button className="btn-luxury font-semibold">
-              Get Started
-            </Button>
+            <Link to="/contact">
+              <Button className="btn-luxury font-semibold">
+                Get Started
+              </Button>
+            </Link>
           </div>
 
           {/* Mobile Menu Toggle */}
@@ -153,9 +155,11 @@ const Navigation = () => {
                   {item.label}
                 </Link>
               ))}
-              <Button className="btn-luxury mt-4 font-semibold">
-                Get Started
-              </Button>
+              <Link to="/contact">
+                <Button className="btn-luxury mt-4 font-semibold">
+                  Get Started
+                </Button>
+              </Link>
             </div>
           </div>
         </div>

@@ -109,7 +109,7 @@ const ServicesSection = () => {
             <p className="text-muted-foreground mb-6">
               Let's discuss how our services can help you achieve your digital goals.
             </p>
-            <button className="btn-hero">
+            <button className=" btn-outline-luxury group text-muted-foreground">
               Schedule a Consultation
             </button>
           </div>

@@ -1,4 +1,4 @@
-import { Mail, Phone, MapPin, Twitter, Linkedin, Instagram, Github } from "lucide-react";
+import { Mail, Phone, MapPin, Twitter, Linkedin, Instagram, } from "lucide-react";
 
 const Footer = () => {
   const quickLinks = [
@@ -21,7 +21,6 @@ const Footer = () => {
     { icon: Twitter, href: "#", label: "Twitter" },
     { icon: Linkedin, href: "#", label: "LinkedIn" },
     { icon: Instagram, href: "#", label: "Instagram" },
-    { icon: Github, href: "#", label: "GitHub" },
   ];
 
   return (
@@ -51,15 +50,15 @@ const Footer = () => {
               <div className="space-y-3">
                 <div className="flex items-center space-x-3">
                   <Mail className="w-5 h-5 text-secondary" />
-                  <span className="text-muted-foreground">hello@njcreativefirm.com</span>
+                  <span className="text-muted-foreground">info@njcreativefirm.com</span>
                 </div>
                 <div className="flex items-center space-x-3">
                   <Phone className="w-5 h-5 text-secondary" />
-                  <span className="text-muted-foreground">+1 (555) 123-4567</span>
+                  <span className="text-muted-foreground">+234 (903) 496-4186</span>
                 </div>
                 <div className="flex items-center space-x-3">
                   <MapPin className="w-5 h-5 text-secondary" />
-                  <span className="text-muted-foreground">New Jersey, USA</span>
+                  <span className="text-muted-foreground">Seaside Estate, Ajah, Lagos</span>
                 </div>
               </div>
             </div>

@@ -13,22 +13,13 @@ const HeroSection = () => {
       {/* Content */}
       <div className="relative z-10 container mx-auto px-6 text-center">
         <div className="max-w-5xl mx-auto animate-fade-in">
-          {/* Premium Badge */}
-          <div className="inline-flex items-center px-6 py-3 rounded-full glass-card mb-8 group hover:scale-105 transition-all duration-300">
-            <Star className="w-4 h-4 text-primary mr-2" />
-            <span className="text-primary font-medium tracking-wide">
-              Premium Digital Agency
-            </span>
-            <div className="ml-2 w-2 h-2 bg-primary rounded-full animate-pulse" />
-          </div>
-
           {/* Main Headline */}
-          <h1 className="text-6xl md:text-8xl font-heading font-black mb-8 leading-[0.9] tracking-tight">
-            <span className="block text-foreground">Luxury</span>
+          <h1 className="mt-20 text-6xl md:text-8xl font-heading font-black mb-8 leading-[0.9] tracking-tight">
+            <span className="block text-foreground">Future</span>
             <span className="block gradient-text animate-gradient font-serif italic">
               Digital
             </span>
-            <span className="block text-foreground">Experiences</span>
+            <span className="block text-foreground">Aesthetics</span>
           </h1>
 
           {/* Subtitle */}
@@ -72,13 +63,6 @@ const HeroSection = () => {
               </div>
             ))}
           </div> */}
-        </div>
-      </div>
-
-      {/* Scroll Indicator */}
-      <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 z-20">
-        <div className="w-6 h-12 border-2 border-primary rounded-full flex justify-center p-1">
-          <div className="w-1 h-4 bg-primary rounded-full animate-bounce" />
         </div>
       </div>
     </section>

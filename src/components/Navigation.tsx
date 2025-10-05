@@ -27,7 +27,8 @@ const Navigation = () => {
         { label: "Web Development", path: "/services#web-development" },
         { label: "Branding & Design", path: "/services#branding" },
         { label: "Digital Marketing", path: "/services#marketing" },
-        { label: "Tech Solutions", path: "/services#tech-solutions" }
+        { label: "Tech Solutions", path: "/services#tech-solutions" },
+        { label: "General Services", path: "/services#general-services" }
       ]
     },
     { label: "Portfolio", path: "/portfolio" },

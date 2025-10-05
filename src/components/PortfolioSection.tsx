@@ -1,7 +1,7 @@
 import { ExternalLink, ArrowRight } from "lucide-react";
 import portfolioWeb from "@/assets/portfolio-web.jpg";
 import portfolioBranding from "@/assets/portfolio-branding.jpg";
-import portfolioTech from "@/assets/portfolio-tech.jpg";
+import portfolioTech from "@/assets/recruitment-service.jpg";
 
 const PortfolioSection = () => {
   const projects = [
@@ -22,13 +22,14 @@ const PortfolioSection = () => {
       results: "+180% brand recognition"
     },
     {
-      title: "Mobile-First Platform",
-      category: "Tech Solutions",
-      description: "Custom mobile application serving 100K+ users with real-time features.",
-      image: portfolioTech,
-      tags: ["React Native", "Firebase", "AI/ML", "Analytics"],
-      results: "4.9★ App Store rating"
-    }
+  title: "Recruitment Service",
+  category: "Tech Solutions",
+  description: "End-to-end recruitment platform that streamlines hiring with automation, AI-driven candidate matching, and seamless team collaboration.",
+  image: portfolioTech,
+  tags: ["React", "Node.js", "AI/ML", "ATS Integration"],
+  results: "Reduced hiring time by 60% for clients"
+}
+
   ];
 
   return (

@@ -64,8 +64,10 @@ const About = () => {
     { year: "2016", title: "Founded", description: "Started with a vision to revolutionize digital experiences" },
     { year: "2018", title: "Growth", description: "Expanded team and capabilities, serving 50+ clients" },
     { year: "2020", title: "Innovation", description: "Launched proprietary design system and development framework" },
-    { year: "2022", title: "Recognition", description: "Won multiple industry awards and recognition" },
-    { year: "2024", title: "Future", description: "Continuing to push boundaries in luxury digital experiences" }
+    { year: "2022", title: "Recognition", description: " Vision Ignited The idea for NJ Creative Firm was born — a vision to transform ideas into powerful branding and creative experiences." },
+    { year: "2023", title: "Genesis", description: " 2023 – Building the Foundation Took bold steps by delivering projects, testing strategies, and developing the groundwork for what would become a registered creative powerhouse." },
+    { year: "2024", title: "Breakthrough", description: "Official Breakthrough NJ Creative Firm officially became a licensed business, offering professional services in branding, design, recruitment, and digital solutions." },
+    { year: "2025", title: "Vision", description: "The Future Continuing to push boundaries in branding, design, and recruitment, expanding globally to impact businesses and individuals." }
   ];
 
   return (
@@ -82,7 +84,10 @@ const About = () => {
                 <span className="block gradient-text animate-gradient italic">
                   Excellence
                 </span>
-                Since 2016
+                Since 2022
+                <span className="block gradient-text animate-gradient italic">
+                  But licensed in 2024
+                </span>
               </h1>
               <p className="text-xl md:text-2xl text-muted-foreground leading-relaxed mb-10">
                 We're a premium digital agency dedicated to transforming ambitious visions 
@@ -102,48 +107,92 @@ const About = () => {
           </div>
         </section>
 
-        {/* Mission & Values */}
-        <section className="py-20">
-          <div className="container mx-auto px-6">
-            <div className="grid lg:grid-cols-2 gap-16 items-center">
-              <div>
-                <h2 className="text-4xl md:text-5xl font-serif font-bold mb-8">
-                  Our Mission
-                </h2>
-                <p className="text-lg text-muted-foreground leading-relaxed mb-8">
-                  To empower businesses with premium digital solutions that not only meet 
-                  today's demands but anticipate tomorrow's opportunities. We believe that 
-                  exceptional design and strategic thinking can transform any brand into 
-                  a market leader.
-                </p>
-                <div className="space-y-4">
-                  <div className="flex items-center space-x-3">
-                    <div className="w-2 h-2 bg-primary rounded-full" />
-                    <span className="text-foreground">Strategic thinking meets creative excellence</span>
-                  </div>
-                  <div className="flex items-center space-x-3">
-                    <div className="w-2 h-2 bg-secondary rounded-full" />
-                    <span className="text-foreground">Technology-driven, human-centered solutions</span>
-                  </div>
-                  <div className="flex items-center space-x-3">
-                    <div className="w-2 h-2 bg-accent-premium rounded-full" />
-                    <span className="text-foreground">Long-term partnerships, not just projects</span>
-                  </div>
-                </div>
-              </div>
-              
-              <div className="grid grid-cols-2 gap-6">
-                {values.map((value, index) => (
-                  <div key={index} className="glass-card p-6 hover:scale-105 transition-all duration-300">
-                    <div className="text-primary mb-4">{value.icon}</div>
-                    <h3 className="font-heading font-bold text-lg mb-3">{value.title}</h3>
-                    <p className="text-sm text-muted-foreground leading-relaxed">{value.description}</p>
-                  </div>
-                ))}
-              </div>
-            </div>
+        {/* Mission Section */}
+<section className="py-20">
+  <div className="container mx-auto px-6">
+    <div className="grid lg:grid-cols-2 gap-16 items-start">
+      
+      {/* Left side: Mission text */}
+      <div>
+        <h2 className="text-4xl md:text-5xl font-serif font-bold mb-8">
+          Our Mission
+        </h2>
+        <p className="text-lg text-muted-foreground leading-relaxed mb-8">
+          To empower businesses with premium digital solutions that not only meet 
+          today's demands but anticipate tomorrow's opportunities. We believe that 
+          exceptional design and strategic thinking can transform any brand into 
+          a market leader.
+        </p>
+        <ul className="space-y-3 text-foreground font-medium">
+          <li>Strategic thinking meets creative excellence</li>
+          <li>Technology-driven, human-centered solutions</li>
+          <li>Long-term partnerships, not just projects</li>
+        </ul>
+      </div>
+
+      {/* Right side: 4 Values */}
+      <div className="grid grid-cols-2 gap-6">
+        {[
+          {
+            icon: Lightbulb,
+            title: "Innovation First",
+            description:
+              "We push boundaries and embrace cutting-edge technologies to deliver solutions that set new industry standards."
+          },
+          {
+            icon: Target,
+            title: "Results Driven",
+            description:
+              "Every project is measured by its impact on your business goals and the tangible results it delivers."
+          },
+          {
+            icon: Users,
+            title: "Client Partnership",
+            description:
+              "We believe in building long-term relationships based on trust, transparency, and mutual success."
+          },
+          {
+            icon: Award,
+            title: "Excellence Always",
+            description:
+              "Our commitment to quality and attention to detail ensures every deliverable exceeds expectations."
+          }
+        ].map((value, index) => (
+          <div
+            key={index}
+            className="glass-card p-6 hover:scale-105 transition-all duration-300 text-center"
+          >
+            <div className="text-3xl mb-3">
+  <value.icon className="w-8 h-8 mx-auto text-green-500" />
+</div>
+            <h3 className="font-heading font-bold text-lg mb-3">{value.title}</h3>
+            <p className="text-sm text-muted-foreground leading-relaxed">
+              {value.description}
+            </p>
           </div>
-        </section>
+        ))}
+      </div>
+    </div>
+  </div>
+</section>
+
+{/* Vision Section (separate, full width) */}
+<section className="py-20 bg-muted/20">
+  <div className="container mx-auto px-6 text-center">
+    <div className="max-w-4xl mx-auto">
+      <h2 className="text-4xl md:text-5xl font-serif font-bold mb-8">
+        Our Vision
+      </h2>
+      <p className="text-lg text-muted-foreground leading-relaxed">
+        To become a global force for creativity and innovation by empowering businesses and individuals with transformative digital solutions. We aim to build brands that transcend cultural and geographical boundaries, spark meaningful connections, and inspire lasting change. Through a relentless pursuit of excellence, integrity, and impact, we envision a future where our work not only drives growth but also shapes industries, uplifts communities, and leaves a legacy of innovation for generations to come.
+      </p>
+    </div>
+  </div>
+</section>
+
+
+
+
 
         {/* Team Section */}
         <section className="py-20 bg-card" id="team">
@@ -190,7 +239,8 @@ const About = () => {
                 Our Journey
               </h2>
               <p className="text-xl text-muted-foreground">
-                Milestones that define our commitment to excellence
+                Milestones that define our creativity, growth, and vision
+
               </p>
             </div>
             

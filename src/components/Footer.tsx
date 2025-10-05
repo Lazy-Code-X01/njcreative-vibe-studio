@@ -1,26 +1,65 @@
-import { Mail, Phone, MapPin, Twitter, Linkedin, Instagram, } from "lucide-react";
+import {
+  Mail,
+  Phone,
+  MapPin,
+  Twitter,
+  Linkedin,
+  Instagram,
+} from 'lucide-react';
+
+import { FaFacebook } from 'react-icons/fa';
+import { FaThreads } from 'react-icons/fa6';
+import { FaTiktok } from 'react-icons/fa';
+import { FaWhatsapp } from 'react-icons/fa';
 
 const Footer = () => {
   const quickLinks = [
-    { label: "About Us", href: "#about" },
-    { label: "Services", href: "#services" },
-    { label: "Portfolio", href: "#portfolio" },
-    { label: "Blog", href: "#blog" },
-    { label: "Contact", href: "#contact" },
+    { label: 'About Us', href: '#about' },
+    { label: 'Services', href: '#services' },
+    { label: 'Portfolio', href: '#portfolio' },
+    { label: 'Blog', href: '#blog' },
+    { label: 'Contact', href: '#contact' },
   ];
 
   const services = [
-    { label: "Web Development", href: "#" },
-    { label: "Branding & Design", href: "#" },
-    { label: "Digital Marketing", href: "#" },
-    { label: "Tech Solutions", href: "#" },
-    { label: "Consultation", href: "#" },
+    { label: 'Web Development', href: '#' },
+    { label: 'Branding & Design', href: '#' },
+    { label: 'Digital Marketing', href: '#' },
+    { label: 'Tech Solutions', href: '#' },
+    { label: 'Consultation', href: '#' },
   ];
 
   const socialLinks = [
-    { icon: Twitter, href: "#", label: "Twitter" },
-    { icon: Linkedin, href: "#", label: "LinkedIn" },
-    { icon: Instagram, href: "#", label: "Instagram" },
+    {
+      icon: FaFacebook,
+      href: 'https://www.facebook.com/share/1RYXxnDbRs/',
+      label: 'Facebook',
+    },
+    {
+      icon: Linkedin,
+      href: 'https://www.linkedin.com/company/nj-creativefirm/',
+      label: 'LinkedIn',
+    },
+    {
+      icon: Instagram,
+      href: 'https://www.instagram.com/nj_creativefirm?igsh=ZWdtODVwYXNnZnE0&utm_source=qr',
+      label: 'Instagram',
+    },
+    {
+      icon: FaThreads,
+      href: 'https://www.threads.com/@nj_creativefirm?igshid=NTc4MTIwNjQ2YQ==',
+      label: 'Threads',
+    },
+    {
+      icon: FaTiktok,
+      href: 'https://www.tiktok.com/@nj_creativefirm?_t=ZS-8zzrTOskTGG&_r=1',
+      label: 'Tiktok',
+    },
+    {
+      icon: FaWhatsapp,
+      href: 'http://wa.me/2349034964186',
+      label: 'WhatsApp',
+    },
   ];
 
   return (
@@ -34,42 +73,57 @@ const Footer = () => {
               {/* Logo */}
               <div className="flex items-center space-x-2 mb-6">
                 <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-primary to-secondary flex items-center justify-center">
-                  <span className="text-primary-foreground font-bold text-xl">NJ</span>
+                  <span className="text-primary-foreground font-bold text-xl">
+                    NJ
+                  </span>
                 </div>
                 <span className="font-playfair text-2xl font-bold text-foreground">
                   Creative Firm
                 </span>
               </div>
-              
+
               <p className="text-muted-foreground mb-6 leading-relaxed max-w-md">
-                Transforming ambitious ideas into stunning digital realities through 
-                cutting-edge web development, innovative branding, and strategic digital marketing.
+                Transforming ambitious ideas into stunning digital realities
+                through cutting-edge web development, innovative branding, and
+                strategic digital marketing. NJ Creative Firm is a dynamic
+                branding company committed to transforming ideas into impactful
+                visual experiences. We cater to both individuals and corporate
+                entities, providing a comprehensive range of services designed
+                to elevate brands and drive success
               </p>
-              
+
               {/* Contact Info */}
               <div className="space-y-3">
                 <div className="flex items-center space-x-3">
                   <Mail className="w-5 h-5 text-secondary" />
-                  <span className="text-muted-foreground">info@njcreativefirm.com</span>
+                  <span className="text-muted-foreground">
+                    info@njcreativefirm.com
+                  </span>
                 </div>
                 <div className="flex items-center space-x-3">
                   <Phone className="w-5 h-5 text-secondary" />
-                  <span className="text-muted-foreground">+234 (903) 496-4186</span>
+                  <span className="text-muted-foreground">
+                    +234 (903) 496-4186
+                  </span>
                 </div>
                 <div className="flex items-center space-x-3">
                   <MapPin className="w-5 h-5 text-secondary" />
-                  <span className="text-muted-foreground">Seaside Estate, Ajah, Lagos</span>
+                  <span className="text-muted-foreground">
+                    Seaside Estate, Ajah, Lagos
+                  </span>
                 </div>
               </div>
             </div>
 
             {/* Quick Links */}
             <div>
-              <h4 className="text-lg font-semibold mb-6 text-foreground">Quick Links</h4>
+              <h4 className="text-lg font-semibold mb-6 text-foreground">
+                Quick Links
+              </h4>
               <ul className="space-y-3">
                 {quickLinks.map((link, index) => (
                   <li key={index}>
-                    <a 
+                    <a
                       href={link.href}
                       className="text-muted-foreground hover:text-secondary transition-colors duration-300"
                     >
@@ -82,11 +136,13 @@ const Footer = () => {
 
             {/* Services */}
             <div>
-              <h4 className="text-lg font-semibold mb-6 text-foreground">Services</h4>
+              <h4 className="text-lg font-semibold mb-6 text-foreground">
+                Services
+              </h4>
               <ul className="space-y-3">
                 {services.map((service, index) => (
                   <li key={index}>
-                    <a 
+                    <a
                       href={service.href}
                       className="text-muted-foreground hover:text-secondary transition-colors duration-300"
                     >
@@ -106,8 +162,8 @@ const Footer = () => {
               <div>
                 <h3 className="text-2xl font-bold mb-4">Stay In The Loop</h3>
                 <p className="text-muted-foreground">
-                  Get the latest insights on design, development, and digital strategy 
-                  delivered straight to your inbox.
+                  Get the latest insights on design, development, and digital
+                  strategy delivered straight to your inbox.
                 </p>
               </div>
               <div>
@@ -133,7 +189,7 @@ const Footer = () => {
             <div className="text-muted-foreground text-sm">
               © 2024 NJ Creative Firm. All rights reserved.
             </div>
-            
+
             {/* Social Links */}
             <div className="flex items-center space-x-4">
               {socialLinks.map((social, index) => {
@@ -150,13 +206,19 @@ const Footer = () => {
                 );
               })}
             </div>
-            
+
             {/* Legal Links */}
             <div className="flex items-center space-x-6 text-sm">
-              <a href="#" className="text-muted-foreground hover:text-secondary transition-colors duration-300">
+              <a
+                href="#"
+                className="text-muted-foreground hover:text-secondary transition-colors duration-300"
+              >
                 Privacy Policy
               </a>
-              <a href="#" className="text-muted-foreground hover:text-secondary transition-colors duration-300">
+              <a
+                href="#"
+                className="text-muted-foreground hover:text-secondary transition-colors duration-300"
+              >
                 Terms of Service
               </a>
             </div>

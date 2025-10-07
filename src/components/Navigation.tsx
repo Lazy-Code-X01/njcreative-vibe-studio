@@ -44,10 +44,10 @@ const Navigation = () => {
       <div className="container mx-auto px-6">
         <div className="flex items-center justify-between">
           {/* Logo */}
-          <Link to="/" className="flex items-center space-x-3 group">
+          <Link to="/" className="flex items-center space-x-1 group">
             <div className="relative">
               <img 
-                src="/lovable-uploads/dcb316ef-88a8-412a-9bf9-73bdf0f6b737.png" 
+                src="/uploads/logo.png" 
                 alt="DJ Creative Firm Logo" 
                 className="w-12 h-12 object-contain transition-transform duration-300 group-hover:scale-105"
               />

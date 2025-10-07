@@ -25,8 +25,9 @@ const HeroSection = () => {
 
           {/* Subtitle */}
           <p className="text-xl md:text-2xl text-muted-foreground mb-12 leading-relaxed max-w-3xl mx-auto font-body">
-            We craft extraordinary digital solutions that elevate your brand and deliver 
-            exceptional results through premium web development, strategic branding, and innovative marketing.
+            We craft extraordinary digital solutions that elevate your brand and
+            deliver exceptional results through premium web development,
+            strategic branding, and innovative marketing.
           </p>
 
           {/* CTA Buttons */}
@@ -37,7 +38,7 @@ const HeroSection = () => {
                 <ArrowRight className="ml-3 w-5 h-5 group-hover:translate-x-2 transition-transform duration-300" />
               </Button>
             </Link>
-            
+
             <Link to="/portfolio">
               <Button className="btn-outline-luxury group text-lg px-10 py-5 font-medium">
                 <Play className="mr-3 w-5 h-5" />

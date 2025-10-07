@@ -8,27 +8,30 @@ const PortfolioSection = () => {
     {
       title: "E-commerce Revolution",
       category: "Web Development",
-      description: "Modern e-commerce platform with advanced features and seamless user experience.",
+      description:
+        "Modern e-commerce platform with advanced features and seamless user experience.",
       image: portfolioWeb,
       tags: ["React", "Node.js", "Stripe", "AWS"],
-      results: "+250% conversion rate"
+      results: "+250% conversion rate",
     },
     {
       title: "Brand Identity Suite",
       category: "Branding",
-      description: "Complete brand transformation for a Fortune 500 company with global impact.",
+      description:
+        "Complete brand transformation for a Fortune 500 company with global impact.",
       image: portfolioBranding,
       tags: ["Brand Design", "Guidelines", "Marketing", "Strategy"],
-      results: "+180% brand recognition"
+      results: "+180% brand recognition",
     },
     {
-      title: "Mobile-First Platform",
+      title: "Recruitment Service",
       category: "Tech Solutions",
-      description: "Custom mobile application serving 100K+ users with real-time features.",
+      description:
+        "Custom mobile application serving 100K+ users with real-time features.",
       image: portfolioTech,
       tags: ["React Native", "Firebase", "AI/ML", "Analytics"],
-      results: "4.9★ App Store rating"
-    }
+      results: "4.9★ App Store rating",
+    },
   ];
 
   return (
@@ -46,8 +49,8 @@ const PortfolioSection = () => {
             <span className="block gradient-text">Inspire</span>
           </h2>
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-            Explore our portfolio of successful digital transformations 
-            and see how we bring creative visions to life.
+            Explore our portfolio of successful digital transformations and see
+            how we bring creative visions to life.
           </p>
         </div>
 
@@ -66,7 +69,7 @@ const PortfolioSection = () => {
                   className="w-full h-64 object-cover group-hover:scale-110 transition-transform duration-700"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-background/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                
+
                 {/* Overlay Content */}
                 <div className="absolute bottom-4 left-4 right-4 transform translate-y-4 group-hover:translate-y-0 opacity-0 group-hover:opacity-100 transition-all duration-300">
                   <div className="flex items-center justify-between">
@@ -120,28 +123,38 @@ const PortfolioSection = () => {
                   See More of Our Work
                 </h3>
                 <p className="text-muted-foreground mb-6">
-                  Dive deeper into our complete portfolio and discover 
-                  how we've helped businesses transform their digital presence.
+                  Dive deeper into our complete portfolio and discover how we've
+                  helped businesses transform their digital presence.
                 </p>
-                <button className="btn-hero">
-                  View Full Portfolio
-                </button>
+                <button className="btn-hero">View Full Portfolio</button>
               </div>
               <div className="grid grid-cols-2 gap-4 text-center">
                 <div className="glass p-4 rounded-xl">
-                  <div className="text-2xl font-bold text-secondary mb-1">150+</div>
+                  <div className="text-2xl font-bold text-secondary mb-1">
+                    150+
+                  </div>
                   <div className="text-sm text-muted-foreground">Projects</div>
                 </div>
                 <div className="glass p-4 rounded-xl">
-                  <div className="text-2xl font-bold text-secondary mb-1">98%</div>
-                  <div className="text-sm text-muted-foreground">Success Rate</div>
+                  <div className="text-2xl font-bold text-secondary mb-1">
+                    98%
+                  </div>
+                  <div className="text-sm text-muted-foreground">
+                    Success Rate
+                  </div>
                 </div>
                 <div className="glass p-4 rounded-xl">
-                  <div className="text-2xl font-bold text-secondary mb-1">50+</div>
-                  <div className="text-sm text-muted-foreground">Happy Clients</div>
+                  <div className="text-2xl font-bold text-secondary mb-1">
+                    50+
+                  </div>
+                  <div className="text-sm text-muted-foreground">
+                    Happy Clients
+                  </div>
                 </div>
                 <div className="glass p-4 rounded-xl">
-                  <div className="text-2xl font-bold text-secondary mb-1">24/7</div>
+                  <div className="text-2xl font-bold text-secondary mb-1">
+                    24/7
+                  </div>
                   <div className="text-sm text-muted-foreground">Support</div>
                 </div>
               </div>

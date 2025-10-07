@@ -3,6 +3,7 @@ import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 import { Calendar, Clock, User, Search, Tag } from "lucide-react";
 import { useState } from "react";
+import { Link } from "react-router-dom";
 
 const Blog = () => {
   const [searchTerm, setSearchTerm] = useState("");
@@ -14,95 +15,113 @@ const Blog = () => {
     { id: "design", label: "Design" },
     { id: "marketing", label: "Digital Marketing" },
     { id: "business", label: "Business" },
-    { id: "technology", label: "Technology" }
+    { id: "technology", label: "Technology" },
   ];
 
   const featuredPost = {
     id: 1,
     title: "The Future of Web Development: Trends Shaping 2024",
-    excerpt: "Explore the cutting-edge technologies and methodologies that are revolutionizing web development in 2024, from AI integration to advanced frameworks.",
-    image: "/api/placeholder/1200/600",
+    excerpt:
+      "Explore the cutting-edge technologies and methodologies that are revolutionizing web development in 2024, from AI integration to advanced frameworks.",
+    image: "/src/assets/web development.png",
     category: "web-development",
     author: "Michael Chen",
     date: "March 15, 2024",
     readTime: "8 min read",
-    featured: true
+    featured: true,
   };
 
   const posts = [
     {
       id: 2,
-      title: "Creating Memorable Brand Experiences in the Digital Age",
-      excerpt: "Learn how to craft brand experiences that resonate with modern consumers and drive long-term loyalty through strategic design and storytelling.",
-      image: "/api/placeholder/600/400",
+      title: "NG Nigeria @ 65: A Nation, A Brand, A Story Still Unfolding",
+      excerpt:
+        "When Nigeria gained independence in 1960, our symbols the green-white-green flag, the anthem, the coat of arms were our first steps at",
+      image: "/src/assets/Let's go Nigeria.png",
       category: "design",
-      author: "Sarah Johnson",
-      date: "March 12, 2024",
-      readTime: "6 min read"
+      author: "NJ Creative Firm",
+      date: "6 days ago",
+      readTime: "1 min read",
+      link: "https://www.njcreativefirm.com/post/nigeria-65-a-nation-a-brand-a-story-still-unfolding",
     },
     {
       id: 3,
-      title: "SEO Strategies That Actually Work in 2024",
-      excerpt: "Discover proven SEO tactics that deliver real results, from technical optimization to content strategy and user experience improvements.",
-      image: "/api/placeholder/600/400",
+      title:
+        "NJ Creative Firm: Elevating Brands with Style, Strategy, and Impact",
+      excerpt:
+        "In today’s fast-paced digital world, businesses need more than just a logo or a social media page, they need a brand identity  that...",
+      image: "/src/assets/Elevatin brands.png",
       category: "marketing",
-      author: "David Rodriguez",
-      date: "March 10, 2024",
-      readTime: "5 min read"
+      author: "NJ Creative Firm",
+      date: "Sep 3",
+      readTime: "2 min read",
+      link: "https://www.njcreativefirm.com/post/https-www-njcreativefirm-com",
     },
     {
       id: 4,
-      title: "Building Scalable SaaS Applications: A Complete Guide",
-      excerpt: "A comprehensive guide to architecting and developing SaaS applications that can scale from startup to enterprise level.",
-      image: "/api/placeholder/600/400",
+      title: "Meet the Visionary Behind NJ Creative Firm: Natasha Jumbo",
+      excerpt:
+        "Turning Passion into Purpose, and Creativity into Impact At the heart of every transformative brand is a visionary, a dreamer who dares...",
+      image: "/src/assets/Meett the visionary.png",
       category: "web-development",
-      author: "Emily Watson",
-      date: "March 8, 2024",
-      readTime: "10 min read"
+      author: "NJ Creative Firm",
+      date: "Jul 28",
+      readTime: "3 min read",
+      link: "https://www.njcreativefirm.com/post/meet-the-visionary-behind-nj-creative-firm-natasha-jumbo",
     },
     {
       id: 5,
-      title: "The Psychology of User Experience Design",
-      excerpt: "Understanding how psychological principles can enhance user experience and drive better engagement in your digital products.",
-      image: "/api/placeholder/600/400",
-      category: "design", 
-      author: "Michael Chen",
-      date: "March 5, 2024",
-      readTime: "7 min read"
+      title:
+        "Drive Success with NJ Creative Firm's Innovative Branding Services",
+      excerpt:
+        "In today's fast-paced world, standing out is more important than ever. Businesses need to create a strong identity that resonates with...",
+      image: "/src/assets/drive success with NJ.png",
+      category: "design",
+      author: "NJ Creative Firm",
+      date: "May 11",
+      readTime: "5 min read",
+      link: "https://www.njcreativefirm.com/post/drive-success-with-nj-creative-firm-s-innovative-branding-services",
     },
     {
       id: 6,
-      title: "Maximizing ROI with Data-Driven Marketing",
-      excerpt: "Learn how to leverage analytics and data insights to create marketing campaigns that deliver measurable returns on investment.",
-      image: "/api/placeholder/600/400",
+      title: "Elevate Your Brand with NJ Creative Firm's Expert Solutions",
+      excerpt:
+        "In today's fast-paced world, standing out is more important than ever. Brands are constantly vying for attention, and consumers are...",
+      image: "/src/assets/elevate your brand.png",
       category: "marketing",
-      author: "Sarah Johnson",
-      date: "March 3, 2024",
-      readTime: "6 min read"
+      author: "NJ Creative Firm",
+      date: "May 11",
+      readTime: "5 min read",
+      link: "https://www.njcreativefirm.com/post/elevate-your-brand-with-nj-creative-firm-s-expert-solutions",
     },
     {
       id: 7,
-      title: "AI Integration in Modern Business Operations",
-      excerpt: "Practical applications of artificial intelligence in business processes and how to implement AI solutions effectively.",
-      image: "/api/placeholder/600/400",
+      title:
+        "Transform Ideas into Impactful Visual Experiences with NJ Creative Firm",
+      excerpt:
+        "In today's fast-paced world, capturing attention is more challenging than ever. With countless messages bombarding us daily, how do you...",
+      image: "/src/assets/transform ideas.png",
       category: "technology",
-      author: "David Rodriguez",
-      date: "March 1, 2024",
-      readTime: "9 min read"
-    }
+      author: "NJ Creative Firm",
+      date: "May 11",
+      readTime: "5 min read",
+      link: "https://www.njcreativefirm.com/post/transform-ideas-into-impactful-visual-experiences-with-nj-creative-firm",
+    },
   ];
 
-  const filteredPosts = posts.filter(post => {
-    const matchesSearch = post.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                         post.excerpt.toLowerCase().includes(searchTerm.toLowerCase());
-    const matchesCategory = selectedCategory === "all" || post.category === selectedCategory;
+  const filteredPosts = posts.filter((post) => {
+    const matchesSearch =
+      post.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      post.excerpt.toLowerCase().includes(searchTerm.toLowerCase());
+    const matchesCategory =
+      selectedCategory === "all" || post.category === selectedCategory;
     return matchesSearch && matchesCategory;
   });
 
   return (
     <div className="min-h-screen bg-background">
       <Navigation />
-      
+
       <main className="pt-24">
         {/* Hero Section */}
         <section className="py-20 relative overflow-hidden">
@@ -116,8 +135,9 @@ const Blog = () => {
                 Perspectives
               </h1>
               <p className="text-xl md:text-2xl text-muted-foreground leading-relaxed mb-10">
-                Stay ahead of the curve with our latest insights on web development, 
-                design trends, marketing strategies, and business growth.
+                Stay ahead of the curve with our latest insights on web
+                development, design trends, marketing strategies, and business
+                growth.
               </p>
             </div>
           </div>
@@ -138,7 +158,7 @@ const Blog = () => {
                   className="w-full pl-12 pr-4 py-4 bg-card border border-border rounded-2xl focus:outline-none focus:ring-2 focus:ring-primary text-foreground placeholder-muted-foreground"
                 />
               </div>
-              
+
               {/* Category Filter */}
               <div className="flex flex-wrap justify-center gap-3">
                 {categories.map((category) => (
@@ -164,12 +184,14 @@ const Blog = () => {
         <section className="pb-16">
           <div className="container mx-auto px-6">
             <div className="max-w-6xl mx-auto">
-              <h2 className="text-3xl font-bold mb-8 font-heading">Featured Article</h2>
+              <h2 className="text-3xl font-bold mb-8 font-heading">
+                Featured Article
+              </h2>
               <div className="glass-card overflow-hidden hover:scale-[1.01] transition-all duration-500 group">
                 <div className="grid lg:grid-cols-2 gap-0">
                   <div className="relative overflow-hidden">
-                    <img 
-                      src={featuredPost.image} 
+                    <img
+                      src={featuredPost.image}
                       alt={featuredPost.title}
                       className="w-full h-80 lg:h-full object-cover group-hover:scale-110 transition-transform duration-500"
                     />
@@ -179,7 +201,7 @@ const Blog = () => {
                       </span>
                     </div>
                   </div>
-                  
+
                   <div className="p-8 lg:p-12 flex flex-col justify-center">
                     <div className="flex items-center space-x-4 text-sm text-muted-foreground mb-4">
                       <div className="flex items-center space-x-1">
@@ -195,15 +217,15 @@ const Blog = () => {
                         <span>{featuredPost.readTime}</span>
                       </div>
                     </div>
-                    
+
                     <h3 className="text-3xl font-bold mb-4 font-heading group-hover:text-primary transition-colors">
                       {featuredPost.title}
                     </h3>
-                    
-                    <p className="text-muted-foreground mb-6 leading-relaxed text-lg">
+
+                    <p className="text-muted-foreground truncate mb-6 leading-relaxed text-lg">
                       {featuredPost.excerpt}
                     </p>
-                    
+
                     <Button className="btn-luxury group w-fit">
                       Read Full Article
                       <Calendar className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
@@ -219,34 +241,45 @@ const Blog = () => {
         <section className="pb-20">
           <div className="container mx-auto px-6">
             <div className="max-w-6xl mx-auto">
-              <h2 className="text-3xl font-bold mb-8 font-heading">Latest Articles</h2>
+              <h2 className="text-3xl font-bold mb-8 font-heading">
+                Latest Articles
+              </h2>
               <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
                 {filteredPosts.map((post, index) => (
-                  <article 
-                    key={post.id} 
+                  <article
+                    key={post.id}
                     className="group animate-fade-in cursor-pointer"
                     style={{ animationDelay: `${index * 0.1}s` }}
                   >
                     <div className="glass-card overflow-hidden hover:scale-105 transition-all duration-300 h-full flex flex-col">
                       <div className="relative overflow-hidden">
-                        <img 
-                          src={post.image} 
+                        <img
+                          src={post.image}
                           alt={post.title}
                           className="w-full h-48 object-cover group-hover:scale-110 transition-transform duration-300"
                         />
                         <div className="absolute top-4 left-4">
-                          <span className={`px-3 py-1 rounded-full text-xs font-medium ${
-                            post.category === 'web-development' ? 'bg-blue-500/20 text-blue-300' :
-                            post.category === 'design' ? 'bg-purple-500/20 text-purple-300' :
-                            post.category === 'marketing' ? 'bg-green-500/20 text-green-300' :
-                            post.category === 'business' ? 'bg-orange-500/20 text-orange-300' :
-                            'bg-red-500/20 text-red-300'
-                          }`}>
-                            {categories.find(cat => cat.id === post.category)?.label}
+                          <span
+                            className={`px-3 py-1 rounded-full text-xs font-medium ${
+                              post.category === "web-development"
+                                ? "bg-blue-500/20 text-blue-300"
+                                : post.category === "design"
+                                ? "bg-purple-500/20 text-purple-300"
+                                : post.category === "marketing"
+                                ? "bg-green-500/20 text-green-300"
+                                : post.category === "business"
+                                ? "bg-orange-500/20 text-orange-300"
+                                : "bg-red-500/20 text-red-300"
+                            }`}
+                          >
+                            {
+                              categories.find((cat) => cat.id === post.category)
+                                ?.label
+                            }
                           </span>
                         </div>
                       </div>
-                      
+
                       <div className="p-6 flex flex-col flex-grow">
                         <div className="flex items-center space-x-4 text-xs text-muted-foreground mb-3">
                           <div className="flex items-center space-x-1">
@@ -262,31 +295,34 @@ const Blog = () => {
                             <span>{post.readTime}</span>
                           </div>
                         </div>
-                        
+
                         <h3 className="text-xl font-bold mb-3 font-heading group-hover:text-primary transition-colors flex-grow">
                           {post.title}
                         </h3>
-                        
+
                         <p className="text-muted-foreground mb-4 leading-relaxed flex-grow">
                           {post.excerpt}
                         </p>
-                        
-                        <Button className="btn-outline-luxury group w-full">
-                          Read More
-                          <Calendar className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
-                        </Button>
+
+                        <Link to={post.link}>
+                          <Button className="btn-outline-luxury group w-full">
+                            Read More
+                            <Calendar className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                          </Button>
+                        </Link>
                       </div>
                     </div>
                   </article>
                 ))}
               </div>
-              
+
               {filteredPosts.length === 0 && (
                 <div className="text-center py-16">
                   <div className="text-6xl mb-4">📝</div>
                   <h3 className="text-2xl font-bold mb-4">No articles found</h3>
                   <p className="text-muted-foreground">
-                    Try adjusting your search terms or browse different categories.
+                    Try adjusting your search terms or browse different
+                    categories.
                   </p>
                 </div>
               )}
@@ -301,10 +337,10 @@ const Blog = () => {
               Stay Updated
             </h2>
             <p className="text-xl text-muted-foreground mb-10 max-w-2xl mx-auto">
-              Subscribe to our newsletter and get the latest insights, tips, and 
+              Subscribe to our newsletter and get the latest insights, tips, and
               industry trends delivered directly to your inbox.
             </p>
-            
+
             <div className="max-w-md mx-auto">
               <div className="flex flex-col sm:flex-row gap-4">
                 <input
@@ -312,9 +348,7 @@ const Blog = () => {
                   placeholder="Enter your email"
                   className="flex-1 px-4 py-3 bg-card border border-border rounded-xl focus:outline-none focus:ring-2 focus:ring-primary text-foreground placeholder-muted-foreground"
                 />
-                <Button className="btn-luxury">
-                  Subscribe
-                </Button>
+                <Button className="btn-luxury">Subscribe</Button>
               </div>
             </div>
           </div>

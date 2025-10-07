@@ -1,4 +1,10 @@
-import { Globe, Palette, Megaphone, Smartphone, ArrowRight } from "lucide-react";
+import {
+  Globe,
+  Palette,
+  Megaphone,
+  Smartphone,
+  ArrowRight,
+} from "lucide-react";
 import { Link } from "react-router-dom";
 
 const ServicesSection = () => {
@@ -6,31 +12,55 @@ const ServicesSection = () => {
     {
       icon: Globe,
       title: "Web Design & Development",
-      description: "Modern, responsive websites that captivate and convert visitors into customers.",
-      features: ["Responsive Design", "E-commerce Solutions", "CMS Integration", "Performance Optimization"],
-      color: "from-primary to-primary-glow"
+      description:
+        "Modern, responsive websites that captivate and convert visitors into customers.",
+      features: [
+        "Responsive Design",
+        "E-commerce Solutions",
+        "CMS Integration",
+        "Performance Optimization",
+      ],
+      color: "from-primary to-primary-glow",
     },
     {
       icon: Palette,
       title: "Branding & Creative Strategy",
-      description: "Compelling brand identities that tell your story and connect with your audience.",
-      features: ["Logo Design", "Brand Guidelines", "Visual Identity", "Creative Direction"],
-      color: "from-secondary to-secondary-glow"
+      description:
+        "Compelling brand identities that tell your story and connect with your audience.",
+      features: [
+        "Logo Design",
+        "Brand Guidelines",
+        "Visual Identity",
+        "Creative Direction",
+      ],
+      color: "from-secondary to-secondary-glow",
     },
     {
       icon: Megaphone,
       title: "Digital Marketing",
-      description: "Strategic campaigns that drive traffic, engagement, and measurable results.",
-      features: ["SEO Optimization", "Social Media", "Content Strategy", "PPC Campaigns"],
-      color: "from-accent to-accent-premium"
+      description:
+        "Strategic campaigns that drive traffic, engagement, and measurable results.",
+      features: [
+        "SEO Optimization",
+        "Social Media",
+        "Content Strategy",
+        "PPC Campaigns",
+      ],
+      color: "from-accent to-accent-premium",
     },
     {
       icon: Smartphone,
       title: "Tech Solutions",
-      description: "Custom applications and platforms that streamline operations and enhance user experience.",
-      features: ["Mobile Apps", "Custom Platforms", "API Integration", "Automation Tools"],
-      color: "from-primary to-secondary"
-    }
+      description:
+        "Custom applications and platforms that streamline operations and enhance user experience.",
+      features: [
+        "Mobile Apps",
+        "Custom Platforms",
+        "API Integration",
+        "Automation Tools",
+      ],
+      color: "from-primary to-secondary",
+    },
   ];
 
   return (
@@ -48,7 +78,7 @@ const ServicesSection = () => {
             <span className="block gradient-text">Success</span>
           </h2>
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-            From concept to launch, we provide comprehensive digital solutions 
+            From concept to launch, we provide comprehensive digital solutions
             that help businesses thrive in the modern landscape.
           </p>
         </div>
@@ -58,17 +88,21 @@ const ServicesSection = () => {
           {services.map((service, index) => {
             const IconComponent = service.icon;
             return (
-            <div
-              key={index}
-              className="service-card group relative overflow-hidden"
-            >
+              <div
+                key={index}
+                className="service-card group relative overflow-hidden"
+              >
                 {/* Background Gradient */}
-                <div className={`absolute inset-0 bg-gradient-to-br ${service.color} opacity-5 group-hover:opacity-10 transition-opacity duration-500`} />
-                
+                <div
+                  className={`absolute inset-0 bg-gradient-to-br ${service.color} opacity-5 group-hover:opacity-10 transition-opacity duration-500`}
+                />
+
                 {/* Content */}
                 <div className="relative z-10">
                   {/* Icon */}
-                  <div className={`w-16 h-16 rounded-2xl bg-gradient-to-br ${service.color} flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300`}>
+                  <div
+                    className={`w-16 h-16 rounded-2xl bg-gradient-to-br ${service.color} flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300`}
+                  >
                     <IconComponent className="w-8 h-8 text-white" />
                   </div>
 
@@ -83,7 +117,10 @@ const ServicesSection = () => {
                   {/* Features */}
                   <ul className="space-y-3 mb-6">
                     {service.features.map((feature, featureIndex) => (
-                      <li key={featureIndex} className="flex items-center text-sm">
+                      <li
+                        key={featureIndex}
+                        className="flex items-center text-sm"
+                      >
                         <div className="w-2 h-2 bg-secondary rounded-full mr-3" />
                         <span className="text-muted-foreground">{feature}</span>
                       </li>
@@ -108,13 +145,14 @@ const ServicesSection = () => {
               Ready to Transform Your Business?
             </h3>
             <p className="text-muted-foreground mb-6">
-              Let's discuss how our services can help you achieve your digital goals.
-            </p> 
+              Let's discuss how our services can help you achieve your digital
+              goals.
+            </p>
             <Link to="/contact">
               <button className=" btn-outline-luxury group text-muted-foreground">
                 Schedule a Consultation
               </button>
-            </Link> 
+            </Link>
           </div>
         </div>
       </div>

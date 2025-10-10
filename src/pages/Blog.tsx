@@ -47,7 +47,7 @@ const Blog = () => {
     title: "The Future of Web Development: Trends Shaping 2024",
     excerpt:
       "Explore the cutting-edge technologies and methodologies that are revolutionizing web development in 2024, from AI integration to advanced frameworks.",
-    image: "/src/assets/web development.webp",
+    image: "/src/assets/web development.png",
     category: "web-development",
     author: "Michael Chen",
     date: "March 15, 2024",
@@ -61,7 +61,7 @@ const Blog = () => {
       title: "NG Nigeria @ 65: A Nation, A Brand, A Story Still Unfolding",
       excerpt:
         "When Nigeria gained independence in 1960, our symbols the green-white-green flag, the anthem, the coat of arms were our first steps at",
-      image: "/src/assets/Let's go Nigeria.webp",
+      image: "/src/assets/Let's go Nigeria.png",
       category: "design",
       author: "NJ Creative Firm",
       date: "6 days ago",
@@ -74,7 +74,7 @@ const Blog = () => {
         "NJ Creative Firm: Elevating Brands with Style, Strategy, and Impact",
       excerpt:
         "In today’s fast-paced digital world, businesses need more than just a logo or a social media page, they need a brand identity  that...",
-      image: "/src/assets/Elevatin brands.webp",
+      image: "/src/assets/Elevatin brands.png",
       category: "marketing",
       author: "NJ Creative Firm",
       date: "Sep 3",
@@ -86,7 +86,7 @@ const Blog = () => {
       title: "Meet the Visionary Behind NJ Creative Firm: Natasha Jumbo",
       excerpt:
         "Turning Passion into Purpose, and Creativity into Impact At the heart of every transformative brand is a visionary, a dreamer who dares...",
-      image: "/src/assets/Meett the visionary.webp",
+      image: "/src/assets/Meett the visionary.png",
       category: "web-development",
       author: "NJ Creative Firm",
       date: "Jul 28",
@@ -99,7 +99,7 @@ const Blog = () => {
         "Drive Success with NJ Creative Firm's Innovative Branding Services",
       excerpt:
         "In today's fast-paced world, standing out is more important than ever. Businesses need to create a strong identity that resonates with...",
-      image: "/src/assets/drive success with NJ.webp",
+      image: "/src/assets/drive success with NJ.png",
       category: "design",
       author: "NJ Creative Firm",
       date: "May 11",
@@ -111,7 +111,7 @@ const Blog = () => {
       title: "Elevate Your Brand with NJ Creative Firm's Expert Solutions",
       excerpt:
         "In today's fast-paced world, standing out is more important than ever. Brands are constantly vying for attention, and consumers are...",
-      image: "/src/assets/elevate your brand.webp",
+      image: "/src/assets/elevate your brand.png",
       category: "marketing",
       author: "NJ Creative Firm",
       date: "May 11",
@@ -124,7 +124,7 @@ const Blog = () => {
         "Transform Ideas into Impactful Visual Experiences with NJ Creative Firm",
       excerpt:
         "In today's fast-paced world, capturing attention is more challenging than ever. With countless messages bombarding us daily, how do you...",
-      image: "/src/assets/transform ideas.webp",
+      image: "/src/assets/transform ideas.png",
       category: "technology",
       author: "NJ Creative Firm",
       date: "May 11",

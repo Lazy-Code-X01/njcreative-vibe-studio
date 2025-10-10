@@ -3,15 +3,22 @@ import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 import { Mail, Phone, MapPin, Clock, Send, MessageCircle } from "lucide-react";
 import { useState } from "react";
+import { toast } from "sonner";
+import SEO from "@/components/SEO";
 
 const Contact = () => {
   const [formData, setFormData] = useState({
-    name: "",
+    firstName: "",
+    lastName: "",
     email: "",
-    company: "",
-    service: "",
-    budget: "",
-    message: "",
+    phone: "",
+    address: "",
+    companyName: "",
+    helpMessage: "",
+    selectedServices: [] as string[],
+    dateTime: "",
+    companyLogo: null as File | null,
+    signature: "",
   });
 
   const handleInputChange = (
@@ -19,16 +26,73 @@ const Contact = () => {
       HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
     >
   ) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value,
-    });
+    const { name, type, value, files } = e.target;
+
+    if (type === "file" && files) {
+      setFormData((prev) => ({
+        ...prev,
+        [name]: files[0],
+      }));
+    } else if (type === "checkbox") {
+      const checkbox = e.target as HTMLInputElement;
+      setFormData((prev) => ({
+        ...prev,
+        selectedServices: checkbox.checked
+          ? [...prev.selectedServices, value]
+          : prev.selectedServices.filter((service) => service !== value),
+      }));
+    } else {
+      setFormData((prev) => ({
+        ...prev,
+        [name]: value,
+      }));
+    }
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Handle form submission logic here
-    console.log("Form submitted:", formData);
+
+    try {
+      const formDataToSend = new FormData();
+      Object.entries(formData).forEach(([key, value]) => {
+        if (key === "selectedServices") {
+          formDataToSend.append(key, JSON.stringify(value));
+        } else if (value instanceof File) {
+          formDataToSend.append(key, value);
+        } else {
+          formDataToSend.append(key, String(value));
+        }
+      });
+
+      // Replace this URL with your actual backend endpoint
+      const response = await fetch("https://your-backend-url/api/contact", {
+        method: "POST",
+        body: formDataToSend,
+      });
+
+      if (response.ok) {
+        alert("Form submitted successfully!");
+        // Reset form
+        setFormData({
+          firstName: "",
+          lastName: "",
+          email: "",
+          phone: "",
+          address: "",
+          companyName: "",
+          helpMessage: "",
+          selectedServices: [],
+          dateTime: "",
+          companyLogo: null,
+          signature: "",
+        });
+      } else {
+        throw new Error("Form submission failed");
+      }
+    } catch (error) {
+      console.error("Error submitting form:", error);
+      toast.error("Failed to submit form. Please try again.");
+    }
   };
 
   const contactInfo = [
@@ -83,6 +147,11 @@ const Contact = () => {
 
   return (
     <div className="min-h-screen bg-background">
+      <SEO
+        title="Contact Us"
+        description="Get in touch with NJ Creative Firm for premium digital solutions. Let's discuss your project and create something extraordinary together."
+        keywords="contact us, project consultation, digital agency contact, Lagos"
+      />
       <Navigation />
 
       <main className="pt-24">
@@ -149,18 +218,35 @@ const Contact = () => {
                   <div className="grid md:grid-cols-2 gap-6">
                     <div>
                       <label className="block text-sm font-medium mb-2">
-                        Full Name *
+                        First Name *
                       </label>
                       <input
                         type="text"
-                        name="name"
-                        value={formData.name}
+                        name="firstName"
+                        value={formData.firstName}
                         onChange={handleInputChange}
                         required
                         className="w-full px-4 py-3 bg-card border border-border rounded-xl focus:outline-none focus:ring-2 focus:ring-primary text-foreground"
-                        placeholder="John Doe"
+                        placeholder="John"
                       />
                     </div>
+                    <div>
+                      <label className="block text-sm font-medium mb-2">
+                        Last Name *
+                      </label>
+                      <input
+                        type="text"
+                        name="lastName"
+                        value={formData.lastName}
+                        onChange={handleInputChange}
+                        required
+                        className="w-full px-4 py-3 bg-card border border-border rounded-xl focus:outline-none focus:ring-2 focus:ring-primary text-foreground"
+                        placeholder="Doe"
+                      />
+                    </div>
+                  </div>
+
+                  <div className="grid md:grid-cols-2 gap-6">
                     <div>
                       <label className="block text-sm font-medium mb-2">
                         Email Address *
@@ -175,74 +261,129 @@ const Contact = () => {
                         placeholder="john@company.com"
                       />
                     </div>
+                    <div>
+                      <label className="block text-sm font-medium mb-2">
+                        Phone Number *
+                      </label>
+                      <input
+                        type="tel"
+                        name="phone"
+                        value={formData.phone}
+                        onChange={handleInputChange}
+                        required
+                        className="w-full px-4 py-3 bg-card border border-border rounded-xl focus:outline-none focus:ring-2 focus:ring-primary text-foreground"
+                        placeholder="+1234567890"
+                      />
+                    </div>
                   </div>
 
                   <div>
                     <label className="block text-sm font-medium mb-2">
-                      Company Name
+                      Address
                     </label>
                     <input
                       type="text"
-                      name="company"
-                      value={formData.company}
+                      name="address"
+                      value={formData.address}
                       onChange={handleInputChange}
+                      className="w-full px-4 py-3 bg-card border border-border rounded-xl focus:outline-none focus:ring-2 focus:ring-primary text-foreground"
+                      placeholder="Your Address"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-sm font-medium mb-2">
+                      Company Name *
+                    </label>
+                    <input
+                      type="text"
+                      name="companyName"
+                      value={formData.companyName}
+                      onChange={handleInputChange}
+                      required
                       className="w-full px-4 py-3 bg-card border border-border rounded-xl focus:outline-none focus:ring-2 focus:ring-primary text-foreground"
                       placeholder="Your Company"
                     />
                   </div>
 
-                  <div className="grid md:grid-cols-2 gap-6">
-                    <div>
-                      <label className="block text-sm font-medium mb-2">
-                        Service Needed *
-                      </label>
-                      <select
-                        name="service"
-                        value={formData.service}
-                        onChange={handleInputChange}
-                        required
-                        className="w-full px-4 py-3 bg-card border border-border rounded-xl focus:outline-none focus:ring-2 focus:ring-primary text-foreground"
-                      >
-                        <option value="">Select a service</option>
-                        {services.map((service) => (
-                          <option key={service} value={service}>
-                            {service}
-                          </option>
-                        ))}
-                      </select>
-                    </div>
-                    <div>
-                      <label className="block text-sm font-medium mb-2">
-                        Project Budget
-                      </label>
-                      <select
-                        name="budget"
-                        value={formData.budget}
-                        onChange={handleInputChange}
-                        className="w-full px-4 py-3 bg-card border border-border rounded-xl focus:outline-none focus:ring-2 focus:ring-primary text-foreground"
-                      >
-                        <option value="">Select budget range</option>
-                        {budgetRanges.map((range) => (
-                          <option key={range} value={range}>
-                            {range}
-                          </option>
-                        ))}
-                      </select>
+                  <div>
+                    <label className="block text-sm font-medium mb-2">
+                      How can we help you? *
+                    </label>
+                    <textarea
+                      name="helpMessage"
+                      value={formData.helpMessage}
+                      onChange={handleInputChange}
+                      required
+                      rows={4}
+                      className="w-full px-4 py-3 bg-card border border-border rounded-xl focus:outline-none focus:ring-2 focus:ring-primary text-foreground resize-none"
+                      placeholder="Tell us about your needs..."
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-sm font-medium mb-2">
+                      Select Services Required *
+                    </label>
+                    <div className="grid grid-cols-2 gap-4">
+                      {services.map((service) => (
+                        <div
+                          key={service}
+                          className="flex items-center space-x-2"
+                        >
+                          <input
+                            type="checkbox"
+                            name="selectedServices"
+                            value={service}
+                            checked={formData.selectedServices.includes(
+                              service
+                            )}
+                            onChange={handleInputChange}
+                            className="w-4 h-4 rounded border-border text-primary focus:ring-primary"
+                          />
+                          <label className="text-sm">{service}</label>
+                        </div>
+                      ))}
                     </div>
                   </div>
 
                   <div>
                     <label className="block text-sm font-medium mb-2">
-                      Project Details *
+                      Preferred Date and Time
                     </label>
-                    <textarea
-                      name="message"
-                      value={formData.message}
+                    <input
+                      type="datetime-local"
+                      name="dateTime"
+                      value={formData.dateTime}
                       onChange={handleInputChange}
-                      required
-                      rows={6}
-                      className="w-full px-4 py-3 bg-card border border-border rounded-xl focus:outline-none focus:ring-2 focus:ring-primary text-foreground resize-none"
-                      placeholder="Tell us about your project goals, timeline, and any specific requirements..."
+                      className="w-full px-4 py-3 bg-card border border-border rounded-xl focus:outline-none focus:ring-2 focus:ring-primary text-foreground"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-sm font-medium mb-2">
+                      Company Logo
+                    </label>
+                    <input
+                      type="file"
+                      name="companyLogo"
+                      onChange={handleInputChange}
+                      accept="image/*"
+                      className="w-full px-4 py-3 bg-card border border-border rounded-xl focus:outline-none focus:ring-2 focus:ring-primary text-foreground"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-sm font-medium mb-2">
+                      Signature
+                    </label>
+                    <input
+                      type="text"
+                      name="signature"
+                      value={formData.signature}
+                      onChange={handleInputChange}
+                      className="w-full px-4 py-3 bg-card border border-border rounded-xl focus:outline-none focus:ring-2 focus:ring-primary text-foreground"
+                      placeholder="Type your full name as signature"
                     />
                   </div>
 

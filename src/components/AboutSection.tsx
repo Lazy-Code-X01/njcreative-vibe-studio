@@ -1,31 +1,43 @@
-import { Target, Users, Lightbulb, Award } from "lucide-react";
+import {
+  LightbulbIcon,
+  MegaphoneIcon,
+  ShieldCheck,
+  Star,
+  MessageSquare,
+} from "lucide-react";
 import { Link } from "react-router-dom";
 
 const AboutSection = () => {
   const values = [
     {
-      icon: Target,
-      title: "Results-Driven",
-      description:
-        "Every project is measured by its impact on your business goals and growth.",
-    },
-    {
-      icon: Users,
-      title: "Customer Approach",
-      description:
-        "Prioritizing client satisfaction and ensuring their vision is brought to life.",
-    },
-    {
-      icon: Lightbulb,
+      icon: LightbulbIcon,
       title: "Creativity",
       description:
         "We push the boundaries of design to craft unique and compelling visual experiences.",
     },
     {
-      icon: Award,
-      title: "Quality Excellence",
+      icon: MegaphoneIcon,
+      title: "Innovation",
       description:
-        "Committed to delivering highquality services that exceed expectations.",
+        "Staying ahead of trends to offer cuttingedge branding solutions.",
+    },
+    {
+      icon: ShieldCheck,
+      title: "Integrity",
+      description:
+        "Building trust through transparency, professionalism, and ethical business practices.",
+    },
+    {
+      icon: Star,
+      title: "Excellence",
+      description:
+        "Committed to delivering highquality services that exceed expectations..",
+    },
+    {
+      icon: MessageSquare,
+      title: "Customer Approach",
+      description:
+        "Prioritizing client satisfaction and ensuring their vision is brought to life.",
     },
   ];
 
@@ -114,7 +126,7 @@ const AboutSection = () => {
         {/* Values Grid */}
         <div>
           <h3 className="text-3xl font-bold text-center mb-12">
-            What Drives Us Forward
+            Our Core Values
           </h3>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">

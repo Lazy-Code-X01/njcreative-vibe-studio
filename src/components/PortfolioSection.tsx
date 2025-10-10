@@ -2,6 +2,7 @@ import { ExternalLink, ArrowRight } from "lucide-react";
 import portfolioWeb from "@/assets/portfolio-web.jpg";
 import portfolioBranding from "@/assets/portfolio-branding.jpg";
 import portfolioTech from "@/assets/portfolio-tech.jpg";
+import recuimentImage from "@/assets/recuiment-services.png";
 
 const PortfolioSection = () => {
   const projects = [
@@ -25,11 +26,11 @@ const PortfolioSection = () => {
     },
     {
       title: "Recruitment Service",
-      category: "Tech Solutions",
+      category: "Recruitment",
       description:
-        "Custom mobile application serving 100K+ users with real-time features.",
-      image: portfolioTech,
-      tags: ["React Native", "Firebase", "AI/ML", "Analytics"],
+        "Innovative mobile app connecting top talent with leading companies worldwide.",
+      image: recuimentImage,
+      tags: ["Communication", "UX/UI", "Mobile App", "iOS & Android"],
       results: "4.9★ App Store rating",
     },
   ];

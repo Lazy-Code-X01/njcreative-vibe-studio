@@ -20,15 +20,18 @@ const Navigation = () => {
   const navItems = [
     { label: "Home", path: "/" },
     { label: "About", path: "/about" },
-    { 
-      label: "Services", 
+    {
+      label: "Services",
       path: "/services",
       dropdown: [
         { label: "Web Development", path: "/services#web-development" },
         { label: "Branding & Design", path: "/services#branding" },
         { label: "Digital Marketing", path: "/services#marketing" },
-        { label: "Tech Solutions", path: "/services#tech-solutions" }
-      ]
+        { label: "Tech Solutions", path: "/services#tech-solutions" },
+        { label: "Services", path: "/services#services" },
+        { label: "Printing", path: "/services#printing" },
+        { label: "Photography", path: "/services#photography" },
+      ],
     },
     { label: "Portfolio", path: "/portfolio" },
     { label: "Blog", path: "/blog" },
@@ -38,17 +41,19 @@ const Navigation = () => {
   const isActive = (path: string) => location.pathname === path;
 
   return (
-    <nav className={`fixed top-0 w-full z-50 transition-all duration-500 ${
-      isScrolled ? "glass py-4" : "py-6"
-    }`}>
+    <nav
+      className={`fixed top-0 w-full z-50 transition-all duration-500 ${
+        isScrolled ? "glass py-4" : "py-6"
+      }`}
+    >
       <div className="container mx-auto px-6">
         <div className="flex items-center justify-between">
           {/* Logo */}
           <Link to="/" className="flex items-center space-x-1 group">
             <div className="relative">
-              <img 
-                src="/uploads/logo.png" 
-                alt="DJ Creative Firm Logo" 
+              <img
+                src="/uploads/logo.png"
+                alt="DJ Creative Firm Logo"
                 className="w-12 h-12 object-contain transition-transform duration-300 group-hover:scale-105"
               />
             </div>
@@ -81,19 +86,34 @@ const Navigation = () => {
                       }`}
                     >
                       {item.label}
-                      <ChevronDown className={`ml-1 w-4 h-4 transition-transform duration-300 ${
-                        isServicesOpen ? "rotate-180" : ""
-                      }`} />
+                      <ChevronDown
+                        className={`ml-1 w-4 h-4 transition-transform duration-300 ${
+                          isServicesOpen ? "rotate-180" : ""
+                        }`}
+                      />
                     </Link>
-                    
+
                     {/* Dropdown */}
-                    <div className={`absolute top-full left-0 mt-2 w-64 glass-card rounded-2xl p-2 transition-all duration-300 ${
-                      isServicesOpen ? "opacity-100 visible translate-y-0" : "opacity-0 invisible -translate-y-2"
-                    }`}>
+                    <div
+                      className={`absolute top-full left-0 mt-2 w-64 glass-card rounded-2xl p-2 transition-all duration-300 ${
+                        isServicesOpen
+                          ? "opacity-100 visible translate-y-0"
+                          : "opacity-0 invisible -translate-y-2"
+                      }`}
+                    >
                       {item.dropdown.map((dropdownItem) => (
                         <Link
                           key={dropdownItem.label}
                           to={dropdownItem.path}
+                          onClick={(e) => {
+                            const id = dropdownItem.path.split("#")[1];
+                            const element = document.getElementById(id);
+                            if (element) {
+                              e.preventDefault();
+                              element.scrollIntoView({ behavior: "smooth" });
+                              setIsServicesOpen(false);
+                            }
+                          }}
                           className="block px-4 py-3 text-muted-foreground hover:text-primary hover:bg-glass-luxury rounded-xl transition-all duration-300 font-medium"
                         >
                           {dropdownItem.label}
@@ -120,9 +140,7 @@ const Navigation = () => {
           {/* CTA Button */}
           <div className="hidden lg:block">
             <Link to="/contact">
-              <Button className="btn-luxury font-semibold">
-                Get Started
-              </Button>
+              <Button className="btn-luxury font-semibold">Get Started</Button>
             </Link>
           </div>
 
@@ -136,9 +154,11 @@ const Navigation = () => {
         </div>
 
         {/* Mobile Menu */}
-        <div className={`lg:hidden overflow-hidden transition-all duration-500 ${
-          isMobileMenuOpen ? "max-h-96 opacity-100 mt-6" : "max-h-0 opacity-0"
-        }`}>
+        <div
+          className={`lg:hidden overflow-hidden transition-all duration-500 ${
+            isMobileMenuOpen ? "max-h-96 opacity-100 mt-6" : "max-h-0 opacity-0"
+          }`}
+        >
           <div className="glass-card rounded-2xl p-6">
             <div className="flex flex-col space-y-4">
               {navItems.map((item) => (

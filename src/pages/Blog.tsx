@@ -2,12 +2,36 @@ import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 import { Calendar, Clock, User, Search, Tag } from "lucide-react";
-import { useState } from "react";
-import { Link } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 
 const Blog = () => {
+  const location = useLocation();
+  const navigate = useNavigate();
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("all");
+
+  // Handle URL parameters and hash
+  useEffect(() => {
+    // Get category from URL search params
+    const params = new URLSearchParams(location.search);
+    const category = params.get("category");
+    if (category && categories.some((cat) => cat.id === category)) {
+      setSelectedCategory(category);
+    }
+
+    // Handle hash for direct post navigation
+    const hash = location.hash;
+    if (hash) {
+      const postId = hash.replace("#blog-", "");
+      const element = document.getElementById(`blog-${postId}`);
+      if (element) {
+        setTimeout(() => {
+          element.scrollIntoView({ behavior: "smooth" });
+        }, 100);
+      }
+    }
+  }, [location]);
 
   const categories = [
     { id: "all", label: "All Posts" },
@@ -23,7 +47,7 @@ const Blog = () => {
     title: "The Future of Web Development: Trends Shaping 2024",
     excerpt:
       "Explore the cutting-edge technologies and methodologies that are revolutionizing web development in 2024, from AI integration to advanced frameworks.",
-    image: "/src/assets/web development.png",
+    image: "/src/assets/web development.webp",
     category: "web-development",
     author: "Michael Chen",
     date: "March 15, 2024",
@@ -37,7 +61,7 @@ const Blog = () => {
       title: "NG Nigeria @ 65: A Nation, A Brand, A Story Still Unfolding",
       excerpt:
         "When Nigeria gained independence in 1960, our symbols the green-white-green flag, the anthem, the coat of arms were our first steps at",
-      image: "/src/assets/Let's go Nigeria.png",
+      image: "/src/assets/Let's go Nigeria.webp",
       category: "design",
       author: "NJ Creative Firm",
       date: "6 days ago",
@@ -50,7 +74,7 @@ const Blog = () => {
         "NJ Creative Firm: Elevating Brands with Style, Strategy, and Impact",
       excerpt:
         "In today’s fast-paced digital world, businesses need more than just a logo or a social media page, they need a brand identity  that...",
-      image: "/src/assets/Elevatin brands.png",
+      image: "/src/assets/Elevatin brands.webp",
       category: "marketing",
       author: "NJ Creative Firm",
       date: "Sep 3",
@@ -62,7 +86,7 @@ const Blog = () => {
       title: "Meet the Visionary Behind NJ Creative Firm: Natasha Jumbo",
       excerpt:
         "Turning Passion into Purpose, and Creativity into Impact At the heart of every transformative brand is a visionary, a dreamer who dares...",
-      image: "/src/assets/Meett the visionary.png",
+      image: "/src/assets/Meett the visionary.webp",
       category: "web-development",
       author: "NJ Creative Firm",
       date: "Jul 28",
@@ -75,7 +99,7 @@ const Blog = () => {
         "Drive Success with NJ Creative Firm's Innovative Branding Services",
       excerpt:
         "In today's fast-paced world, standing out is more important than ever. Businesses need to create a strong identity that resonates with...",
-      image: "/src/assets/drive success with NJ.png",
+      image: "/src/assets/drive success with NJ.webp",
       category: "design",
       author: "NJ Creative Firm",
       date: "May 11",
@@ -87,7 +111,7 @@ const Blog = () => {
       title: "Elevate Your Brand with NJ Creative Firm's Expert Solutions",
       excerpt:
         "In today's fast-paced world, standing out is more important than ever. Brands are constantly vying for attention, and consumers are...",
-      image: "/src/assets/elevate your brand.png",
+      image: "/src/assets/elevate your brand.webp",
       category: "marketing",
       author: "NJ Creative Firm",
       date: "May 11",
@@ -100,7 +124,7 @@ const Blog = () => {
         "Transform Ideas into Impactful Visual Experiences with NJ Creative Firm",
       excerpt:
         "In today's fast-paced world, capturing attention is more challenging than ever. With countless messages bombarding us daily, how do you...",
-      image: "/src/assets/transform ideas.png",
+      image: "/src/assets/transform ideas.webp",
       category: "technology",
       author: "NJ Creative Firm",
       date: "May 11",
@@ -111,12 +135,28 @@ const Blog = () => {
 
   const filteredPosts = posts.filter((post) => {
     const matchesSearch =
+      searchTerm === "" ||
       post.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      post.excerpt.toLowerCase().includes(searchTerm.toLowerCase());
+      post.excerpt.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      post.author.toLowerCase().includes(searchTerm.toLowerCase());
     const matchesCategory =
       selectedCategory === "all" || post.category === selectedCategory;
     return matchesSearch && matchesCategory;
   });
+
+  // Function to handle direct navigation to a blog post
+  const handlePostClick = (post) => {
+    // If it's an external link, open in new tab
+    if (post.link?.startsWith("http")) {
+      window.open(post.link, "_blank");
+      return;
+    }
+    // For internal links, scroll to the post section
+    const element = document.getElementById(`blog-${post.id}`);
+    if (element) {
+      element.scrollIntoView({ behavior: "smooth" });
+    }
+  };
 
   return (
     <div className="min-h-screen bg-background">
@@ -152,9 +192,19 @@ const Blog = () => {
                 <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 w-5 h-5 text-muted-foreground" />
                 <input
                   type="text"
-                  placeholder="Search articles..."
+                  placeholder="Search articles by title, content, or author..."
                   value={searchTerm}
-                  onChange={(e) => setSearchTerm(e.target.value)}
+                  onChange={(e) => {
+                    setSearchTerm(e.target.value);
+                    // Update URL with search term
+                    const params = new URLSearchParams(location.search);
+                    if (e.target.value) {
+                      params.set("search", e.target.value);
+                    } else {
+                      params.delete("search");
+                    }
+                    navigate(`/blog?${params.toString()}`);
+                  }}
                   className="w-full pl-12 pr-4 py-4 bg-card border border-border rounded-2xl focus:outline-none focus:ring-2 focus:ring-primary text-foreground placeholder-muted-foreground"
                 />
               </div>
@@ -164,7 +214,14 @@ const Blog = () => {
                 {categories.map((category) => (
                   <button
                     key={category.id}
-                    onClick={() => setSelectedCategory(category.id)}
+                    onClick={() => {
+                      setSelectedCategory(category.id);
+                      navigate(
+                        category.id === "all"
+                          ? "/blog"
+                          : `/blog?category=${category.id}`
+                      );
+                    }}
                     className={`px-4 py-2 rounded-full font-medium transition-all duration-300 ${
                       selectedCategory === category.id
                         ? "bg-primary text-primary-foreground shadow-luxury"
@@ -248,8 +305,10 @@ const Blog = () => {
                 {filteredPosts.map((post, index) => (
                   <article
                     key={post.id}
-                    className="group animate-fade-in cursor-pointer"
+                    id={`blog-${post.id}`}
+                    className="group animate-fade-in cursor-pointer scroll-mt-24"
                     style={{ animationDelay: `${index * 0.1}s` }}
+                    onClick={() => handlePostClick(post)}
                   >
                     <div className="glass-card overflow-hidden hover:scale-105 transition-all duration-300 h-full flex flex-col">
                       <div className="relative overflow-hidden">
@@ -304,7 +363,7 @@ const Blog = () => {
                           {post.excerpt}
                         </p>
 
-                        <Link to={post.link}>
+                        <Link>
                           <Button className="btn-outline-luxury group w-full">
                             Read More
                             <Calendar className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />

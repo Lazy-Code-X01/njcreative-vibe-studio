@@ -2,6 +2,7 @@ import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Users, Target, Award, Lightbulb } from "lucide-react";
+import SEO from "@/components/SEO";
 
 import wealthImg from "@/assets/wealth.png";
 import natashaImg from "@/assets/natasha.jpg";
@@ -10,12 +11,21 @@ import alexandraImg from "@/assets/alexandra.png";
 import { Link } from "react-router-dom";
 
 const About = () => {
-  const values = [
+  const choose = [
     {
       icon: <Lightbulb className="w-8 h-8" />,
       title: "Innovation First",
       description:
         "We pioneer digital solutions by embracing cutting-edge technologies and creative methodologies, setting new benchmarks in the industry while ensuring your brand stays ahead of the curve.",
+    },
+  ];
+
+  const values = [
+    {
+      icon: <Lightbulb className="w-8 h-8" />,
+      title: "Innovation First",
+      description:
+        "Creative Excellence and Global Impact. We pioneer digital solutions by embracing cutting-edge technologies and creative methodologies, setting new benchmarks in the industry while ensuring your brand stays ahead of the curve.",
     },
     {
       icon: <Target className="w-8 h-8" />,
@@ -93,6 +103,11 @@ const About = () => {
 
   return (
     <div className="min-h-screen bg-background">
+      <SEO
+        title="About Us"
+        description="Learn about NJ Creative Firm's journey, our passionate team, and our commitment to delivering exceptional digital solutions that drive business growth."
+        keywords="about us, creative agency, digital team, Lagos agency, brand strategy"
+      />
       <Navigation />
 
       <main className="pt-24">
@@ -106,6 +121,9 @@ const About = () => {
                   Excellence
                 </span>
                 Since 2022
+                <span className="block gradient-text animate-gradient italic text-base">
+                  (Officially Licensed in 2024.)
+                </span>
               </h1>
               <p className="text-xl md:text-2xl text-muted-foreground leading-relaxed mb-10">
                 We're a premium digital agency dedicated to transforming
@@ -178,7 +196,7 @@ const About = () => {
                 </div>
               </div>
 
-              <div className="grid grid-cols-2 gap-6">
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
                 {values.map((value, index) => (
                   <div
                     key={index}
@@ -193,6 +211,59 @@ const About = () => {
                     </p>
                   </div>
                 ))}
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* new Vision */}
+        <section className="py-20">
+          <div className="container mx-auto px-6">
+            <div className="grid lg:grid-cols-2 gap-16 items-center">
+              <div>
+                <h2 className="text-4xl md:text-5xl font-serif font-bold mb-8">
+                  Our Vision
+                </h2>
+                {choose.map((value, index) => (
+                  <div
+                    key={index}
+                    className="glass-card p-6 hover:scale-105 transition-all duration-300"
+                  >
+                    <div className="text-primary mb-4">{value.icon}</div>
+                    <h3 className="font-heading font-bold text-lg mb-3">
+                      {value.title}
+                    </h3>
+                    <p className="text-sm text-muted-foreground leading-relaxed">
+                      {value.description}
+                    </p>
+                  </div>
+                ))}
+              </div>
+
+              <div className="">
+                <div className="space-y-4">
+                  <h2 className="text-4xl md:text-5xl font-serif font-bold mb-8">
+                    Why Choose Us
+                  </h2>
+                  <div className="flex items-center space-x-3">
+                    <div className="w-2 h-2 bg-primary rounded-full" />
+                    <span className="text-foreground">
+                      Complete Creative Solutions in One Place
+                    </span>
+                  </div>
+                  <div className="flex items-center space-x-3">
+                    <div className="w-2 h-2 bg-secondary rounded-full" />
+                    <span className="text-foreground">
+                      Strategy + Creativity That Delivers Results
+                    </span>
+                  </div>
+                  <div className="flex items-center space-x-3">
+                    <div className="w-2 h-2 bg-accent-premium rounded-full" />
+                    <span className="text-foreground">
+                      Dedicated Partnership, Not Just a Service
+                    </span>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -260,7 +331,7 @@ const About = () => {
                   }`}
                 >
                   <div
-                    className={`w-5/12 ${
+                    className={`lg:w-5/12 w-10/12 ${
                       index % 2 === 0 ? "text-right pr-8" : "text-left pl-8"
                     }`}
                   >

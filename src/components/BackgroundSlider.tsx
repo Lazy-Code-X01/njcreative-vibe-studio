@@ -19,29 +19,30 @@ const slides: Slide[] = [
     image: heroSlide1,
     title: "Crafting Digital Excellence",
     subtitle: "Premium web solutions that captivate and convert your audience",
-    cta: "Start Your Project"
+    cta: "Start Your Project",
   },
   {
     id: 2,
     image: heroSlide2,
     title: "Brand Identity Mastery",
     subtitle: "Creating memorable brands that resonate with your target market",
-    cta: "View Our Work"
+    cta: "View Our Work",
   },
   {
     id: 3,
     image: heroSlide3,
     title: "Strategic Digital Marketing",
-    subtitle: "Data-driven campaigns that deliver measurable results and growth",
-    cta: "Get Started Today"
+    subtitle:
+      "Data-driven campaigns that deliver measurable results and growth",
+    cta: "Get Started Today",
   },
   {
     id: 4,
     image: heroSlide4,
     title: "Innovative Tech Solutions",
     subtitle: "Custom applications and platforms that scale with your business",
-    cta: "Explore Solutions"
-  }
+    cta: "Explore Solutions",
+  },
 ];
 
 const BackgroundSlider = () => {
@@ -80,18 +81,18 @@ const BackgroundSlider = () => {
         <div
           key={slide.id}
           className={`absolute inset-0 transition-all duration-1000 ease-in-out ${
-            index === currentSlide 
-              ? 'opacity-100 scale-100' 
-              : 'opacity-0 scale-105'
+            index === currentSlide
+              ? "opacity-100 scale-100"
+              : "opacity-0 scale-105"
           }`}
         >
-          <div 
+          <div
             className="w-full h-full bg-cover bg-center bg-no-repeat"
             style={{
-              backgroundImage: `linear-gradient(135deg, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.4) 50%, rgba(0,0,0,0.6) 100%), url(${slide.image})`
+              backgroundImage: `linear-gradient(135deg, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.4) 50%, rgba(0,0,0,0.6) 100%), url(${slide.image})`,
             }}
           />
-          
+
           {/* Floating Particles */}
           <div className="absolute inset-0 overflow-hidden pointer-events-none">
             <div className="absolute top-1/4 left-1/4 w-32 h-32 rounded-full bg-primary/10 blur-2xl animate-pulse" />
@@ -128,9 +129,9 @@ const BackgroundSlider = () => {
             key={index}
             onClick={() => goToSlide(index)}
             className={`w-3 h-3 rounded-full transition-all duration-300 ${
-              index === currentSlide 
-                ? 'bg-primary w-8' 
-                : 'bg-white/30 hover:bg-white/50'
+              index === currentSlide
+                ? "bg-primary w-8"
+                : "bg-white/30 hover:bg-white/50"
             }`}
             aria-label={`Go to slide ${index + 1}`}
           />
@@ -139,10 +140,12 @@ const BackgroundSlider = () => {
 
       {/* Progress Bar */}
       <div className="absolute bottom-0 left-0 w-full h-1 bg-white/20 z-20">
-        <div 
+        <div
           className="h-full bg-gradient-to-r from-primary to-secondary transition-all duration-300 ease-out"
           style={{
-            width: isAutoPlaying ? `${((currentSlide + 1) / slides.length) * 100}%` : '100%'
+            width: isAutoPlaying
+              ? `${((currentSlide + 1) / slides.length) * 100}%`
+              : "100%",
           }}
         />
       </div>

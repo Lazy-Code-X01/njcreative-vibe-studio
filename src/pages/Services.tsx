@@ -1,5 +1,6 @@
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
+import { useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import {
   ArrowRight,
@@ -9,8 +10,23 @@ import {
   Cog,
   Check,
 } from "lucide-react";
+import SEO from "@/components/SEO";
 
 const Services = () => {
+  // Handle initial hash navigation
+  useEffect(() => {
+    const hash = window.location.hash;
+    if (hash) {
+      const id = hash.replace('#', '');
+      const element = document.getElementById(id);
+      if (element) {
+        setTimeout(() => {
+          element.scrollIntoView({ behavior: 'smooth' });
+        }, 100);
+      }
+    }
+  }, []);
+
   const services = [
     {
       id: "web-development",
@@ -96,9 +112,9 @@ const Services = () => {
       startingPrice: "$10,000",
     },
     {
-      id: "brand-management",
+      id: "services",
       icon: <Cog className="w-12 h-12" />,
-      title: "Brand Management",
+      title: "Services",
       subtitle: "Custom, Scalable, Innovative",
       description:
         "Bespoke technology solutions including mobile apps, automation systems, and enterprise platforms.",
@@ -114,9 +130,9 @@ const Services = () => {
       startingPrice: "$10,000",
     },
     {
-      id: "logo-design",
+      id: "printing",
       icon: <Cog className="w-12 h-12" />,
-      title: "Logo & Visual Identity Design",
+      title: "Printing",
       subtitle: "Custom, Scalable, Innovative",
       description:
         "Bespoke technology solutions including mobile apps, automation systems, and enterprise platforms.",
@@ -132,27 +148,9 @@ const Services = () => {
       startingPrice: "$10,000",
     },
     {
-      id: "social-media",
+      id: "photography",
       icon: <Cog className="w-12 h-12" />,
-      title: "Social Media Management",
-      subtitle: "Custom, Scalable, Innovative",
-      description:
-        "Bespoke technology solutions including mobile apps, automation systems, and enterprise platforms.",
-      features: [
-        "Mobile App Development",
-        "Custom Software Solutions",
-        "System Integration",
-        "Process Automation",
-        "Cloud Solutions",
-        "Technical Consulting",
-      ],
-      technologies: ["React Native", "Python", "AWS", "Docker", "PostgreSQL"],
-      startingPrice: "$10,000",
-    },
-    {
-      id: "content-creation",
-      icon: <Cog className="w-12 h-12" />,
-      title: "Content Creation & Copywrting",
+      title: "Photography",
       subtitle: "Custom, Scalable, Innovative",
       description:
         "Bespoke technology solutions including mobile apps, automation systems, and enterprise platforms.",
@@ -228,6 +226,11 @@ const Services = () => {
 
   return (
     <div className="min-h-screen bg-background">
+      <SEO 
+        title="Our Services"
+        description="Explore our comprehensive range of digital services including web development, branding, marketing, and tech solutions tailored for your business success."
+        keywords="digital services, web development, branding, marketing, tech solutions"
+      />
       <Navigation />
 
       <main className="pt-24">
@@ -257,8 +260,9 @@ const Services = () => {
             <div className="space-y-20">
               {services.map((service, index) => (
                 <div
+                  id={service.id}
                   key={service.id}
-                  className={`grid lg:grid-cols-2 gap-12 items-center ${
+                  className={`grid lg:grid-cols-2 gap-12 items-center scroll-mt-24 ${
                     index % 2 === 1 ? "lg:grid-flow-col-dense" : ""
                   }`}
                 >

@@ -99,13 +99,13 @@ const Contact = () => {
     {
       icon: <Mail className="w-6 h-6" />,
       title: "Email Us",
-      details: ["info@njcreativefirm.com", "projects@njcreativefirm.com"],
+      details: ["projects@njcreativefirm.com"],
       action: "Send Email",
     },
     {
       icon: <Phone className="w-6 h-6" />,
       title: "Call Us",
-      details: ["+234 903 496 4186", "+1 (555) 123-4567"],
+      details: ["+234 903 496 4186"],
       action: "Call Now",
     },
     {
@@ -457,7 +457,7 @@ const Contact = () => {
                       <div>
                         <p className="font-medium">Email us</p>
                         <p className="text-sm text-muted-foreground">
-                          info@njcreativefirm.com
+                          projects@njcreativefirm.com
                         </p>
                       </div>
                     </div>

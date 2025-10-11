@@ -6,7 +6,13 @@ import {
   Linkedin,
   Instagram,
 } from "lucide-react";
-import { FaThreads, FaTiktok, FaPinterest, FaWhatsapp } from "react-icons/fa6";
+import {
+  FaThreads,
+  FaTiktok,
+  FaPinterest,
+  FaWhatsapp,
+  FaFacebook,
+} from "react-icons/fa6";
 
 const Footer = () => {
   const quickLinks = [
@@ -26,12 +32,37 @@ const Footer = () => {
   ];
 
   const socialLinks = [
-    { icon: FaThreads, href: "#", label: "Twitter" },
-    { icon: Linkedin, href: "#", label: "LinkedIn" },
-    { icon: Instagram, href: "#", label: "Instagram" },
-    { icon: FaTiktok, href: "#", label: "Tiktok" },
-    { icon: FaPinterest, href: "#", label: "Pinterest" },
-    { icon: FaWhatsapp, href: "#", label: "Whatsapp" },
+    {
+      icon: FaThreads,
+      href: " https://www.threads.com/@nj_creativefirm?igshid=NTc4MTIwNjQ2YQ==",
+      label: "Threads",
+    },
+    {
+      icon: Linkedin,
+      href: " https://www.linkedin.com/company/nj-creativefirm/",
+      label: "LinkedIn",
+    },
+    {
+      icon: Instagram,
+      href: " https://www.instagram.com/nj_creativefirm?igsh=ZWdtODVwYXNnZnE0&utm_source=qr",
+      label: "Instagram",
+    },
+    {
+      icon: FaTiktok,
+      href: " https://www.tiktok.com/@nj_creativefirm?_t=ZS-8zzrTOskTGG&_r=1",
+      label: "Tiktok",
+    },
+    {
+      icon: FaPinterest,
+      href: "https://pin.it/BCLx4uf73",
+      label: "Pinterest",
+    },
+    { icon: FaWhatsapp, href: "wa.me/2349034964186", label: "Whatsapp" },
+    {
+      icon: FaFacebook,
+      href: " https://www.facebook.com/share/1RYXxnDbRs/",
+      label: "Facebook",
+    },
   ];
 
   return (
@@ -94,6 +125,8 @@ const Footer = () => {
                   <li key={index}>
                     <a
                       href={link.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
                       className="text-muted-foreground hover:text-secondary transition-colors duration-300"
                     >
                       {link.label}
@@ -160,17 +193,15 @@ const Footer = () => {
             </div>
 
             {/* Social Links */}
-            <a
-              className="flex items-center space-x-4"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
+            <div className="flex items-center space-x-4">
               {socialLinks.map((social, index) => {
                 const IconComponent = social.icon;
                 return (
                   <a
                     key={index}
                     href={social.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
                     className="w-10 h-10 rounded-lg bg-accent hover:bg-accent-premium flex items-center justify-center text-accent-foreground hover:text-black transition-all duration-300 hover:scale-110"
                     aria-label={social.label}
                   >
@@ -178,7 +209,7 @@ const Footer = () => {
                   </a>
                 );
               })}
-            </a>
+            </div>
 
             {/* Legal Links */}
             <div className="flex items-center space-x-6 text-sm">

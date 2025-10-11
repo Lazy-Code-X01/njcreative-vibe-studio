@@ -25,10 +25,11 @@ const PortfolioSection = () => {
       results: "+180% brand recognition",
     },
     {
+      id: "/services#recruitment-talent",
       title: "Recruitment Service",
       category: "Recruitment",
       description:
-        "Innovative mobile app connecting top talent with leading companies worldwide.",
+        "We offer a wide range of services, including resume screening, interview preparation, and onboarding programs.",
       image: recuimentImage,
       tags: ["Communication", "UX/UI", "Mobile App", "iOS & Android"],
       results: "4.9★ App Store rating",
@@ -69,7 +70,7 @@ const PortfolioSection = () => {
                   alt={project.title}
                   className="w-full h-64 object-cover group-hover:scale-110 transition-transform duration-700"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-background/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                <div className="absolute inset-0 bg-gradient-to-t from-/80 to-transparent opacitbackgroundy-0 group-hover:opacity-100 transition-opacity duration-300" />
 
                 {/* Overlay Content */}
                 <div className="absolute bottom-4 left-4 right-4 transform translate-y-4 group-hover:translate-y-0 opacity-0 group-hover:opacity-100 transition-all duration-300">

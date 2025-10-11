@@ -2,7 +2,7 @@ import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 import { Calendar, Clock, User, Search, Tag } from "lucide-react";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 
 const Blog = () => {
@@ -10,14 +10,39 @@ const Blog = () => {
   const navigate = useNavigate();
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("all");
+  const [currentPage, setCurrentPage] = useState(1);
+  const postsPerPage = 6;
+
+  const categories = useMemo(
+    () => [
+      { id: "all", label: "All Posts" },
+      { id: "web-development", label: "Web Development" },
+      { id: "design", label: "Design" },
+      { id: "marketing", label: "Digital Marketing" },
+      { id: "business", label: "Business" },
+      { id: "technology", label: "Technology" },
+    ],
+    []
+  );
 
   // Handle URL parameters and hash
   useEffect(() => {
-    // Get category from URL search params
+    // Get URL parameters
     const params = new URLSearchParams(location.search);
+
+    // Handle category
     const category = params.get("category");
     if (category && categories.some((cat) => cat.id === category)) {
       setSelectedCategory(category);
+    }
+
+    // Handle page number
+    const page = params.get("page");
+    if (page) {
+      const pageNum = parseInt(page);
+      if (!isNaN(pageNum) && pageNum > 0) {
+        setCurrentPage(pageNum);
+      }
     }
 
     // Handle hash for direct post navigation
@@ -31,16 +56,16 @@ const Blog = () => {
         }, 100);
       }
     }
-  }, [location]);
+  }, [location, categories]);
 
-  const categories = [
-    { id: "all", label: "All Posts" },
-    { id: "web-development", label: "Web Development" },
-    { id: "design", label: "Design" },
-    { id: "marketing", label: "Digital Marketing" },
-    { id: "business", label: "Business" },
-    { id: "technology", label: "Technology" },
-  ];
+  // const categories = [
+  //   { id: "all", label: "All Posts" },
+  //   { id: "web-development", label: "Web Development" },
+  //   { id: "design", label: "Design" },
+  //   { id: "marketing", label: "Digital Marketing" },
+  //   { id: "business", label: "Business" },
+  //   { id: "technology", label: "Technology" },
+  // ];
 
   const featuredPost = {
     id: 1,
@@ -196,6 +221,7 @@ const Blog = () => {
                   value={searchTerm}
                   onChange={(e) => {
                     setSearchTerm(e.target.value);
+                    setCurrentPage(1); // Reset page number when searching
                     // Update URL with search term
                     const params = new URLSearchParams(location.search);
                     if (e.target.value) {
@@ -216,6 +242,7 @@ const Blog = () => {
                     key={category.id}
                     onClick={() => {
                       setSelectedCategory(category.id);
+                      setCurrentPage(1); // Reset page number when changing category
                       navigate(
                         category.id === "all"
                           ? "/blog"
@@ -298,81 +325,113 @@ const Blog = () => {
         <section className="pb-20">
           <div className="container mx-auto px-6">
             <div className="max-w-6xl mx-auto">
-              <h2 className="text-3xl font-bold mb-8 font-heading">
-                Latest Articles
-              </h2>
+              {/* Pagination Info */}
+              <div className="flex justify-between items-center mb-8">
+                <h2 className="text-3xl font-bold font-heading">
+                  Latest Articles
+                </h2>
+                <p className="text-muted-foreground">
+                  Showing{" "}
+                  {Math.min(
+                    (currentPage - 1) * postsPerPage + 1,
+                    filteredPosts.length
+                  )}{" "}
+                  - {Math.min(currentPage * postsPerPage, filteredPosts.length)}{" "}
+                  of {filteredPosts.length} articles
+                </p>
+              </div>
+
               <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-                {filteredPosts.map((post, index) => (
-                  <article
-                    key={post.id}
-                    id={`blog-${post.id}`}
-                    className="group animate-fade-in cursor-pointer scroll-mt-24"
-                    style={{ animationDelay: `${index * 0.1}s` }}
-                    onClick={() => handlePostClick(post)}
-                  >
-                    <div className="glass-card overflow-hidden hover:scale-105 transition-all duration-300 h-full flex flex-col">
-                      <div className="relative overflow-hidden">
-                        <img
-                          src={post.image}
-                          alt={post.title}
-                          className="w-full h-48 object-cover group-hover:scale-110 transition-transform duration-300"
-                        />
-                        <div className="absolute top-4 left-4">
-                          <span
-                            className={`px-3 py-1 rounded-full text-xs font-medium ${
-                              post.category === "web-development"
-                                ? "bg-blue-500/20 text-blue-300"
-                                : post.category === "design"
-                                ? "bg-purple-500/20 text-purple-300"
-                                : post.category === "marketing"
-                                ? "bg-green-500/20 text-green-300"
-                                : post.category === "business"
-                                ? "bg-orange-500/20 text-orange-300"
-                                : "bg-red-500/20 text-red-300"
-                            }`}
-                          >
-                            {
-                              categories.find((cat) => cat.id === post.category)
-                                ?.label
-                            }
-                          </span>
-                        </div>
-                      </div>
-
-                      <div className="p-6 flex flex-col flex-grow">
-                        <div className="flex items-center space-x-4 text-xs text-muted-foreground mb-3">
-                          <div className="flex items-center space-x-1">
-                            <User className="w-3 h-3" />
-                            <span>{post.author}</span>
-                          </div>
-                          <div className="flex items-center space-x-1">
-                            <Calendar className="w-3 h-3" />
-                            <span>{post.date}</span>
-                          </div>
-                          <div className="flex items-center space-x-1">
-                            <Clock className="w-3 h-3" />
-                            <span>{post.readTime}</span>
+                {filteredPosts
+                  .slice(
+                    (currentPage - 1) * postsPerPage,
+                    currentPage * postsPerPage
+                  )
+                  .map((post, index) => (
+                    <article
+                      key={post.id}
+                      id={`blog-${post.id}`}
+                      className="group animate-fade-in cursor-pointer scroll-mt-24"
+                      style={{ animationDelay: `${index * 0.1}s` }}
+                      onClick={() => handlePostClick(post)}
+                    >
+                      <div className="glass-card overflow-hidden hover:scale-105 transition-all duration-300 h-full flex flex-col">
+                        <div className="relative overflow-hidden">
+                          <img
+                            src={post.image}
+                            alt={post.title}
+                            className="w-full h-48 object-cover group-hover:scale-110 transition-transform duration-300"
+                          />
+                          <div className="absolute top-4 left-4">
+                            <span
+                              className={`px-3 py-1 rounded-full text-xs font-medium ${
+                                post.category === "web-development"
+                                  ? "bg-blue-500/20 text-blue-300"
+                                  : post.category === "design"
+                                  ? "bg-purple-500/20 text-purple-300"
+                                  : post.category === "marketing"
+                                  ? "bg-green-500/20 text-green-300"
+                                  : post.category === "business"
+                                  ? "bg-orange-500/20 text-orange-300"
+                                  : "bg-red-500/20 text-red-300"
+                              }`}
+                            >
+                              {
+                                categories.find(
+                                  (cat) => cat.id === post.category
+                                )?.label
+                              }
+                            </span>
                           </div>
                         </div>
 
-                        <h3 className="text-xl font-bold mb-3 font-heading group-hover:text-primary transition-colors flex-grow">
-                          {post.title}
-                        </h3>
+                        <div className="p-6 flex flex-col flex-grow">
+                          <div className="flex items-center space-x-4 text-xs text-muted-foreground mb-3">
+                            <div className="flex items-center space-x-1">
+                              <User className="w-3 h-3" />
+                              <span>{post.author}</span>
+                            </div>
+                            <div className="flex items-center space-x-1">
+                              <Calendar className="w-3 h-3" />
+                              <span>{post.date}</span>
+                            </div>
+                            <div className="flex items-center space-x-1">
+                              <Clock className="w-3 h-3" />
+                              <span>{post.readTime}</span>
+                            </div>
+                          </div>
 
-                        <p className="text-muted-foreground mb-4 leading-relaxed flex-grow">
-                          {post.excerpt}
-                        </p>
+                          <h3 className="text-xl font-bold mb-3 font-heading group-hover:text-primary transition-colors flex-grow">
+                            {post.title}
+                          </h3>
 
-                        <Link>
-                          <Button className="btn-outline-luxury group w-full">
-                            Read More
-                            <Calendar className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
-                          </Button>
-                        </Link>
+                          <p className="text-muted-foreground mb-4 leading-relaxed flex-grow">
+                            {post.excerpt}
+                          </p>
+
+                          {post.link ? (
+                            <a
+                              href={post.link}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                            >
+                              <Button className="btn-outline-luxury group w-full">
+                                Read More
+                                <Calendar className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                              </Button>
+                            </a>
+                          ) : (
+                            <Link to={`/blog#blog-${post.id}`}>
+                              <Button className="btn-outline-luxury group w-full">
+                                Read More
+                                <Calendar className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                              </Button>
+                            </Link>
+                          )}
+                        </div>
                       </div>
-                    </div>
-                  </article>
-                ))}
+                    </article>
+                  ))}
               </div>
 
               {filteredPosts.length === 0 && (
@@ -383,6 +442,61 @@ const Blog = () => {
                     Try adjusting your search terms or browse different
                     categories.
                   </p>
+                </div>
+              )}
+
+              {/* Pagination Controls */}
+              {filteredPosts.length > postsPerPage && (
+                <div className="flex justify-center items-center space-x-2 mt-12">
+                  <Button
+                    variant="outline"
+                    className="btn-outline-luxury"
+                    onClick={() =>
+                      setCurrentPage((prev) => Math.max(1, prev - 1))
+                    }
+                    disabled={currentPage === 1}
+                  >
+                    Previous
+                  </Button>
+
+                  {Array.from(
+                    { length: Math.ceil(filteredPosts.length / postsPerPage) },
+                    (_, i) => i + 1
+                  ).map((pageNumber) => (
+                    <Button
+                      key={pageNumber}
+                      variant={
+                        pageNumber === currentPage ? "default" : "outline"
+                      }
+                      className={`w-10 h-10 ${
+                        pageNumber === currentPage
+                          ? "btn-luxury"
+                          : "btn-outline-luxury"
+                      }`}
+                      onClick={() => setCurrentPage(pageNumber)}
+                    >
+                      {pageNumber}
+                    </Button>
+                  ))}
+
+                  <Button
+                    variant="outline"
+                    className="btn-outline-luxury"
+                    onClick={() =>
+                      setCurrentPage((prev) =>
+                        Math.min(
+                          Math.ceil(filteredPosts.length / postsPerPage),
+                          prev + 1
+                        )
+                      )
+                    }
+                    disabled={
+                      currentPage ===
+                      Math.ceil(filteredPosts.length / postsPerPage)
+                    }
+                  >
+                    Next
+                  </Button>
                 </div>
               )}
             </div>

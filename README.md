@@ -1,4 +1,4 @@
-NJ Creative Firm Website
+NJ Creative Firm
 
 A premium, multi-page website for NJ Creative Firm, a tech and creative agency.
 

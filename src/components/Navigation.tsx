@@ -51,9 +51,9 @@ const Navigation = () => {
           {/* Logo */}
           <Link to="/" className="flex items-center space-x-1 group">
             <div className="relative">
-              <img 
-                src="/uploads/logo.png" 
-                alt="DJ Creative Firm Logo" 
+              <img
+                src="/uploads/logo.png"
+                alt="DJ Creative Firm Logo"
                 className="w-12 h-12 object-contain transition-transform duration-300 group-hover:scale-105"
               />
             </div>

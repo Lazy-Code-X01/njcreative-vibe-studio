@@ -4,6 +4,7 @@ import { useAdminAuth } from '@/contexts/AdminAuthContext';
 import { LayoutDashboard, MessageSquare, FileText, FolderTree, LogOut, Menu } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
+import logo from '@/assets/webp/creative-firm-logo.webp';
 
 interface AdminLayoutProps {
   children: ReactNode;
@@ -25,9 +26,11 @@ const Sidebar = ({ mobile = false }: { mobile?: boolean }) => {
       {/* Logo Header */}
       <div className="p-6 border-b border-border/50">
         <div className="flex items-center gap-3">
-          <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-primary to-primary-glow flex items-center justify-center shadow-glow">
-            <span className="text-xl font-bold text-secondary">NJ</span>
-          </div>
+          <img 
+            src={logo} 
+            alt="NJ Creative Firm" 
+            className="w-10 h-10 object-contain"
+          />
           <div>
             <h2 className="text-lg font-bold text-foreground">NJ Creative</h2>
             <p className="text-xs text-muted-foreground">Admin Portal</p>

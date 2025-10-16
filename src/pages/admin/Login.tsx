@@ -7,6 +7,7 @@ import { Label } from '@/components/ui/label';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { toast } from 'sonner';
 import { Loader2 } from 'lucide-react';
+import logo from '@/assets/webp/creative-firm-logo.webp';
 
 export default function AdminLogin() {
   const [username, setUsername] = useState('');
@@ -49,8 +50,12 @@ export default function AdminLogin() {
         <CardHeader className="space-y-6 text-center pb-8">
           {/* Logo/Brand */}
           <div className="flex justify-center">
-            <div className="w-20 h-20 rounded-2xl bg-gradient-to-br from-primary to-primary-glow flex items-center justify-center shadow-glow">
-              <span className="text-3xl font-bold text-secondary">NJ</span>
+            <div className="w-24 h-24 rounded-2xl bg-gradient-to-br from-primary/10 to-primary-glow/10 flex items-center justify-center shadow-glow p-4">
+              <img 
+                src={logo} 
+                alt="NJ Creative Firm" 
+                className="w-full h-full object-contain"
+              />
             </div>
           </div>
           

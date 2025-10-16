@@ -20,13 +20,25 @@ app.use(express.json({ limit: '5mb' }));
 app.use(express.urlencoded({ extended: true }));
 app.use(morgan('dev'));
 
-const allowed = (process.env.ALLOWED_ORIGIN || '').split(',').map(s => s.trim()).filter(Boolean);
+
+const allowedOrigins = (process.env.ALLOWED_ORIGIN || '')
+  .split(',')
+  .map(s => s.trim().replace(/\/$/, '')) // remove trailing slash
+  .filter(Boolean);
+
 app.use(cors({
-  origin: function(origin, cb) {
-    if (!origin) return cb(null, true);
-    if (allowed.length === 0) return cb(null, true);
-    return cb(null, allowed.includes(origin));
-  }
+  origin: function (origin, callback) {
+    if (!origin) return callback(null, true); // allow non-browser clients (like Postman)
+    if (allowedOrigins.length === 0) return callback(null, true);
+    
+    if (allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      console.warn(`Blocked by CORS: ${origin}`);
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
+  credentials: true,
 }));
 
 const limiter = rateLimit({

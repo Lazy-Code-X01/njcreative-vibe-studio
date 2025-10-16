@@ -31,6 +31,7 @@ const Navigation = () => {
         { label: "Services", path: "/services#services" },
         { label: "Printing", path: "/services#printing" },
         { label: "Photography", path: "/services#photography" },
+        { label: "Recuiment Services", path: "/services#recruitment-talent" },
       ],
     },
     { label: "Portfolio", path: "/portfolio" },

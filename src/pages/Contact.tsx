@@ -5,8 +5,10 @@ import { Mail, Phone, MapPin, Clock, Send, MessageCircle } from "lucide-react";
 import { useState } from "react";
 import { toast } from "sonner";
 import SEO from "@/components/SEO";
+import { FaSpinner } from "react-icons/fa6";
 
 const Contact = () => {
+  const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
@@ -20,6 +22,8 @@ const Contact = () => {
     companyLogo: null as File | null,
     signature: "",
   });
+
+  console.log("formData:", formData);
 
   const handleInputChange = (
     e: React.ChangeEvent<
@@ -53,6 +57,8 @@ const Contact = () => {
     e.preventDefault();
 
     try {
+      setLoading(true); // Set loading to true before starting the request
+
       const formDataToSend = new FormData();
       Object.entries(formData).forEach(([key, value]) => {
         if (key === "selectedServices") {
@@ -64,14 +70,17 @@ const Contact = () => {
         }
       });
 
-      // Replace this URL with your actual backend endpoint
-      const response = await fetch("https://your-backend-url/api/contact", {
+      // Backend endpoint
+      const response = await fetch("http://localhost:8787/api/contact", {
         method: "POST",
+        headers: {
+          Accept: "application/json",
+        },
         body: formDataToSend,
       });
 
       if (response.ok) {
-        alert("Form submitted successfully!");
+        toast.success("Form submitted successfully!");
         // Reset form
         setFormData({
           firstName: "",
@@ -92,6 +101,8 @@ const Contact = () => {
     } catch (error) {
       console.error("Error submitting form:", error);
       toast.error("Failed to submit form. Please try again.");
+    } finally {
+      setLoading(false); // Always set loading to false, whether the request succeeded or failed
     }
   };
 
@@ -99,13 +110,13 @@ const Contact = () => {
     {
       icon: <Mail className="w-6 h-6" />,
       title: "Email Us",
-      details: ["info@njcreativefirm.com", "projects@njcreativefirm.com"],
+      details: ["projects@njcreativefirm.com"],
       action: "Send Email",
     },
     {
       icon: <Phone className="w-6 h-6" />,
       title: "Call Us",
-      details: ["+234 903 496 4186", "+1 (555) 123-4567"],
+      details: ["+234 903 496 4186"],
       action: "Call Now",
     },
     {
@@ -339,9 +350,11 @@ const Contact = () => {
                               service
                             )}
                             onChange={handleInputChange}
-                            className="w-4 h-4 rounded border-border text-primary focus:ring-primary"
+                            className="w-4 h-4 rounded border-border text-primary focus:ring-primary cursor-pointer"
                           />
-                          <label className="text-sm">{service}</label>
+                          <label htmlFor="selectedServices" className="text-sm">
+                            {service}
+                          </label>
                         </div>
                       ))}
                     </div>
@@ -388,9 +401,24 @@ const Contact = () => {
                   </div>
 
                   <div className="flex flex-col sm:flex-row gap-4">
-                    <Button type="submit" className="btn-luxury group flex-1">
-                      Send Message
-                      <Send className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                    <Button
+                      type="submit"
+                      className="btn-luxury group flex-1"
+                      disabled={loading}
+                    >
+                      <span className="flex items-center justify-center">
+                        {loading ? (
+                          <>
+                            <FaSpinner className="w-4 h-4 animate-spin mr-2" />
+                            Sending...
+                          </>
+                        ) : (
+                          <>
+                            Send Message
+                            <Send className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                          </>
+                        )}
+                      </span>
                     </Button>
                     <Button type="button" className="btn-outline-luxury flex-1">
                       <MessageCircle className="mr-2 w-4 h-4" />
@@ -457,7 +485,7 @@ const Contact = () => {
                       <div>
                         <p className="font-medium">Email us</p>
                         <p className="text-sm text-muted-foreground">
-                          info@njcreativefirm.com
+                          projects@njcreativefirm.com
                         </p>
                       </div>
                     </div>

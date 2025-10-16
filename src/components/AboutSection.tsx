@@ -33,12 +33,6 @@ const AboutSection = () => {
       description:
         "Committed to delivering highquality services that exceed expectations..",
     },
-    {
-      icon: MessageSquare,
-      title: "Customer Approach",
-      description:
-        "Prioritizing client satisfaction and ensuring their vision is brought to life.",
-    },
   ];
 
   return (

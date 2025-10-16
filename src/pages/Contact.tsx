@@ -30,7 +30,8 @@ const Contact = () => {
       HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
     >
   ) => {
-    const { name, type, value, files } = e.target;
+    const { name, type, value } = e.target;
+    const files = (e.target as HTMLInputElement).files;
 
     if (type === "file" && files) {
       setFormData((prev) => ({

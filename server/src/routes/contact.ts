@@ -123,4 +123,24 @@ router.post("/", upload.single("companyLogo"), async (req, res, next) => {
   }
 });
 
+// Get all messages (admin only)
+router.get("/", requireAuth, async (req, res, next) => {
+  try {
+    const messages = await Message.find().sort({ createdAt: -1 }).lean();
+    res.json(messages);
+  } catch (err) {
+    next(err);
+  }
+});
+
+// Delete a message (admin only)
+router.delete("/:id", requireAuth, async (req, res, next) => {
+  try {
+    await Message.findByIdAndDelete(req.params.id);
+    res.json({ message: "Deleted" });
+  } catch (err) {
+    next(err);
+  }
+});
+
 export default router;

@@ -34,4 +34,41 @@ router.post('/login', async (req, res, next) => {
   } catch (err) { next(err); }
 });
 
+// Analytics endpoint
+router.get('/analytics', async (req, res, next) => {
+  try {
+    const Message = (await import('../models/Message')).default;
+    const BlogPost = (await import('../models/BlogPost')).default;
+    const BlogCategory = (await import('../models/BlogCategory')).default;
+
+    const totalPosts = await BlogPost.countDocuments();
+    const totalMessages = await Message.countDocuments();
+    const publishedPosts = await BlogPost.countDocuments({ published: true });
+
+    const sevenDaysAgo = new Date(Date.now() - 7 * 24 * 60 * 60 * 1000);
+    const recentMessages = await Message.countDocuments({ createdAt: { $gte: sevenDaysAgo } });
+
+    const postsByCategory = await BlogPost.aggregate([
+      { $group: { _id: '$category', count: { $sum: 1 } } },
+      { $lookup: { from: 'blogcategories', localField: '_id', foreignField: '_id', as: 'categoryInfo' } },
+      { $project: { category: { $arrayElemAt: ['$categoryInfo.name', 0] }, count: 1 } }
+    ]);
+
+    const monthlyActivity = await Message.aggregate([
+      { $group: { _id: { $dateToString: { format: '%Y-%m', date: '$createdAt' } }, count: { $sum: 1 } } },
+      { $sort: { _id: 1 } },
+      { $limit: 6 }
+    ]);
+
+    res.json({
+      totalPosts,
+      totalMessages,
+      publishedPosts,
+      recentMessages,
+      postsByCategory,
+      monthlyActivity
+    });
+  } catch (err) { next(err); }
+});
+
 export default router;

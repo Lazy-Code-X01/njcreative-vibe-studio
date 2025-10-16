@@ -76,4 +76,38 @@ router.delete("/post/:id", requireAuth, async (req, res, next) => {
   }
 });
 
+// Create category
+router.post("/category", requireAuth, async (req, res, next) => {
+  try {
+    const category = await BlogCategory.create(req.body);
+    res.status(201).json(category);
+  } catch (err) {
+    next(err);
+  }
+});
+
+// Update category
+router.put("/category/:id", requireAuth, async (req, res, next) => {
+  try {
+    const category = await BlogCategory.findByIdAndUpdate(
+      req.params.id,
+      req.body,
+      { new: true }
+    );
+    res.json(category);
+  } catch (err) {
+    next(err);
+  }
+});
+
+// Delete category
+router.delete("/category/:id", requireAuth, async (req, res, next) => {
+  try {
+    await BlogCategory.findByIdAndDelete(req.params.id);
+    res.json({ message: "Deleted" });
+  } catch (err) {
+    next(err);
+  }
+});
+
 export default router;

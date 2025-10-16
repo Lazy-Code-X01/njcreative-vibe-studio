@@ -91,7 +91,7 @@ const Blog = () => {
       author: "NJ Creative Firm",
       date: "6 days ago",
       readTime: "1 min read",
-      link: "https://www.njcreativefirm.com/post/nigeria-65-a-nation-a-brand-a-story-still-unfolding",
+      slug: "nigeria-65-a-nation-a-brand-a-story-still-unfolding",
     },
     {
       id: 3,
@@ -104,7 +104,7 @@ const Blog = () => {
       author: "NJ Creative Firm",
       date: "Sep 3",
       readTime: "2 min read",
-      link: "https://www.njcreativefirm.com/post/https-www-njcreativefirm-com",
+      slug: "nj-creative-firm-elevating-brands",
     },
     {
       id: 4,
@@ -116,7 +116,7 @@ const Blog = () => {
       author: "NJ Creative Firm",
       date: "Jul 28",
       readTime: "3 min read",
-      link: "https://www.njcreativefirm.com/post/meet-the-visionary-behind-nj-creative-firm-natasha-jumbo",
+      slug: "meet-the-visionary-behind-nj-creative-firm-natasha-jumbo",
     },
     {
       id: 5,
@@ -169,18 +169,9 @@ const Blog = () => {
     return matchesSearch && matchesCategory;
   });
 
-  // Function to handle direct navigation to a blog post
+  // Function to handle navigation to a blog post
   const handlePostClick = (post) => {
-    // If it's an external link, open in new tab
-    if (post.link?.startsWith("http")) {
-      window.open(post.link, "_blank");
-      return;
-    }
-    // For internal links, scroll to the post section
-    const element = document.getElementById(`blog-${post.id}`);
-    if (element) {
-      element.scrollIntoView({ behavior: "smooth" });
-    }
+    navigate(`/blog/${post.slug}`);
   };
 
   return (

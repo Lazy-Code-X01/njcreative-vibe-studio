@@ -2,92 +2,84 @@
 @tailwind components;
 @tailwind utilities;
 
-/* NJ Creative Firm Design System - Premium Luxury Theme */
+/* NJ Creative Firm - Premium Admin Dashboard Theme */
 
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,500;1,600&family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 
 @layer base {
   :root {
-  /* Brand Dark Theme */
-  --background: 0 0% 0%;             /* Black (#000000) */
-  --foreground: 0 0% 100%;           /* White (#ffffff) */
+  /* Admin Premium Dark Theme - Army Green + Lemon Accents */
+  --background: 0 0% 3%;              /* Almost Black (#080808) */
+  --foreground: 0 0% 98%;             /* Off-white (#FAFAFA) */
 
-  /* Card System */
-  --card: 120 61% 16%;               /* Dark Green (#175502) */
-  --card-foreground: 0 0% 100%;
-  --card-premium: 96 52% 52%;        /* Light Green (#90c73e) */
+  /* Card System - Army Green Tones */
+  --card: 82 15% 20%;                 /* Dark Army Green (#2D3320) */
+  --card-foreground: 0 0% 98%;
+  --card-premium: 82 20% 25%;         /* Lighter Army Green */
 
   /* Interactive Elements */
-  --popover: 0 0% 0%;                /* Black */
-  --popover-foreground: 0 0% 100%;
+  --popover: 82 15% 18%;              /* Darker Army Green */
+  --popover-foreground: 0 0% 98%;
 
-  /* Brand Colors - NJ Greens */
-  --primary: 120 61% 16%;            /* Dark Green (#175502) */
-  --primary-foreground: 0 0% 100%;
-  --primary-glow: 120 61% 30%;       /* Brighter version of #175502 */
+  /* Brand Colors - Army Green & Lemon */
+  --primary: 82 23% 29%;              /* Army Green (#4B5320) */
+  --primary-foreground: 0 0% 98%;
+  --primary-glow: 82 25% 40%;         /* Brighter Army Green */
 
-  --secondary: 96 52% 52%;           /* Light Green (#90c73e) */
-  --secondary-foreground: 0 0% 100%;
-  --secondary-glow: 111 57% 60%;     /* Bright Green (#7ed957) */
+  --secondary: 75 100% 57%;           /* Lemon Green (#C6FF00) */
+  --secondary-foreground: 82 23% 29%;  /* Army Green text */
+  --secondary-glow: 75 100% 65%;      /* Bright Lemon */
 
   /* Accent System */
-  --accent: 111 57% 60%;             /* Bright Green (#7ed957) */
-  --accent-foreground: 0 0% 0%;
-  --accent-premium: 96 52% 52%;      /* Light Green */
+  --accent: 75 100% 57%;              /* Lemon Green (#C6FF00) */
+  --accent-foreground: 82 23% 29%;    /* Army Green text */
+  --accent-premium: 75 100% 50%;      /* Pure Lemon */
 
   /* Muted Tones */
-  --muted: 0 0% 20%;                 /* Dark Grey */
-  --muted-foreground: 0 0% 65%;      /* Medium Grey */
+  --muted: 0 0% 15%;                  /* Dark Grey */
+  --muted-foreground: 0 0% 60%;       /* Medium Grey */
 
   /* Interactive States */
-  --border: 0 0% 20%;                /* Border Grey */
-  --input: 0 0% 15%;                 /* Input Background */
-  --ring: 111 57% 60%;               /* Bright Green focus */
+  --border: 82 15% 25%;               /* Subtle Army Green Border */
+  --input: 82 15% 18%;                /* Input Background */
+  --ring: 75 100% 57%;                /* Lemon focus ring */
 
   /* Destructive */
   --destructive: 0 75% 60%;
-  --destructive-foreground: 210 20% 98%;
+  --destructive-foreground: 0 0% 98%;
 
-  /* Gradients with NJ Colors */
-  --gradient-primary: linear-gradient(135deg, hsl(var(--primary)) 0%, hsl(var(--primary-glow)) 100%);
-  --gradient-secondary: linear-gradient(135deg, hsl(var(--secondary)) 0%, hsl(var(--secondary-glow)) 100%);
-  --gradient-hero: linear-gradient(135deg, hsl(var(--background)) 0%, hsl(120 61% 16%) 50%, hsl(var(--secondary) / 0.25) 100%);
-  --gradient-card: linear-gradient(145deg, hsl(var(--card)) 0%, hsl(var(--card-premium)) 100%);
-  --gradient-luxury: linear-gradient(135deg, hsl(120 61% 16%) 0%, hsl(96 52% 52%) 50%, hsl(111 57% 60%) 100%);
+  /* Premium Gradients */
+  --gradient-admin: linear-gradient(135deg, hsl(82 23% 29%) 0%, hsl(82 25% 35%) 50%, hsl(82 15% 20%) 100%);
+  --gradient-lemon: linear-gradient(135deg, hsl(75 100% 57%) 0%, hsl(75 100% 65%) 100%);
+  --gradient-premium: linear-gradient(135deg, hsl(82 23% 29%) 0%, hsl(75 100% 57%) 100%);
+  --gradient-card: linear-gradient(145deg, hsl(82 15% 20%) 0%, hsl(82 20% 25%) 100%);
 
-    /* Premium Glass Effects */
-    --glass-primary: hsla(var(--primary), 0.15);
-    --glass-secondary: hsla(var(--secondary), 0.12);
-    --glass-backdrop: hsla(0, 0%, 8%, 0.85);
-    --glass-luxury: hsla(45, 100%, 51%, 0.08);
+  /* Premium Glass Effects */
+  --glass-card: hsla(82, 15%, 20%, 0.5);
+  --glass-sidebar: hsla(82, 15%, 15%, 0.85);
+  --glass-backdrop: hsla(0, 0%, 3%, 0.9);
 
-    /* Luxury Shadows & Glows */
-    --shadow-premium: 0 25px 60px -15px hsla(var(--primary), 0.4);
-    --shadow-glow: 0 0 60px hsla(var(--secondary), 0.25);
-    --shadow-card: 0 12px 40px hsla(0, 0%, 0%, 0.5);
-    --shadow-luxury: 0 20px 80px hsla(45, 100%, 51%, 0.2);
+  /* Premium Shadows & Glows */
+  --shadow-premium: 0 25px 60px -15px hsla(82, 23%, 29%, 0.5);
+  --shadow-glow: 0 0 40px hsla(75, 100%, 57%, 0.25);
+  --shadow-card: 0 12px 40px hsla(0, 0%, 0%, 0.6);
+  --shadow-lemon: 0 8px 32px hsla(75, 100%, 57%, 0.2);
 
-    /* Animation Timings */
-    --transition-smooth: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
-    --transition-bounce: all 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  /* Animation Timings */
+  --transition-smooth: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+  --transition-bounce: all 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
 
-    --radius: 1rem;
+  --radius: 0.75rem;
 
-    --sidebar-background: 0 0% 98%;
-
-    --sidebar-foreground: 240 5.3% 26.1%;
-
-    --sidebar-primary: 240 5.9% 10%;
-
-    --sidebar-primary-foreground: 0 0% 98%;
-
-    --sidebar-accent: 240 4.8% 95.9%;
-
-    --sidebar-accent-foreground: 240 5.9% 10%;
-
-    --sidebar-border: 220 13% 91%;
-
-    --sidebar-ring: 217.2 91.2% 59.8%;
+  /* Sidebar - Dark Army Green */
+  --sidebar-background: 82 15% 12%;
+  --sidebar-foreground: 0 0% 90%;
+  --sidebar-primary: 75 100% 57%;      /* Lemon for active */
+  --sidebar-primary-foreground: 82 23% 29%;
+  --sidebar-accent: 82 20% 20%;
+  --sidebar-accent-foreground: 0 0% 90%;
+  --sidebar-border: 82 15% 18%;
+  --sidebar-ring: 75 100% 57%;
   }
 }
 
@@ -98,8 +90,8 @@
 
   body {
     @apply bg-background text-foreground font-body antialiased;
-    background-image: radial-gradient(circle at 20% 80%, hsla(var(--primary), 0.05) 0%, transparent 50%),
-                      radial-gradient(circle at 80% 20%, hsla(var(--secondary), 0.05) 0%, transparent 50%);
+    background-image: radial-gradient(circle at 20% 80%, hsla(82, 23%, 29%, 0.05) 0%, transparent 50%),
+                      radial-gradient(circle at 80% 20%, hsla(75, 100%, 57%, 0.03) 0%, transparent 50%);
   }
 
   h1, h2, h3, h4, h5, h6 {
@@ -108,23 +100,36 @@
 }
 
 @layer components {
-  /* Glass Morphism Effects */
+  /* Premium Glass Morphism Effects */
   .glass {
-    @apply backdrop-blur-md border border-white/10;
+    @apply backdrop-blur-md border border-white/5;
     background: var(--glass-backdrop);
   }
 
   .glass-card {
-    @apply backdrop-blur-lg border border-white/10 rounded-2xl;
-    background: var(--glass-backdrop);
+    @apply backdrop-blur-xl border border-white/10 rounded-xl;
+    background: var(--glass-card);
     box-shadow: var(--shadow-card);
+    transition: var(--transition-smooth);
+  }
+
+  .glass-card:hover {
+    box-shadow: var(--shadow-premium);
+    transform: translateY(-2px);
+    border-color: hsl(var(--secondary) / 0.3);
+  }
+
+  /* Admin Premium Card */
+  .admin-card {
+    @apply glass-card p-6;
+    background: linear-gradient(145deg, var(--glass-card), transparent);
   }
 
   /* Luxury Button Variants */
   .btn-luxury {
     @apply relative overflow-hidden rounded-2xl px-8 py-4 font-bold text-background;
-    background: var(--gradient-luxury);
-    box-shadow: var(--shadow-luxury);
+    background: var(--gradient-premium);
+    box-shadow: var(--shadow-lemon);
     transition: var(--transition-smooth);
   }
 
@@ -142,31 +147,30 @@
   }
 
   .btn-outline-luxury:hover {
-    background: var(--gradient-luxury);
+    background: var(--gradient-premium);
     color: hsl(var(--background));
     transform: translateY(-2px);
-    box-shadow: var(--shadow-luxury);
+    box-shadow: var(--shadow-lemon);
   }
 
   /* Animated Gradients */
-.gradient-text {
-  /* Fallback color */
-  color: hsl(111 57% 60%); /* Bright Green (#7ed957) */
+  .gradient-text {
+    /* Fallback color */
+    color: hsl(75 100% 57%); /* Lemon Green */
 
-  /* Gradient effect */
-  background: linear-gradient(
-    135deg,
-    hsl(120 61% 16%) 0%,   /* Dark Green (#175502) */
-    hsl(96 52% 52%) 50%,   /* Light Green (#90c73e) */
-    hsl(111 57% 60%) 100%  /* Bright Green (#7ed957) */
-  );
+    /* Gradient effect */
+    background: linear-gradient(
+      135deg,
+      hsl(82 23% 29%) 0%,   /* Army Green */
+      hsl(75 100% 57%) 50%,   /* Lemon Green */
+      hsl(75 100% 65%) 100%  /* Bright Lemon */
+    );
 
-  background-size: 200% 200%;
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-
+    background-size: 200% 200%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
 
   /* Only apply transparent color if gradient is supported */
   @supports (-webkit-background-clip: text) {

@@ -5,7 +5,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { Badge } from '@/components/ui/badge';
-import { Trash2, Mail, Phone, Building2, Calendar } from 'lucide-react';
+import { Trash2, Mail, Phone, Building2, Calendar, MessageSquare } from 'lucide-react';
 import { toast } from 'sonner';
 import {
   AlertDialog,
@@ -53,18 +53,28 @@ export default function AdminMessages() {
 
   return (
     <AdminLayout>
-      <div className="space-y-6">
-        <div>
-          <h1 className="text-3xl font-bold tracking-tight">Contact Messages</h1>
-          <p className="text-muted-foreground">View and manage contact form submissions</p>
+      <div className="space-y-8">
+        {/* Header */}
+        <div className="space-y-2">
+          <h1 className="text-4xl font-bold tracking-tight bg-gradient-to-r from-foreground via-foreground to-secondary bg-clip-text text-transparent">
+            Contact Messages
+          </h1>
+          <p className="text-muted-foreground text-lg">View and manage contact form submissions</p>
         </div>
 
-        <Card>
+        <Card className="glass-card">
           <CardHeader>
-            <CardTitle>All Messages</CardTitle>
-            <CardDescription>
-              {messages?.length || 0} total message{messages?.length !== 1 ? 's' : ''}
-            </CardDescription>
+            <div className="flex items-center justify-between">
+              <div>
+                <CardTitle className="flex items-center gap-2">
+                  <MessageSquare className="h-5 w-5 text-secondary" />
+                  All Messages
+                </CardTitle>
+                <CardDescription className="mt-1.5">
+                  {messages?.length || 0} total message{messages?.length !== 1 ? 's' : ''}
+                </CardDescription>
+              </div>
+            </div>
           </CardHeader>
           <CardContent>
             {!messages || messages.length === 0 ? (
@@ -72,7 +82,7 @@ export default function AdminMessages() {
             ) : (
               <div className="space-y-4">
                 {messages.map((message: any) => (
-                  <Card key={message._id}>
+                  <Card key={message._id} className="glass-card hover:shadow-glow transition-all duration-300">
                     <CardContent className="pt-6">
                       <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-4">
                         <div className="space-y-3 flex-1">
@@ -118,11 +128,11 @@ export default function AdminMessages() {
 
                         <AlertDialog>
                           <AlertDialogTrigger asChild>
-                            <Button variant="destructive" size="icon">
+                            <Button variant="destructive" size="icon" className="shadow-lg hover:shadow-xl transition-shadow">
                               <Trash2 className="h-4 w-4" />
                             </Button>
                           </AlertDialogTrigger>
-                          <AlertDialogContent>
+                          <AlertDialogContent className="glass-card">
                             <AlertDialogHeader>
                               <AlertDialogTitle>Delete Message</AlertDialogTitle>
                               <AlertDialogDescription>
@@ -130,10 +140,10 @@ export default function AdminMessages() {
                               </AlertDialogDescription>
                             </AlertDialogHeader>
                             <AlertDialogFooter>
-                              <AlertDialogCancel>Cancel</AlertDialogCancel>
+                              <AlertDialogCancel className="hover:bg-muted">Cancel</AlertDialogCancel>
                               <AlertDialogAction
                                 onClick={() => deleteMutation.mutate(message._id)}
-                                className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
+                                className="bg-destructive text-destructive-foreground hover:bg-destructive/90 shadow-lg"
                               >
                                 Delete
                               </AlertDialogAction>

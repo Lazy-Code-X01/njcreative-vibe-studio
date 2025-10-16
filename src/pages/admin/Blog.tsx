@@ -9,7 +9,7 @@ import { Switch } from '@/components/ui/switch';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { Badge } from '@/components/ui/badge';
-import { Trash2, Plus, Edit2, Eye } from 'lucide-react';
+import { Trash2, Plus, Edit2, Eye, FileText } from 'lucide-react';
 import { toast } from 'sonner';
 import { useState } from 'react';
 import { ImageUploader } from '@/components/admin/ImageUploader';
@@ -165,20 +165,22 @@ export default function AdminBlog() {
 
   return (
     <AdminLayout>
-      <div className="space-y-6">
+      <div className="space-y-8">
         <div className="flex justify-between items-center">
-          <div>
-            <h1 className="text-3xl font-bold tracking-tight">Blog Posts</h1>
-            <p className="text-muted-foreground">Manage your blog content</p>
+          <div className="space-y-2">
+            <h1 className="text-4xl font-bold tracking-tight bg-gradient-to-r from-foreground via-foreground to-secondary bg-clip-text text-transparent">
+              Blog Posts
+            </h1>
+            <p className="text-muted-foreground text-lg">Manage your blog content</p>
           </div>
           <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
             <DialogTrigger asChild>
-              <Button onClick={handleNewPost}>
+              <Button onClick={handleNewPost} className="bg-gradient-to-r from-primary to-primary-glow hover:from-primary-glow hover:to-primary shadow-lg hover:shadow-glow transition-all">
                 <Plus className="h-4 w-4 mr-2" />
                 New Post
               </Button>
             </DialogTrigger>
-            <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto">
+            <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto glass-card border-border/50">
               <DialogHeader>
                 <DialogTitle>{editingPost ? 'Edit Post' : 'Create New Post'}</DialogTitle>
                 <DialogDescription>
@@ -298,12 +300,17 @@ export default function AdminBlog() {
           </Dialog>
         </div>
 
-        <Card>
+        <Card className="glass-card">
           <CardHeader>
-            <CardTitle>All Posts</CardTitle>
-            <CardDescription>
-              {posts?.length || 0} total post{posts?.length !== 1 ? 's' : ''}
-            </CardDescription>
+            <div className="flex items-center gap-2">
+              <FileText className="h-5 w-5 text-secondary" />
+              <div>
+                <CardTitle>All Posts</CardTitle>
+                <CardDescription className="mt-1">
+                  {posts?.length || 0} total post{posts?.length !== 1 ? 's' : ''}
+                </CardDescription>
+              </div>
+            </div>
           </CardHeader>
           <CardContent>
             <Table>

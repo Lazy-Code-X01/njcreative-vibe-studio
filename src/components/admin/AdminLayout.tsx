@@ -21,13 +21,22 @@ const Sidebar = ({ mobile = false }: { mobile?: boolean }) => {
   const { logout, username } = useAdminAuth();
 
   return (
-    <div className="flex flex-col h-full bg-card border-r">
-      <div className="p-6 border-b">
-        <h2 className="text-xl font-bold text-primary">NJ Creative Admin</h2>
-        <p className="text-sm text-muted-foreground mt-1">{username}</p>
+    <div className="flex flex-col h-full glass-card border-r border-border/50" style={{ background: 'var(--glass-sidebar)' }}>
+      {/* Logo Header */}
+      <div className="p-6 border-b border-border/50">
+        <div className="flex items-center gap-3">
+          <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-primary to-primary-glow flex items-center justify-center shadow-glow">
+            <span className="text-xl font-bold text-secondary">NJ</span>
+          </div>
+          <div>
+            <h2 className="text-lg font-bold text-foreground">NJ Creative</h2>
+            <p className="text-xs text-muted-foreground">Admin Portal</p>
+          </div>
+        </div>
       </div>
 
-      <nav className="flex-1 p-4 space-y-2">
+      {/* Navigation */}
+      <nav className="flex-1 p-4 space-y-1.5">
         {navItems.map((item) => {
           const isActive = location.pathname === item.path;
           const Icon = item.icon;
@@ -35,23 +44,28 @@ const Sidebar = ({ mobile = false }: { mobile?: boolean }) => {
             <Link
               key={item.path}
               to={item.path}
-              className={`flex items-center gap-3 px-4 py-3 rounded-lg transition-colors ${
+              className={`flex items-center gap-3 px-4 py-3 rounded-lg font-medium transition-all duration-300 group ${
                 isActive
-                  ? 'bg-primary text-primary-foreground'
-                  : 'hover:bg-muted text-muted-foreground hover:text-foreground'
+                  ? 'bg-secondary text-secondary-foreground shadow-lemon'
+                  : 'text-muted-foreground hover:text-foreground hover:bg-muted/50'
               }`}
             >
-              <Icon className="h-5 w-5" />
-              <span className="font-medium">{item.label}</span>
+              <Icon className={`h-5 w-5 transition-transform duration-300 ${isActive ? '' : 'group-hover:scale-110'}`} />
+              <span>{item.label}</span>
             </Link>
           );
         })}
       </nav>
 
-      <div className="p-4 border-t">
+      {/* User Section */}
+      <div className="p-4 border-t border-border/50">
+        <div className="mb-3 px-4 py-2 rounded-lg bg-muted/30">
+          <p className="text-xs text-muted-foreground">Logged in as</p>
+          <p className="text-sm font-semibold text-foreground">{username}</p>
+        </div>
         <Button
           variant="ghost"
-          className="w-full justify-start gap-3"
+          className="w-full justify-start gap-3 hover:bg-destructive/10 hover:text-destructive transition-colors"
           onClick={logout}
         >
           <LogOut className="h-5 w-5" />
@@ -72,7 +86,7 @@ export const AdminLayout = ({ children }: AdminLayoutProps) => {
   return (
     <div className="flex h-screen bg-background">
       {/* Desktop Sidebar */}
-      <aside className="hidden md:block w-64">
+      <aside className="hidden md:block w-72 shrink-0">
         <Sidebar />
       </aside>
 
@@ -80,19 +94,35 @@ export const AdminLayout = ({ children }: AdminLayoutProps) => {
       <div className="md:hidden fixed top-4 left-4 z-50">
         <Sheet>
           <SheetTrigger asChild>
-            <Button variant="outline" size="icon">
+            <Button variant="outline" size="icon" className="glass-card">
               <Menu className="h-5 w-5" />
             </Button>
           </SheetTrigger>
-          <SheetContent side="left" className="p-0 w-64">
+          <SheetContent side="left" className="p-0 w-72 bg-sidebar-background">
             <Sidebar mobile />
           </SheetContent>
         </Sheet>
       </div>
 
-      {/* Main Content */}
+      {/* Main Content Area */}
       <main className="flex-1 overflow-auto">
-        <div className="container mx-auto p-6 md:p-8">
+        {/* Top Navbar */}
+        <div className="sticky top-0 z-40 glass-card border-b border-border/50 px-6 py-4 md:px-8">
+          <div className="flex items-center justify-between">
+            <div className="md:hidden" />
+            <div className="flex-1 md:flex-none" />
+            <div className="flex items-center gap-4">
+              <div className="w-8 h-8 rounded-full bg-gradient-to-br from-secondary to-secondary-glow flex items-center justify-center">
+                <span className="text-xs font-bold text-secondary-foreground">
+                  {useAdminAuth().username?.charAt(0).toUpperCase()}
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Page Content */}
+        <div className="container mx-auto p-6 md:p-8 animate-fade-in">
           {children}
         </div>
       </main>

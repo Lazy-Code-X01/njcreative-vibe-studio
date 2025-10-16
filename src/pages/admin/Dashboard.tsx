@@ -29,10 +29,13 @@ export default function AdminDashboard() {
 
   return (
     <AdminLayout>
-      <div className="space-y-6">
-        <div>
-          <h1 className="text-3xl font-bold tracking-tight">Dashboard</h1>
-          <p className="text-muted-foreground">Welcome to your admin dashboard</p>
+      <div className="space-y-8">
+        {/* Header */}
+        <div className="space-y-2">
+          <h1 className="text-4xl font-bold tracking-tight bg-gradient-to-r from-foreground via-foreground to-secondary bg-clip-text text-transparent">
+            Dashboard
+          </h1>
+          <p className="text-muted-foreground text-lg">Welcome back! Here's your overview</p>
         </div>
 
         {/* Stats Grid */}
@@ -64,30 +67,42 @@ export default function AdminDashboard() {
         </div>
 
         {/* Charts Grid */}
-        <div className="grid gap-4 md:grid-cols-2">
+        <div className="grid gap-6 md:grid-cols-2">
           {/* Monthly Activity */}
-          <Card>
+          <Card className="glass-card">
             <CardHeader>
-              <CardTitle>Monthly Activity</CardTitle>
+              <CardTitle className="flex items-center gap-2">
+                <div className="w-2 h-2 rounded-full bg-secondary animate-pulse" />
+                Monthly Activity
+              </CardTitle>
               <CardDescription>Contact messages over time</CardDescription>
             </CardHeader>
             <CardContent>
               <ResponsiveContainer width="100%" height={300}>
                 <BarChart data={analytics?.monthlyActivity || []}>
-                  <CartesianGrid strokeDasharray="3 3" />
-                  <XAxis dataKey="_id" />
-                  <YAxis />
-                  <Tooltip />
-                  <Bar dataKey="count" fill="hsl(var(--primary))" />
+                  <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" opacity={0.3} />
+                  <XAxis dataKey="_id" stroke="hsl(var(--muted-foreground))" fontSize={12} />
+                  <YAxis stroke="hsl(var(--muted-foreground))" fontSize={12} />
+                  <Tooltip 
+                    contentStyle={{ 
+                      backgroundColor: 'hsl(var(--card))', 
+                      border: '1px solid hsl(var(--border))',
+                      borderRadius: '8px'
+                    }} 
+                  />
+                  <Bar dataKey="count" fill="hsl(var(--secondary))" radius={[8, 8, 0, 0]} />
                 </BarChart>
               </ResponsiveContainer>
             </CardContent>
           </Card>
 
           {/* Posts by Category */}
-          <Card>
+          <Card className="glass-card">
             <CardHeader>
-              <CardTitle>Posts by Category</CardTitle>
+              <CardTitle className="flex items-center gap-2">
+                <div className="w-2 h-2 rounded-full bg-primary animate-pulse" />
+                Posts by Category
+              </CardTitle>
               <CardDescription>Distribution of blog posts</CardDescription>
             </CardHeader>
             <CardContent>
@@ -99,7 +114,7 @@ export default function AdminDashboard() {
                     cy="50%"
                     labelLine={false}
                     label={(entry) => entry.category || 'Uncategorized'}
-                    outerRadius={80}
+                    outerRadius={90}
                     fill="#8884d8"
                     dataKey="count"
                   >
@@ -107,7 +122,13 @@ export default function AdminDashboard() {
                       <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
                     ))}
                   </Pie>
-                  <Tooltip />
+                  <Tooltip 
+                    contentStyle={{ 
+                      backgroundColor: 'hsl(var(--card))', 
+                      border: '1px solid hsl(var(--border))',
+                      borderRadius: '8px'
+                    }} 
+                  />
                 </PieChart>
               </ResponsiveContainer>
             </CardContent>

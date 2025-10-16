@@ -36,46 +36,78 @@ export default function AdminLogin() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-background via-background to-muted p-4">
-      <Card className="w-full max-w-md">
-        <CardHeader className="space-y-1">
-          <CardTitle className="text-2xl font-bold text-center">Admin Login</CardTitle>
-          <CardDescription className="text-center">
-            Enter your credentials to access the dashboard
-          </CardDescription>
+    <div className="min-h-screen flex items-center justify-center p-4 relative overflow-hidden">
+      {/* Animated Background */}
+      <div className="absolute inset-0 bg-gradient-to-br from-background via-primary/5 to-background">
+        <div className="absolute inset-0" style={{
+          backgroundImage: 'radial-gradient(circle at 20% 50%, hsl(var(--primary) / 0.15) 0%, transparent 50%), radial-gradient(circle at 80% 50%, hsl(var(--secondary) / 0.1) 0%, transparent 50%)',
+        }} />
+      </div>
+
+      {/* Login Card */}
+      <Card className="w-full max-w-md relative glass-card border-white/10 animate-fade-in">
+        <CardHeader className="space-y-6 text-center pb-8">
+          {/* Logo/Brand */}
+          <div className="flex justify-center">
+            <div className="w-20 h-20 rounded-2xl bg-gradient-to-br from-primary to-primary-glow flex items-center justify-center shadow-glow">
+              <span className="text-3xl font-bold text-secondary">NJ</span>
+            </div>
+          </div>
+          
+          <div className="space-y-2">
+            <CardTitle className="text-3xl font-bold bg-gradient-to-r from-foreground to-foreground/70 bg-clip-text text-transparent">
+              Admin Portal
+            </CardTitle>
+            <CardDescription className="text-base text-muted-foreground">
+              Sign in to access the NJ Creative dashboard
+            </CardDescription>
+          </div>
         </CardHeader>
-        <CardContent>
-          <form onSubmit={handleSubmit} className="space-y-4">
+
+        <CardContent className="pb-8">
+          <form onSubmit={handleSubmit} className="space-y-5">
             <div className="space-y-2">
-              <Label htmlFor="username">Username</Label>
+              <Label htmlFor="username" className="text-sm font-medium">
+                Username
+              </Label>
               <Input
                 id="username"
                 type="text"
-                placeholder="Enter username"
+                placeholder="Enter your username"
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
+                className="h-11 bg-input/50 border-border/50 focus:border-secondary focus:ring-secondary/20"
                 required
               />
             </div>
+
             <div className="space-y-2">
-              <Label htmlFor="password">Password</Label>
+              <Label htmlFor="password" className="text-sm font-medium">
+                Password
+              </Label>
               <Input
                 id="password"
                 type="password"
-                placeholder="Enter password"
+                placeholder="Enter your password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
+                className="h-11 bg-input/50 border-border/50 focus:border-secondary focus:ring-secondary/20"
                 required
               />
             </div>
-            <Button type="submit" className="w-full" disabled={loading}>
+
+            <Button 
+              type="submit" 
+              className="w-full h-11 bg-gradient-to-r from-primary to-primary-glow hover:from-primary-glow hover:to-primary text-foreground font-semibold shadow-lg hover:shadow-glow transition-all duration-300 hover:-translate-y-0.5" 
+              disabled={loading}
+            >
               {loading ? (
                 <>
-                  <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                  Logging in...
+                  <Loader2 className="mr-2 h-5 w-5 animate-spin" />
+                  Signing in...
                 </>
               ) : (
-                'Login'
+                'Sign In'
               )}
             </Button>
           </form>

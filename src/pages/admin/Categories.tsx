@@ -6,7 +6,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
-import { Trash2, Plus, Edit2, Check, X } from 'lucide-react';
+import { Trash2, Plus, Edit2, Check, X, FolderTree } from 'lucide-react';
 import { toast } from 'sonner';
 import { useState } from 'react';
 import {
@@ -109,14 +109,16 @@ export default function AdminCategories() {
 
   return (
     <AdminLayout>
-      <div className="space-y-6">
+      <div className="space-y-8">
         <div className="flex justify-between items-center">
-          <div>
-            <h1 className="text-3xl font-bold tracking-tight">Categories</h1>
-            <p className="text-muted-foreground">Manage blog post categories</p>
+          <div className="space-y-2">
+            <h1 className="text-4xl font-bold tracking-tight bg-gradient-to-r from-foreground via-foreground to-secondary bg-clip-text text-transparent">
+              Categories
+            </h1>
+            <p className="text-muted-foreground text-lg">Manage blog post categories</p>
           </div>
           {!isAdding && !editingId && (
-            <Button onClick={() => setIsAdding(true)}>
+            <Button onClick={() => setIsAdding(true)} className="bg-gradient-to-r from-primary to-primary-glow hover:from-primary-glow hover:to-primary shadow-lg hover:shadow-glow transition-all">
               <Plus className="h-4 w-4 mr-2" />
               Add Category
             </Button>
@@ -124,7 +126,7 @@ export default function AdminCategories() {
         </div>
 
         {(isAdding || editingId) && (
-          <Card>
+          <Card className="glass-card">
             <CardHeader>
               <CardTitle>{editingId ? 'Edit Category' : 'New Category'}</CardTitle>
             </CardHeader>
@@ -173,12 +175,17 @@ export default function AdminCategories() {
           </Card>
         )}
 
-        <Card>
+        <Card className="glass-card">
           <CardHeader>
-            <CardTitle>All Categories</CardTitle>
-            <CardDescription>
-              {categories?.length || 0} total categor{categories?.length !== 1 ? 'ies' : 'y'}
-            </CardDescription>
+            <div className="flex items-center gap-2">
+              <FolderTree className="h-5 w-5 text-secondary" />
+              <div>
+                <CardTitle>All Categories</CardTitle>
+                <CardDescription className="mt-1">
+                  {categories?.length || 0} total categor{categories?.length !== 1 ? 'ies' : 'y'}
+                </CardDescription>
+              </div>
+            </div>
           </CardHeader>
           <CardContent>
             <Table>

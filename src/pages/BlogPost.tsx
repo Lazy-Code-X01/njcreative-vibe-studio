@@ -1,52 +1,27 @@
 import { useParams } from "react-router-dom";
-import { useEffect, useState } from "react";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
-import { Calendar, Clock, User, ArrowLeft } from "lucide-react";
+import { Calendar, Clock, ArrowLeft } from "lucide-react";
 import { Link } from "react-router-dom";
 import SEO from "@/components/SEO";
-
-interface BlogPost {
-  id: number;
-  title: string;
-  content: string;
-  excerpt: string;
-  image: string;
-  category: string;
-  author: string;
-  date: string;
-  readTime: string;
-}
+import { useQuery } from "@tanstack/react-query";
+import { adminApi } from "@/lib/adminApi";
+import { format } from "date-fns";
 
 const BlogPost = () => {
-  const { id } = useParams();
-  const [post, setPost] = useState<BlogPost | null>(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
+  const { slug } = useParams();
 
-  useEffect(() => {
-    const fetchPost = async () => {
-      try {
-        const response = await fetch(
-          `http://localhost:8787/api/blog/post/${id}`
-        );
-        if (!response.ok) {
-          throw new Error("Post not found");
-        }
-        const data = await response.json();
-        setPost(data);
-      } catch (err) {
-        setError(err instanceof Error ? err.message : "Failed to fetch post");
-      } finally {
-        setLoading(false);
-      }
-    };
+  const { data: post, isLoading, error } = useQuery({
+    queryKey: ["blog-post", slug],
+    queryFn: async () => {
+      const response = await adminApi.getPost(slug!);
+      return response.data;
+    },
+    enabled: !!slug,
+  });
 
-    fetchPost();
-  }, [id]);
-
-  if (loading) {
+  if (isLoading) {
     return (
       <div className="min-h-screen bg-background">
         <Navigation />
@@ -69,7 +44,7 @@ const BlogPost = () => {
     );
   }
 
-  if (error || !post) {
+  if (error) {
     return (
       <div className="min-h-screen bg-background">
         <Navigation />
@@ -77,7 +52,7 @@ const BlogPost = () => {
           <div className="container mx-auto px-6 text-center py-20">
             <h1 className="text-4xl font-bold mb-4">Post Not Found</h1>
             <p className="text-muted-foreground mb-8">
-              {error || "The requested blog post could not be found."}
+              The requested blog post could not be found.
             </p>
             <Link to="/blog">
               <Button className="btn-luxury">
@@ -92,12 +67,15 @@ const BlogPost = () => {
     );
   }
 
+  if (!post) return null;
+
   return (
     <div className="min-h-screen bg-background">
       <SEO
         title={post.title}
-        description={post.excerpt}
-        keywords={`blog, ${post.category}, ${post.title.toLowerCase()}`}
+        description={post.excerpt || post.title}
+        keywords={`blog, ${post.category?.name || 'article'}, ${post.title.toLowerCase()}`}
+        image={post.featuredImage}
       />
       <Navigation />
 
@@ -125,26 +103,31 @@ const BlogPost = () => {
 
                 <div className="flex flex-wrap items-center gap-4 text-sm text-muted-foreground mb-8">
                   <div className="flex items-center space-x-1">
-                    <User className="w-4 h-4" />
-                    <span>{post.author}</span>
-                  </div>
-                  <div className="flex items-center space-x-1">
                     <Calendar className="w-4 h-4" />
-                    <span>{post.date}</span>
+                    <span>{format(new Date(post.date), "MMMM d, yyyy")}</span>
                   </div>
-                  <div className="flex items-center space-x-1">
-                    <Clock className="w-4 h-4" />
-                    <span>{post.readTime}</span>
-                  </div>
+                  {post.readTime > 0 && (
+                    <div className="flex items-center space-x-1">
+                      <Clock className="w-4 h-4" />
+                      <span>{post.readTime} min read</span>
+                    </div>
+                  )}
+                  {post.category && (
+                    <div className="px-3 py-1 bg-primary/20 text-primary rounded-full text-xs font-medium">
+                      {post.category.name}
+                    </div>
+                  )}
                 </div>
 
-                <div className="aspect-video mb-12 rounded-2xl overflow-hidden">
-                  <img
-                    src={post.image}
-                    alt={post.title}
-                    className="w-full h-full object-cover"
-                  />
-                </div>
+                {post.featuredImage && (
+                  <div className="aspect-video mb-12 rounded-2xl overflow-hidden">
+                    <img
+                      src={post.featuredImage}
+                      alt={post.title}
+                      className="w-full h-full object-cover"
+                    />
+                  </div>
+                )}
               </header>
 
               {/* Article Content */}
@@ -155,20 +138,31 @@ const BlogPost = () => {
               {/* Article Footer */}
               <footer className="mt-12 pt-8 border-t border-border">
                 <div className="flex flex-wrap items-center justify-between gap-4">
-                  <div>
-                    <span className="text-sm text-muted-foreground">
-                      Category:
-                    </span>
-                    <Link
-                      to={`/blog?category=${post.category}`}
-                      className="ml-2 text-sm text-primary hover:underline"
-                    >
-                      {post.category}
-                    </Link>
-                  </div>
-                  <div className="flex gap-4">
-                    {/* Add social share buttons here if needed */}
-                  </div>
+                  {post.category && (
+                    <div>
+                      <span className="text-sm text-muted-foreground">
+                        Category:
+                      </span>
+                      <Link
+                        to={`/blog?category=${post.category.slug}`}
+                        className="ml-2 text-sm text-primary hover:underline"
+                      >
+                        {post.category.name}
+                      </Link>
+                    </div>
+                  )}
+                  {post.tags && post.tags.length > 0 && (
+                    <div className="flex gap-2 flex-wrap">
+                      {post.tags.map((tag: string) => (
+                        <span
+                          key={tag}
+                          className="px-3 py-1 bg-muted rounded-full text-xs"
+                        >
+                          {tag}
+                        </span>
+                      ))}
+                    </div>
+                  )}
                 </div>
               </footer>
             </div>

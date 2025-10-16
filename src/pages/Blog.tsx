@@ -4,6 +4,10 @@ import { Button } from "@/components/ui/button";
 import { Calendar, Clock, User, Search, Tag } from "lucide-react";
 import { useState, useEffect, useMemo } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
+import { useQuery } from "@tanstack/react-query";
+import { adminApi } from "@/lib/adminApi";
+import SEO from "@/components/SEO";
+import { format } from "date-fns";
 
 const Blog = () => {
   const location = useLocation();
@@ -13,21 +17,37 @@ const Blog = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const postsPerPage = 6;
 
-  const categories = useMemo(
-    () => [
+  // Fetch posts and categories from API
+  const { data: postsData, isLoading: postsLoading } = useQuery({
+    queryKey: ["blog-posts"],
+    queryFn: async () => {
+      const response = await adminApi.getPosts();
+      return response.data;
+    },
+  });
+
+  const { data: categoriesData, isLoading: categoriesLoading } = useQuery({
+    queryKey: ["blog-categories"],
+    queryFn: async () => {
+      const response = await adminApi.getCategories();
+      return response.data;
+    },
+  });
+
+  // Build categories array with "All Posts" option
+  const categories = useMemo(() => {
+    if (!categoriesData) return [{ id: "all", label: "All Posts" }];
+    return [
       { id: "all", label: "All Posts" },
-      { id: "web-development", label: "Web Development" },
-      { id: "design", label: "Design" },
-      { id: "marketing", label: "Digital Marketing" },
-      { id: "business", label: "Business" },
-      { id: "technology", label: "Technology" },
-    ],
-    []
-  );
+      ...categoriesData.map((cat: any) => ({
+        id: cat.slug,
+        label: cat.name,
+      })),
+    ];
+  }, [categoriesData]);
 
   // Handle URL parameters and hash
   useEffect(() => {
-    // Get URL parameters
     const params = new URLSearchParams(location.search);
 
     // Handle category
@@ -45,137 +65,72 @@ const Blog = () => {
       }
     }
 
-    // Handle hash for direct post navigation
-    const hash = location.hash;
-    if (hash) {
-      const postId = hash.replace("#blog-", "");
-      const element = document.getElementById(`blog-${postId}`);
-      if (element) {
-        setTimeout(() => {
-          element.scrollIntoView({ behavior: "smooth" });
-        }, 100);
-      }
+    // Handle search term
+    const search = params.get("search");
+    if (search) {
+      setSearchTerm(search);
     }
   }, [location, categories]);
 
-  // const categories = [
-  //   { id: "all", label: "All Posts" },
-  //   { id: "web-development", label: "Web Development" },
-  //   { id: "design", label: "Design" },
-  //   { id: "marketing", label: "Digital Marketing" },
-  //   { id: "business", label: "Business" },
-  //   { id: "technology", label: "Technology" },
-  // ];
+  // Filter posts based on search and category
+  const filteredPosts = useMemo(() => {
+    if (!postsData) return [];
+    
+    return postsData.filter((post: any) => {
+      // Only show published posts
+      if (!post.published) return false;
 
-  const featuredPost = {
-    id: 1,
-    title: "The Future of Web Development: Trends Shaping 2024",
-    excerpt:
-      "Explore the cutting-edge technologies and methodologies that are revolutionizing web development in 2024, from AI integration to advanced frameworks.",
-    image: "/src/assets/web development.png",
-    category: "web-development",
-    author: "Michael Chen",
-    date: "March 15, 2024",
-    readTime: "8 min read",
-    featured: true,
-  };
+      const matchesSearch =
+        searchTerm === "" ||
+        post.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        post.excerpt?.toLowerCase().includes(searchTerm.toLowerCase());
+      
+      const matchesCategory =
+        selectedCategory === "all" || 
+        post.category?.slug === selectedCategory;
+      
+      return matchesSearch && matchesCategory;
+    });
+  }, [postsData, searchTerm, selectedCategory]);
 
-  const posts = [
-    {
-      id: 2,
-      title: "NG Nigeria @ 65: A Nation, A Brand, A Story Still Unfolding",
-      excerpt:
-        "When Nigeria gained independence in 1960, our symbols the green-white-green flag, the anthem, the coat of arms were our first steps at",
-      image: "/src/assets/Let's go Nigeria.png",
-      category: "design",
-      author: "NJ Creative Firm",
-      date: "6 days ago",
-      readTime: "1 min read",
-      slug: "nigeria-65-a-nation-a-brand-a-story-still-unfolding",
-    },
-    {
-      id: 3,
-      title:
-        "NJ Creative Firm: Elevating Brands with Style, Strategy, and Impact",
-      excerpt:
-        "In today’s fast-paced digital world, businesses need more than just a logo or a social media page, they need a brand identity  that...",
-      image: "/src/assets/Elevatin brands.png",
-      category: "marketing",
-      author: "NJ Creative Firm",
-      date: "Sep 3",
-      readTime: "2 min read",
-      slug: "nj-creative-firm-elevating-brands",
-    },
-    {
-      id: 4,
-      title: "Meet the Visionary Behind NJ Creative Firm: Natasha Jumbo",
-      excerpt:
-        "Turning Passion into Purpose, and Creativity into Impact At the heart of every transformative brand is a visionary, a dreamer who dares...",
-      image: "/src/assets/Meett the visionary.png",
-      category: "web-development",
-      author: "NJ Creative Firm",
-      date: "Jul 28",
-      readTime: "3 min read",
-      slug: "meet-the-visionary-behind-nj-creative-firm-natasha-jumbo",
-    },
-    {
-      id: 5,
-      title:
-        "Drive Success with NJ Creative Firm's Innovative Branding Services",
-      excerpt:
-        "In today's fast-paced world, standing out is more important than ever. Businesses need to create a strong identity that resonates with...",
-      image: "/src/assets/drive success with NJ.png",
-      category: "design",
-      author: "NJ Creative Firm",
-      date: "May 11",
-      readTime: "5 min read",
-      link: "https://www.njcreativefirm.com/post/drive-success-with-nj-creative-firm-s-innovative-branding-services",
-    },
-    {
-      id: 6,
-      title: "Elevate Your Brand with NJ Creative Firm's Expert Solutions",
-      excerpt:
-        "In today's fast-paced world, standing out is more important than ever. Brands are constantly vying for attention, and consumers are...",
-      image: "/src/assets/elevate your brand.png",
-      category: "marketing",
-      author: "NJ Creative Firm",
-      date: "May 11",
-      readTime: "5 min read",
-      link: "https://www.njcreativefirm.com/post/elevate-your-brand-with-nj-creative-firm-s-expert-solutions",
-    },
-    {
-      id: 7,
-      title:
-        "Transform Ideas into Impactful Visual Experiences with NJ Creative Firm",
-      excerpt:
-        "In today's fast-paced world, capturing attention is more challenging than ever. With countless messages bombarding us daily, how do you...",
-      image: "/src/assets/transform ideas.png",
-      category: "technology",
-      author: "NJ Creative Firm",
-      date: "May 11",
-      readTime: "5 min read",
-      link: "https://www.njcreativefirm.com/post/transform-ideas-into-impactful-visual-experiences-with-nj-creative-firm",
-    },
-  ];
-
-  const filteredPosts = posts.filter((post) => {
-    const matchesSearch =
-      searchTerm === "" ||
-      post.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      post.excerpt.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      post.author.toLowerCase().includes(searchTerm.toLowerCase());
-    const matchesCategory =
-      selectedCategory === "all" || post.category === selectedCategory;
-    return matchesSearch && matchesCategory;
-  });
+  // Get featured post (first published post)
+  const featuredPost = useMemo(() => {
+    if (!postsData || postsData.length === 0) return null;
+    return postsData.find((post: any) => post.published);
+  }, [postsData]);
 
   // Function to handle navigation to a blog post
   const handlePostClick = (post) => {
     navigate(`/blog/${post.slug}`);
   };
 
+  // Loading state
+  if (postsLoading || categoriesLoading) {
+    return (
+      <div className="min-h-screen bg-background">
+        <Navigation />
+        <main className="pt-24">
+          <div className="container mx-auto px-6 py-20">
+            <div className="text-center">
+              <div className="animate-pulse space-y-4">
+                <div className="h-12 bg-muted rounded w-3/4 mx-auto"></div>
+                <div className="h-6 bg-muted rounded w-1/2 mx-auto"></div>
+              </div>
+            </div>
+          </div>
+        </main>
+        <Footer />
+      </div>
+    );
+  }
+
   return (
     <div className="min-h-screen bg-background">
+      <SEO
+        title="Blog - Digital Insights & Expert Perspectives"
+        description="Stay ahead of the curve with our latest insights on web development, design trends, marketing strategies, and business growth."
+        keywords="blog, web development, design, marketing, business insights, digital marketing"
+      />
       <Navigation />
 
       <main className="pt-24">
@@ -256,61 +211,63 @@ const Blog = () => {
         </section>
 
         {/* Featured Post */}
-        <section className="pb-16">
-          <div className="container mx-auto px-6">
-            <div className="max-w-6xl mx-auto">
-              <h2 className="text-3xl font-bold mb-8 font-heading">
-                Featured Article
-              </h2>
-              <div className="glass-card overflow-hidden hover:scale-[1.01] transition-all duration-500 group">
-                <div className="grid lg:grid-cols-2 gap-0">
-                  <div className="relative overflow-hidden">
-                    <img
-                      src={featuredPost.image}
-                      alt={featuredPost.title}
-                      className="w-full h-80 lg:h-full object-cover group-hover:scale-110 transition-transform duration-500"
-                    />
-                    <div className="absolute top-4 left-4">
-                      <span className="px-3 py-1 bg-primary text-primary-foreground rounded-full text-sm font-medium">
-                        Featured
-                      </span>
+        {featuredPost && (
+          <section className="pb-16">
+            <div className="container mx-auto px-6">
+              <div className="max-w-6xl mx-auto">
+                <h2 className="text-3xl font-bold mb-8 font-heading">
+                  Featured Article
+                </h2>
+                <Link to={`/blog/${featuredPost.slug}`}>
+                  <div className="glass-card overflow-hidden hover:scale-[1.01] transition-all duration-500 group cursor-pointer">
+                    <div className="grid lg:grid-cols-2 gap-0">
+                      <div className="relative overflow-hidden">
+                        <img
+                          src={featuredPost.featuredImage || "/placeholder.svg"}
+                          alt={featuredPost.title}
+                          className="w-full h-80 lg:h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                        />
+                        <div className="absolute top-4 left-4">
+                          <span className="px-3 py-1 bg-primary text-primary-foreground rounded-full text-sm font-medium">
+                            Featured
+                          </span>
+                        </div>
+                      </div>
+
+                      <div className="p-8 lg:p-12 flex flex-col justify-center">
+                        <div className="flex items-center space-x-4 text-sm text-muted-foreground mb-4">
+                          <div className="flex items-center space-x-1">
+                            <Calendar className="w-4 h-4" />
+                            <span>{format(new Date(featuredPost.date), "MMM d, yyyy")}</span>
+                          </div>
+                          {featuredPost.readTime > 0 && (
+                            <div className="flex items-center space-x-1">
+                              <Clock className="w-4 h-4" />
+                              <span>{featuredPost.readTime} min read</span>
+                            </div>
+                          )}
+                        </div>
+
+                        <h3 className="text-3xl font-bold mb-4 font-heading group-hover:text-primary transition-colors">
+                          {featuredPost.title}
+                        </h3>
+
+                        <p className="text-muted-foreground line-clamp-3 mb-6 leading-relaxed text-lg">
+                          {featuredPost.excerpt}
+                        </p>
+
+                        <Button className="btn-luxury group w-fit">
+                          Read Full Article
+                          <Calendar className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                        </Button>
+                      </div>
                     </div>
                   </div>
-
-                  <div className="p-8 lg:p-12 flex flex-col justify-center">
-                    <div className="flex items-center space-x-4 text-sm text-muted-foreground mb-4">
-                      <div className="flex items-center space-x-1">
-                        <User className="w-4 h-4" />
-                        <span>{featuredPost.author}</span>
-                      </div>
-                      <div className="flex items-center space-x-1">
-                        <Calendar className="w-4 h-4" />
-                        <span>{featuredPost.date}</span>
-                      </div>
-                      <div className="flex items-center space-x-1">
-                        <Clock className="w-4 h-4" />
-                        <span>{featuredPost.readTime}</span>
-                      </div>
-                    </div>
-
-                    <h3 className="text-3xl font-bold mb-4 font-heading group-hover:text-primary transition-colors">
-                      {featuredPost.title}
-                    </h3>
-
-                    <p className="text-muted-foreground truncate mb-6 leading-relaxed text-lg">
-                      {featuredPost.excerpt}
-                    </p>
-
-                    <Button className="btn-luxury group w-fit">
-                      Read Full Article
-                      <Calendar className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
-                    </Button>
-                  </div>
-                </div>
+                </Link>
               </div>
             </div>
-          </div>
-        </section>
+          </section>
+        )}
 
         {/* Blog Posts Grid */}
         <section className="pb-20">
@@ -332,98 +289,75 @@ const Blog = () => {
                 </p>
               </div>
 
-              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-                {filteredPosts
-                  .slice(
-                    (currentPage - 1) * postsPerPage,
-                    currentPage * postsPerPage
-                  )
-                  .map((post, index) => (
-                    <article
-                      key={post.id}
-                      id={`blog-${post.id}`}
-                      className="group animate-fade-in cursor-pointer scroll-mt-24"
-                      style={{ animationDelay: `${index * 0.1}s` }}
-                      onClick={() => handlePostClick(post)}
-                    >
-                      <div className="glass-card overflow-hidden hover:scale-105 transition-all duration-300 h-full flex flex-col">
-                        <div className="relative overflow-hidden">
-                          <img
-                            src={post.image}
-                            alt={post.title}
-                            className="w-full h-48 object-cover group-hover:scale-110 transition-transform duration-300"
-                          />
-                          <div className="absolute top-4 left-4">
-                            <span
-                              className={`px-3 py-1 rounded-full text-xs font-medium ${
-                                post.category === "web-development"
-                                  ? "bg-blue-500/20 text-blue-300"
-                                  : post.category === "design"
-                                  ? "bg-purple-500/20 text-purple-300"
-                                  : post.category === "marketing"
-                                  ? "bg-green-500/20 text-green-300"
-                                  : post.category === "business"
-                                  ? "bg-orange-500/20 text-orange-300"
-                                  : "bg-red-500/20 text-red-300"
-                              }`}
-                            >
-                              {
-                                categories.find(
-                                  (cat) => cat.id === post.category
-                                )?.label
-                              }
-                            </span>
-                          </div>
-                        </div>
-
-                        <div className="p-6 flex flex-col flex-grow">
-                          <div className="flex items-center space-x-4 text-xs text-muted-foreground mb-3">
-                            <div className="flex items-center space-x-1">
-                              <User className="w-3 h-3" />
-                              <span>{post.author}</span>
-                            </div>
-                            <div className="flex items-center space-x-1">
-                              <Calendar className="w-3 h-3" />
-                              <span>{post.date}</span>
-                            </div>
-                            <div className="flex items-center space-x-1">
-                              <Clock className="w-3 h-3" />
-                              <span>{post.readTime}</span>
-                            </div>
+              {filteredPosts.length === 0 ? (
+                <div className="text-center py-20">
+                  <p className="text-muted-foreground text-lg">
+                    No articles found. Try adjusting your search or filters.
+                  </p>
+                </div>
+              ) : (
+                <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                  {filteredPosts
+                    .slice(
+                      (currentPage - 1) * postsPerPage,
+                      currentPage * postsPerPage
+                    )
+                    .map((post: any, index: number) => (
+                      <article
+                        key={post._id}
+                        id={`blog-${post._id}`}
+                        className="group animate-fade-in cursor-pointer scroll-mt-24"
+                        style={{ animationDelay: `${index * 0.1}s` }}
+                        onClick={() => navigate(`/blog/${post.slug}`)}
+                      >
+                        <div className="glass-card overflow-hidden hover:scale-105 transition-all duration-300 h-full flex flex-col">
+                          <div className="relative overflow-hidden">
+                            <img
+                              src={post.featuredImage || "/placeholder.svg"}
+                              alt={post.title}
+                              className="w-full h-48 object-cover group-hover:scale-110 transition-transform duration-300"
+                            />
+                            {post.category && (
+                              <div className="absolute top-4 left-4">
+                                <span className="px-3 py-1 rounded-full text-xs font-medium bg-primary/20 text-primary">
+                                  {post.category.name}
+                                </span>
+                              </div>
+                            )}
                           </div>
 
-                          <h3 className="text-xl font-bold mb-3 font-heading group-hover:text-primary transition-colors flex-grow">
-                            {post.title}
-                          </h3>
+                          <div className="p-6 flex flex-col flex-grow">
+                            <div className="flex items-center space-x-4 text-xs text-muted-foreground mb-3">
+                              <div className="flex items-center space-x-1">
+                                <Calendar className="w-3 h-3" />
+                                <span>{format(new Date(post.date), "MMM d, yyyy")}</span>
+                              </div>
+                              {post.readTime > 0 && (
+                                <div className="flex items-center space-x-1">
+                                  <Clock className="w-3 h-3" />
+                                  <span>{post.readTime} min read</span>
+                                </div>
+                              )}
+                            </div>
 
-                          <p className="text-muted-foreground mb-4 leading-relaxed flex-grow">
-                            {post.excerpt}
-                          </p>
+                            <h3 className="text-xl font-bold mb-3 font-heading group-hover:text-primary transition-colors flex-grow">
+                              {post.title}
+                            </h3>
 
-                          {post.link ? (
-                            <a
-                              href={post.link}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                            >
-                              <Button className="btn-outline-luxury group w-full">
-                                Read More
-                                <Calendar className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
-                              </Button>
-                            </a>
-                          ) : (
-                            <Link to={`/blog#blog-${post.id}`}>
-                              <Button className="btn-outline-luxury group w-full">
-                                Read More
-                                <Calendar className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
-                              </Button>
-                            </Link>
-                          )}
+                            <p className="text-muted-foreground mb-4 leading-relaxed line-clamp-3">
+                              {post.excerpt}
+                            </p>
+
+                            <Button className="btn-outline-luxury group w-full">
+                              Read More
+                              <Calendar className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                            </Button>
+                          </div>
                         </div>
-                      </div>
-                    </article>
-                  ))}
-              </div>
+                      </article>
+                    ))}
+                </div>
+              )}
 
               {filteredPosts.length === 0 && (
                 <div className="text-center py-16">

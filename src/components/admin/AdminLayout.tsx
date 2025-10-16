@@ -44,13 +44,13 @@ const Sidebar = ({ mobile = false }: { mobile?: boolean }) => {
             <Link
               key={item.path}
               to={item.path}
-              className={`flex items-center gap-3 px-4 py-3 rounded-lg font-medium transition-all duration-300 group ${
+              className={`flex items-center gap-3 px-4 py-3 rounded-lg font-medium transition-all duration-300 ${
                 isActive
                   ? 'bg-secondary text-secondary-foreground shadow-lemon'
-                  : 'text-muted-foreground hover:text-foreground hover:bg-muted/50'
+                  : 'text-muted-foreground'
               }`}
             >
-              <Icon className={`h-5 w-5 transition-transform duration-300 ${isActive ? '' : 'group-hover:scale-110'}`} />
+              <Icon className="h-5 w-5" />
               <span>{item.label}</span>
             </Link>
           );
@@ -65,7 +65,7 @@ const Sidebar = ({ mobile = false }: { mobile?: boolean }) => {
         </div>
         <Button
           variant="ghost"
-          className="w-full justify-start gap-3 hover:bg-destructive/10 hover:text-destructive transition-colors"
+          className="w-full justify-start gap-3 text-destructive transition-colors"
           onClick={logout}
         >
           <LogOut className="h-5 w-5" />

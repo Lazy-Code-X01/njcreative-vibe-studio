@@ -13,6 +13,17 @@ router.get('/posts', async (req, res, next) => {
   } catch (err) { next(err); }
 });
 
+// Get single post by slug
+router.get('/post/:slug', async (req, res, next) => {
+  try {
+    const post = await BlogPost.findOne({ slug: req.params.slug }).populate('category').lean();
+    if (!post) {
+      return res.status(404).json({ message: 'Post not found' });
+    }
+    res.json(post);
+  } catch (err) { next(err); }
+});
+
 // Get categories
 router.get('/categories', async (req, res, next) => {
   try {

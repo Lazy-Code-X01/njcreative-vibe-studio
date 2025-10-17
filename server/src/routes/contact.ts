@@ -2,6 +2,7 @@ import { Router } from "express";
 import { z } from "zod";
 import multer from "multer";
 import Message from "../models/Message";
+import { requireAuth } from "../middleware/auth";
 import { sendEmail } from "../services/email";
 import {
   renderAdminContactEmail,

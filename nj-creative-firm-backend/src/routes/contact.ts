@@ -2,6 +2,7 @@ import { Router } from 'express';
 import { z } from 'zod';
 import Message from '../models/Message';
 import { validateBody } from '../middleware/validate';
+import { requireAuth } from '../middleware/auth';
 import { sendEmail } from '../services/email';
 import { renderAdminContactEmail, renderUserAutoReply } from '../services/email-template';
 
@@ -27,6 +28,26 @@ router.post('/', validateBody(contactSchema), async (req, res, next) => {
       console.warn('Email send failed', err);
     }
     res.status(201).json({ message: 'Submission received' });
+  } catch (err) {
+    next(err);
+  }
+});
+
+// Get all messages (admin only)
+router.get('/', requireAuth, async (req, res, next) => {
+  try {
+    const messages = await Message.find().sort({ createdAt: -1 }).lean();
+    res.json(messages);
+  } catch (err) {
+    next(err);
+  }
+});
+
+// Delete a message (admin only)
+router.delete('/:id', requireAuth, async (req, res, next) => {
+  try {
+    await Message.findByIdAndDelete(req.params.id);
+    res.json({ message: 'Deleted' });
   } catch (err) {
     next(err);
   }

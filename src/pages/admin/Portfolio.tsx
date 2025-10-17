@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { Card, CardContent } from "@/components/ui/card";
 import { toast } from "sonner";
@@ -170,7 +171,7 @@ const PortfolioManagement = () => {
       <div className="space-y-6">
         <div className="flex items-center justify-between">
           <div>
-            <h1 className="text-3xl font-bold text-lemon-500">Portfolio Management</h1>
+            <h1 className="text-3xl font-bold text-lemon-500">Portfolio Projects</h1>
             <p className="text-muted-foreground mt-1">
               Manage your portfolio projects
             </p>
@@ -183,14 +184,14 @@ const PortfolioManagement = () => {
             <DialogTrigger asChild>
               <Button className="bg-lemon-500 hover:bg-lemon-600 text-black">
                 <Plus className="w-4 h-4 mr-2" />
-                Add Project
+                Add Portfolio
               </Button>
             </DialogTrigger>
 
-            <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto">
+            <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto glass-card backdrop-blur-xl border-border/50 rounded-xl shadow-2xl">
               <DialogHeader>
                 <DialogTitle className="text-2xl font-bold text-center text-lemon-500">
-                  {isEditing ? "Edit Project" : "Create New Project"}
+                  {isEditing ? "Edit Portfolio" : "Add New Portfolio"}
                 </DialogTitle>
               </DialogHeader>
 
@@ -223,15 +224,23 @@ const PortfolioManagement = () => {
 
                   <div className="space-y-2">
                     <Label htmlFor="category">Category *</Label>
-                    <Input
-                      id="category"
+                    <Select
                       value={formData.category}
-                      onChange={(e) =>
-                        setFormData({ ...formData, category: e.target.value })
+                      onValueChange={(value) =>
+                        setFormData({ ...formData, category: value })
                       }
                       required
-                      placeholder="Web Development, Branding, etc."
-                    />
+                    >
+                      <SelectTrigger id="category">
+                        <SelectValue placeholder="Select category" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="web">Web Development</SelectItem>
+                        <SelectItem value="branding">Branding</SelectItem>
+                        <SelectItem value="marketing">Marketing</SelectItem>
+                        <SelectItem value="tech">Technology</SelectItem>
+                      </SelectContent>
+                    </Select>
                   </div>
 
                   <div className="space-y-2">
@@ -340,7 +349,7 @@ const PortfolioManagement = () => {
                     className="bg-lemon-500 hover:bg-lemon-600 text-black"
                     disabled={createMutation.isPending || updateMutation.isPending}
                   >
-                    {isEditing ? "Update" : "Create"} Project
+                    {createMutation.isPending || updateMutation.isPending ? "Saving..." : (isEditing ? "Update" : "Save")}
                   </Button>
                 </div>
               </form>

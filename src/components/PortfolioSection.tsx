@@ -1,40 +1,26 @@
 import { ExternalLink, ArrowRight } from "lucide-react";
-import portfolioWeb from "@/assets/portfolio-web.jpg";
-import portfolioBranding from "@/assets/portfolio-branding.jpg";
-import portfolioTech from "@/assets/portfolio-tech.jpg";
-import recuimentImage from "@/assets/recuiment-services.png";
+import { useQuery } from "@tanstack/react-query";
+import { portfolioApi } from "@/lib/portfolioApi";
+import { Link } from "react-router-dom";
 
 const PortfolioSection = () => {
-  const projects = [
-    {
-      title: "E-commerce Revolution",
-      category: "Web Development",
-      description:
-        "Modern e-commerce platform with advanced features and seamless user experience.",
-      image: portfolioWeb,
-      tags: ["React", "Node.js", "Stripe", "AWS"],
-      results: "+250% conversion rate",
-    },
-    {
-      title: "Brand Identity Suite",
-      category: "Branding",
-      description:
-        "Complete brand transformation for a Fortune 500 company with global impact.",
-      image: portfolioBranding,
-      tags: ["Brand Design", "Guidelines", "Marketing", "Strategy"],
-      results: "+180% brand recognition",
-    },
-    {
-      id: "/services#recruitment-talent",
-      title: "Recruitment Service",
-      category: "Recruitment",
-      description:
-        "We offer a wide range of services, including resume screening, interview preparation, and onboarding programs.",
-      image: recuimentImage,
-      tags: ["Communication", "UX/UI", "Mobile App", "iOS & Android"],
-      results: "4.9★ App Store rating",
-    },
-  ];
+  const { data: projects = [], isLoading } = useQuery({
+    queryKey: ["portfolio-projects"],
+    queryFn: () => portfolioApi.getProjects().then((res) => res.data),
+  });
+
+  // Show only featured projects or first 3
+  const displayProjects = projects.filter((p: any) => p.featured).slice(0, 3);
+
+  if (isLoading) {
+    return (
+      <section id="portfolio" className="py-20">
+        <div className="container mx-auto px-6 text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary mx-auto"></div>
+        </div>
+      </section>
+    );
+  }
 
   return (
     <section id="portfolio" className="py-20">
@@ -58,10 +44,11 @@ const PortfolioSection = () => {
 
         {/* Portfolio Grid */}
         <div className="grid lg:grid-cols-3 gap-8 mb-16">
-          {projects.map((project, index) => (
-            <div
-              key={index}
-              className="group glass-card overflow-hidden cursor-pointer hover:scale-[1.02] transition-all duration-500"
+          {displayProjects.map((project: any, index: number) => (
+            <Link
+              to={`/case-study/${project.slug}`}
+              key={project._id}
+              className="group glass-card overflow-hidden cursor-pointer hover:scale-[1.02] transition-all duration-500 block"
             >
               {/* Project Image */}
               <div className="relative overflow-hidden">
@@ -94,12 +81,12 @@ const PortfolioSection = () => {
 
                 {/* Tags */}
                 <div className="flex flex-wrap gap-2 mb-4">
-                  {project.tags.map((tag, tagIndex) => (
+                  {project.technologies?.slice(0, 4).map((tech: string, tagIndex: number) => (
                     <span
                       key={tagIndex}
                       className="px-3 py-1 bg-accent/50 text-xs rounded-full text-accent-foreground"
                     >
-                      {tag}
+                      {tech}
                     </span>
                   ))}
                 </div>
@@ -107,12 +94,12 @@ const PortfolioSection = () => {
                 {/* Results */}
                 <div className="flex items-center justify-between">
                   <span className="text-secondary text-sm font-semibold">
-                    {project.results}
+                    {project.results?.[0] || "View details"}
                   </span>
                   <ArrowRight className="w-4 h-4 text-muted-foreground group-hover:text-secondary group-hover:translate-x-1 transition-all duration-300" />
                 </div>
               </div>
-            </div>
+            </Link>
           ))}
         </div>
 
@@ -128,7 +115,9 @@ const PortfolioSection = () => {
                   Dive deeper into our complete portfolio and discover how we've
                   helped businesses transform their digital presence.
                 </p>
-                <button className="btn-hero">View Full Portfolio</button>
+                <Link to="/portfolio">
+                  <button className="btn-hero">View Full Portfolio</button>
+                </Link>
               </div>
               <div className="grid grid-cols-2 gap-4 text-center">
                 <div className="glass p-4 rounded-xl">

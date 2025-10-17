@@ -3,9 +3,18 @@ import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
 import { ExternalLink, ArrowRight, Filter } from "lucide-react";
+import { useQuery } from "@tanstack/react-query";
+import { portfolioApi } from "@/lib/portfolioApi";
+import { Link } from "react-router-dom";
+import SEO from "@/components/SEO";
 
 const Portfolio = () => {
   const [activeFilter, setActiveFilter] = useState("all");
+
+  const { data: projects = [], isLoading } = useQuery({
+    queryKey: ["portfolio-projects"],
+    queryFn: () => portfolioApi.getProjects().then((res) => res.data),
+  });
 
   const categories = [
     { id: "all", label: "All Projects" },
@@ -15,112 +24,31 @@ const Portfolio = () => {
     { id: "tech", label: "Tech Solutions" },
   ];
 
-  const projects = [
-    {
-      id: 1,
-      title: "Luxury E-commerce Platform",
-      category: "web",
-      client: "Premium Fashion Brand",
-      image: "/api/placeholder/800/600",
-      description:
-        "Complete e-commerce solution with advanced filtering, AR try-on features, and seamless checkout experience.",
-      technologies: ["React", "Node.js", "Stripe", "AWS"],
-      results: [
-        "300% increase in online sales",
-        "50% improvement in conversion rate",
-        "Award-winning UX design",
-      ],
-      link: "#",
-    },
-    {
-      id: 2,
-      title: "Tech Startup Rebrand",
-      category: "branding",
-      client: "AI Technology Startup",
-      image: "/api/placeholder/800/600",
-      description:
-        "Complete brand identity redesign including logo, guidelines, and marketing materials for Series A funding.",
-      technologies: ["Adobe Creative Suite", "Figma", "Brand Strategy"],
-      results: [
-        "Successful $10M Series A",
-        "200% increase in brand recognition",
-        "Featured in TechCrunch",
-      ],
-      link: "#",
-    },
-    {
-      id: 3,
-      title: "SaaS Growth Campaign",
-      category: "marketing",
-      client: "B2B Software Company",
-      image: "/api/placeholder/800/600",
-      description:
-        "Multi-channel digital marketing strategy resulting in significant user acquisition and retention.",
-      technologies: ["Google Ads", "HubSpot", "Analytics", "A/B Testing"],
-      results: [
-        "500% ROI on ad spend",
-        "10,000+ new users acquired",
-        "40% increase in customer lifetime value",
-      ],
-      link: "#",
-    },
-    {
-      id: 4,
-      title: "Mobile Banking App",
-      category: "tech",
-      client: "Financial Services",
-      image: "/api/placeholder/800/600",
-      description:
-        "Secure mobile banking application with biometric authentication and real-time transaction processing.",
-      technologies: ["React Native", "Node.js", "PostgreSQL", "Blockchain"],
-      results: [
-        "1M+ downloads in first year",
-        "99.9% uptime achievement",
-        "Industry security certification",
-      ],
-      link: "#",
-    },
-    {
-      id: 5,
-      title: "Restaurant Chain Website",
-      category: "web",
-      client: "Fine Dining Group",
-      image: "/api/placeholder/800/600",
-      description:
-        "Multi-location restaurant website with online reservations, menu management, and loyalty program.",
-      technologies: ["Next.js", "Sanity CMS", "Stripe", "Google Maps API"],
-      results: [
-        "80% increase in online reservations",
-        "25% growth in loyalty sign-ups",
-        "Mobile-first design award",
-      ],
-      link: "#",
-    },
-    {
-      id: 6,
-      title: "Healthcare Brand Identity",
-      category: "branding",
-      client: "Medical Practice Network",
-      image: "/api/placeholder/800/600",
-      description:
-        "Comprehensive rebrand for healthcare network including logo, patient materials, and digital presence.",
-      technologies: ["Brand Strategy", "Illustrator", "InDesign", "Webflow"],
-      results: [
-        "Improved patient trust scores",
-        "30% increase in new patient acquisition",
-        "Healthcare design award",
-      ],
-      link: "#",
-    },
-  ];
-
   const filteredProjects =
     activeFilter === "all"
       ? projects
-      : projects.filter((project) => project.category === activeFilter);
+      : projects.filter((project: any) => 
+          project.category.toLowerCase().includes(activeFilter.toLowerCase())
+        );
+
+  if (isLoading) {
+    return (
+      <div className="min-h-screen bg-background">
+        <Navigation />
+        <div className="flex items-center justify-center min-h-screen">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary"></div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-background">
+      <SEO
+        title="Portfolio - Our Work"
+        description="Discover our portfolio of successful digital transformations. See how we've helped businesses achieve remarkable results through strategic design and development."
+        keywords="portfolio, web development, branding, digital marketing, case studies"
+      />
       <Navigation />
 
       <main className="pt-24">
@@ -170,13 +98,13 @@ const Portfolio = () => {
         <section className="pb-20">
           <div className="container mx-auto px-6">
             <div className="grid lg:grid-cols-2 gap-12">
-              {filteredProjects.map((project, index) => (
-                <div
-                  key={project.id}
-                  className="group animate-fade-in"
-                  style={{ animationDelay: `${index * 0.1}s` }}
-                >
-                  <div className="glass-card overflow-hidden hover:scale-[1.02] transition-all duration-500">
+              {filteredProjects.map((project: any, index: number) => (
+                <Link to={`/case-study/${project.slug}`} key={project._id}>
+                  <div
+                    className="group animate-fade-in"
+                    style={{ animationDelay: `${index * 0.1}s` }}
+                  >
+                    <div className="glass-card overflow-hidden hover:scale-[1.02] transition-all duration-500">
                     {/* Project Image */}
                     <div className="relative overflow-hidden">
                       <img
@@ -192,28 +120,14 @@ const Portfolio = () => {
 
                     {/* Project Content */}
                     <div className="p-8">
-                      <div className="flex items-center justify-between mb-4">
-                        <span className="text-sm text-primary font-medium tracking-wide uppercase">
-                          {project.client}
-                        </span>
-                        <span
-                          className={`px-3 py-1 rounded-full text-xs font-medium ${
-                            project.category === "web"
-                              ? "bg-blue-500/10 text-blue-400"
-                              : project.category === "branding"
-                              ? "bg-purple-500/10 text-purple-400"
-                              : project.category === "marketing"
-                              ? "bg-green-500/10 text-green-400"
-                              : "bg-orange-500/10 text-orange-400"
-                          }`}
-                        >
-                          {
-                            categories.find(
-                              (cat) => cat.id === project.category
-                            )?.label
-                          }
-                        </span>
-                      </div>
+                        <div className="flex items-center justify-between mb-4">
+                          <span className="text-sm text-primary font-medium tracking-wide uppercase">
+                            {project.client}
+                          </span>
+                          <span className="px-3 py-1 rounded-full text-xs font-medium bg-primary/10 text-primary">
+                            {project.category}
+                          </span>
+                        </div>
 
                       <h3 className="text-2xl font-bold mb-4 font-heading group-hover:text-primary transition-colors">
                         {project.title}
@@ -223,50 +137,51 @@ const Portfolio = () => {
                         {project.description}
                       </p>
 
-                      {/* Technologies */}
-                      <div className="mb-6">
-                        <h4 className="text-sm font-semibold mb-3 text-foreground">
-                          Technologies Used:
-                        </h4>
-                        <div className="flex flex-wrap gap-2">
-                          {project.technologies.map((tech, idx) => (
-                            <span
-                              key={idx}
-                              className="px-3 py-1 bg-muted/50 text-foreground rounded-full text-sm"
-                            >
-                              {tech}
-                            </span>
-                          ))}
-                        </div>
-                      </div>
-
-                      {/* Results */}
-                      <div className="mb-6">
-                        <h4 className="text-sm font-semibold mb-3 text-foreground">
-                          Key Results:
-                        </h4>
-                        <div className="space-y-2">
-                          {project.results.map((result, idx) => (
-                            <div
-                              key={idx}
-                              className="flex items-center space-x-2"
-                            >
-                              <div className="w-1.5 h-1.5 bg-primary rounded-full" />
-                              <span className="text-sm text-muted-foreground">
-                                {result}
+                        {/* Technologies */}
+                        <div className="mb-6">
+                          <h4 className="text-sm font-semibold mb-3 text-foreground">
+                            Technologies Used:
+                          </h4>
+                          <div className="flex flex-wrap gap-2">
+                            {project.technologies?.map((tech: string, idx: number) => (
+                              <span
+                                key={idx}
+                                className="px-3 py-1 bg-muted/50 text-foreground rounded-full text-sm"
+                              >
+                                {tech}
                               </span>
-                            </div>
-                          ))}
+                            ))}
+                          </div>
                         </div>
-                      </div>
 
-                      <Button className="btn-outline-luxury group w-full">
-                        View Case Study
-                        <ArrowRight className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
-                      </Button>
+                        {/* Results */}
+                        <div className="mb-6">
+                          <h4 className="text-sm font-semibold mb-3 text-foreground">
+                            Key Results:
+                          </h4>
+                          <div className="space-y-2">
+                            {project.results?.map((result: string, idx: number) => (
+                              <div
+                                key={idx}
+                                className="flex items-center space-x-2"
+                              >
+                                <div className="w-1.5 h-1.5 bg-primary rounded-full" />
+                                <span className="text-sm text-muted-foreground">
+                                  {result}
+                                </span>
+                              </div>
+                            ))}
+                          </div>
+                        </div>
+
+                        <Button className="btn-outline-luxury group w-full">
+                          View Case Study
+                          <ArrowRight className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                        </Button>
+                      </div>
                     </div>
                   </div>
-                </div>
+                </Link>
               ))}
             </div>
           </div>

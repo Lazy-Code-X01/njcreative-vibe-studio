@@ -14,11 +14,13 @@ import Portfolio from "./pages/Portfolio";
 import Blog from "./pages/Blog";
 import BlogPost from "./pages/BlogPost";
 import Contact from "./pages/Contact";
+import CaseStudy from "./pages/CaseStudy";
 import AdminLogin from "./pages/admin/Login";
 import AdminDashboard from "./pages/admin/Dashboard";
 import AdminMessages from "./pages/admin/Messages";
 import AdminBlog from "./pages/admin/Blog";
 import AdminCategories from "./pages/admin/Categories";
+import AdminPortfolio from "./pages/admin/Portfolio";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -38,6 +40,7 @@ const App = () => (
               <Route path="/about" element={<About />} />
               <Route path="/services" element={<Services />} />
               <Route path="/portfolio" element={<Portfolio />} />
+              <Route path="/case-study/:slug" element={<CaseStudy />} />
               <Route path="/blog" element={<Blog />} />
               <Route path="/blog/:slug" element={<BlogPost />} />
               <Route path="/contact" element={<Contact />} />
@@ -48,6 +51,7 @@ const App = () => (
               <Route path="/admin/messages" element={<AdminMessages />} />
               <Route path="/admin/blog" element={<AdminBlog />} />
               <Route path="/admin/categories" element={<AdminCategories />} />
+              <Route path="/admin/portfolio" element={<AdminPortfolio />} />
               
               {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
               <Route path="*" element={<NotFound />} />

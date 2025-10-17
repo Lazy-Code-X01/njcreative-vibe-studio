@@ -1,7 +1,7 @@
 import { ReactNode } from 'react';
 import { Navigate, Link, useLocation } from 'react-router-dom';
 import { useAdminAuth } from '@/contexts/AdminAuthContext';
-import { LayoutDashboard, MessageSquare, FileText, FolderTree, LogOut, Menu } from 'lucide-react';
+import { LayoutDashboard, MessageSquare, FileText, FolderTree, LogOut, Menu, Briefcase } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
 import logo from '@/assets/webp/creative-firm-logo.webp';
@@ -15,6 +15,7 @@ const navItems = [
   { path: '/admin/messages', icon: MessageSquare, label: 'Messages' },
   { path: '/admin/blog', icon: FileText, label: 'Blog Posts' },
   { path: '/admin/categories', icon: FolderTree, label: 'Categories' },
+  { path: '/admin/portfolio', icon: Briefcase, label: 'Portfolio' },
 ];
 
 const Sidebar = ({ mobile = false }: { mobile?: boolean }) => {

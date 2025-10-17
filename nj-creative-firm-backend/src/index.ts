@@ -4,6 +4,7 @@ import dotenv from 'dotenv';
 import { connectDB } from './db';
 import { seedAdmin } from './utils/seedAdmin';
 import { seedDatabase } from './utils/seedDatabase';
+import { seedPortfolio } from './utils/seedPortfolio';
 
 dotenv.config();
 
@@ -14,6 +15,7 @@ async function start() {
     await connectDB();
     await seedAdmin();
     await seedDatabase();
+    await seedPortfolio();
     
     app.listen(PORT, () => {
       console.log(`Server listening on port ${PORT}`);

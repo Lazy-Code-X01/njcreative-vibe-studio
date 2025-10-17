@@ -7,6 +7,7 @@ import contactRoutes from './routes/contact';
 import blogRoutes from './routes/blog';
 import adminRoutes from './routes/admin';
 import uploadRoutes from './routes/upload';
+import portfolioRoutes from './routes/portfolio';
 import dotenv from 'dotenv';
 import { errorHandler } from './middleware/errorHandler';
 
@@ -55,6 +56,7 @@ app.use('/api/contact', contactRoutes);
 app.use('/api/blog', blogRoutes);
 app.use('/api/admin', adminRoutes);
 app.use('/api/upload', uploadRoutes);
+app.use('/api/portfolio', portfolioRoutes);
 
 // Health
 app.get('/api/health', (_req, res) => res.json({ status: 'ok', env: process.env.NODE_ENV || 'development' }));

@@ -50,6 +50,13 @@ export const adminApi = {
   getMessages: () => apiClient.get('/contact'),
   deleteMessage: (id: string) => apiClient.delete(`/contact/${id}`),
 
+  // Portfolio
+  getPortfolioProjects: () => apiClient.get('/portfolio'),
+  getPortfolioProject: (slug: string) => apiClient.get(`/portfolio/${slug}`),
+  createPortfolioProject: (data: any) => apiClient.post('/portfolio', data),
+  updatePortfolioProject: (id: string, data: any) => apiClient.put(`/portfolio/${id}`, data),
+  deletePortfolioProject: (id: string) => apiClient.delete(`/portfolio/${id}`),
+
   // Upload
   uploadImage: (file: File) => {
     const formData = new FormData();

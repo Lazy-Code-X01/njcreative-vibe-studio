@@ -180,7 +180,7 @@ export default function AdminBlog() {
                 New Post
               </Button>
             </DialogTrigger>
-            <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto glass-card border-border/50">
+            <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto">
               <DialogHeader>
                 <DialogTitle>{editingPost ? 'Edit Post' : 'Create New Post'}</DialogTitle>
                 <DialogDescription>

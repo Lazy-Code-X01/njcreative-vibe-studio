@@ -19,7 +19,7 @@ const contactSchema = z.object({
   address: z.string().optional(),
   companyName: z.string().min(2),
   helpMessage: z.string().min(10),
-  selectedServices: z.string(), // Will be parsed as JSON array
+  selectedServices: z.string(), 
   dateTime: z.string().optional(),
   signature: z.string().optional(),
 });

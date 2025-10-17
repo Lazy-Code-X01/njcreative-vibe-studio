@@ -12,16 +12,6 @@ const PortfolioSection = () => {
   // Show only featured projects or first 3
   const displayProjects = projects.filter((p: any) => p.featured).slice(0, 3);
 
-  if (isLoading) {
-    return (
-      <section id="portfolio" className="py-20">
-        <div className="container mx-auto px-6 text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary mx-auto"></div>
-        </div>
-      </section>
-    );
-  }
-
   return (
     <section id="portfolio" className="py-20">
       <div className="container mx-auto px-6">
@@ -44,7 +34,32 @@ const PortfolioSection = () => {
 
         {/* Portfolio Grid */}
         <div className="grid lg:grid-cols-3 gap-8 mb-16">
-          {displayProjects.map((project: any, index: number) => (
+          {isLoading ? (
+            [...Array(3)].map((_, index) => (
+              <div
+                key={index}
+                className="glass-card overflow-hidden animate-pulse"
+                style={{ animationDelay: `${index * 0.1}s` }}
+              >
+                <div className="w-full h-64 bg-muted/30"></div>
+                <div className="p-6 space-y-4">
+                  <div className="h-3 w-24 bg-muted/30 rounded"></div>
+                  <div className="h-7 bg-muted/30 rounded w-4/5"></div>
+                  <div className="space-y-2">
+                    <div className="h-4 bg-muted/30 rounded"></div>
+                    <div className="h-4 bg-muted/30 rounded w-5/6"></div>
+                  </div>
+                  <div className="flex gap-2">
+                    <div className="h-6 w-16 bg-muted/30 rounded-full"></div>
+                    <div className="h-6 w-20 bg-muted/30 rounded-full"></div>
+                    <div className="h-6 w-18 bg-muted/30 rounded-full"></div>
+                  </div>
+                  <div className="h-5 bg-muted/30 rounded w-2/3"></div>
+                </div>
+              </div>
+            ))
+          ) : (
+            displayProjects.map((project: any, index: number) => (
             <Link
               to={`/case-study/${project.slug}`}
               key={project._id}
@@ -100,7 +115,8 @@ const PortfolioSection = () => {
                 </div>
               </div>
             </Link>
-          ))}
+            ))
+          )}
         </div>
 
         {/* Portfolio CTA */}

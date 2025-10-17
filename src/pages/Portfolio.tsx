@@ -31,17 +31,6 @@ const Portfolio = () => {
           project.category.toLowerCase().includes(activeFilter.toLowerCase())
         );
 
-  if (isLoading) {
-    return (
-      <div className="min-h-screen bg-background">
-        <Navigation />
-        <div className="flex items-center justify-center min-h-screen">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary"></div>
-        </div>
-      </div>
-    );
-  }
-
   return (
     <div className="min-h-screen bg-background">
       <SEO
@@ -98,7 +87,45 @@ const Portfolio = () => {
         <section className="pb-20">
           <div className="container mx-auto px-6">
             <div className="grid lg:grid-cols-2 gap-12">
-              {filteredProjects.map((project: any, index: number) => (
+              {isLoading ? (
+                [...Array(6)].map((_, index) => (
+                  <div
+                    key={index}
+                    className="glass-card overflow-hidden animate-pulse"
+                    style={{ animationDelay: `${index * 0.1}s` }}
+                  >
+                    <div className="w-full h-64 bg-muted/30"></div>
+                    <div className="p-8 space-y-4">
+                      <div className="flex justify-between">
+                        <div className="h-4 w-24 bg-muted/30 rounded"></div>
+                        <div className="h-6 w-20 bg-muted/30 rounded-full"></div>
+                      </div>
+                      <div className="h-7 bg-muted/30 rounded w-4/5"></div>
+                      <div className="space-y-2">
+                        <div className="h-4 bg-muted/30 rounded"></div>
+                        <div className="h-4 bg-muted/30 rounded w-5/6"></div>
+                      </div>
+                      <div className="space-y-2">
+                        <div className="h-4 w-32 bg-muted/30 rounded"></div>
+                        <div className="flex gap-2">
+                          <div className="h-7 w-16 bg-muted/30 rounded-full"></div>
+                          <div className="h-7 w-20 bg-muted/30 rounded-full"></div>
+                          <div className="h-7 w-18 bg-muted/30 rounded-full"></div>
+                        </div>
+                      </div>
+                      <div className="space-y-2">
+                        <div className="h-4 w-24 bg-muted/30 rounded"></div>
+                        <div className="space-y-1">
+                          <div className="h-4 bg-muted/30 rounded w-3/4"></div>
+                          <div className="h-4 bg-muted/30 rounded w-2/3"></div>
+                        </div>
+                      </div>
+                      <div className="h-10 bg-muted/30 rounded"></div>
+                    </div>
+                  </div>
+                ))
+              ) : (
+                filteredProjects.map((project: any, index: number) => (
                 <Link to={`/case-study/${project.slug}`} key={project._id}>
                   <div
                     className="group animate-fade-in"
@@ -182,7 +209,8 @@ const Portfolio = () => {
                     </div>
                   </div>
                 </Link>
-              ))}
+                ))
+              )}
             </div>
           </div>
         </section>

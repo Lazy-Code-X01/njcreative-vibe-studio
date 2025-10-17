@@ -104,25 +104,7 @@ const Blog = () => {
     navigate(`/blog/${post.slug}`);
   };
 
-  // Loading state
-  if (postsLoading || categoriesLoading) {
-    return (
-      <div className="min-h-screen bg-background">
-        <Navigation />
-        <main className="pt-24">
-          <div className="container mx-auto px-6 py-20">
-            <div className="text-center">
-              <div className="animate-pulse space-y-4">
-                <div className="h-12 bg-muted rounded w-3/4 mx-auto"></div>
-                <div className="h-6 bg-muted rounded w-1/2 mx-auto"></div>
-              </div>
-            </div>
-          </div>
-        </main>
-        <Footer />
-      </div>
-    );
-  }
+  const isLoading = postsLoading || categoriesLoading;
 
   return (
     <div className="min-h-screen bg-background">
@@ -278,18 +260,44 @@ const Blog = () => {
                 <h2 className="text-3xl font-bold font-heading">
                   Latest Articles
                 </h2>
-                <p className="text-muted-foreground">
-                  Showing{" "}
-                  {Math.min(
-                    (currentPage - 1) * postsPerPage + 1,
-                    filteredPosts.length
-                  )}{" "}
-                  - {Math.min(currentPage * postsPerPage, filteredPosts.length)}{" "}
-                  of {filteredPosts.length} articles
-                </p>
+                {!isLoading && (
+                  <p className="text-muted-foreground">
+                    Showing{" "}
+                    {Math.min(
+                      (currentPage - 1) * postsPerPage + 1,
+                      filteredPosts.length
+                    )}{" "}
+                    - {Math.min(currentPage * postsPerPage, filteredPosts.length)}{" "}
+                    of {filteredPosts.length} articles
+                  </p>
+                )}
               </div>
 
-              {filteredPosts.length === 0 ? (
+              {isLoading ? (
+                <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                  {[...Array(6)].map((_, index) => (
+                    <div
+                      key={index}
+                      className="glass-card overflow-hidden animate-pulse"
+                      style={{ animationDelay: `${index * 0.1}s` }}
+                    >
+                      <div className="w-full h-48 bg-muted/30"></div>
+                      <div className="p-6 space-y-4">
+                        <div className="flex gap-4">
+                          <div className="h-3 w-20 bg-muted/30 rounded"></div>
+                          <div className="h-3 w-24 bg-muted/30 rounded"></div>
+                        </div>
+                        <div className="h-6 bg-muted/30 rounded w-3/4"></div>
+                        <div className="space-y-2">
+                          <div className="h-4 bg-muted/30 rounded"></div>
+                          <div className="h-4 bg-muted/30 rounded w-5/6"></div>
+                        </div>
+                        <div className="h-10 bg-muted/30 rounded"></div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              ) : filteredPosts.length === 0 ? (
                 <div className="text-center py-20">
                   <p className="text-muted-foreground text-lg">
                     No articles found. Try adjusting your search or filters.

@@ -1,10 +1,17 @@
 import { Schema, model } from 'mongoose';
 
 const messageSchema = new Schema({
-  name: { type: String, required: true },
+  firstName: { type: String, required: true },
+  lastName: { type: String, required: true },
   email: { type: String, required: true },
-  phone: { type: String },
-  message: { type: String, required: true },
+  phone: { type: String, required: true },
+  address: { type: String },
+  companyName: { type: String, required: true },
+  helpMessage: { type: String, required: true },
+  selectedServices: { type: [String], default: [] },
+  dateTime: { type: String },
+  signature: { type: String },
+  companyLogo: { type: String },
   createdAt: { type: Date, default: Date.now }
 });
 

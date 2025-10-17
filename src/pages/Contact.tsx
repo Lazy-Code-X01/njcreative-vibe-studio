@@ -1,15 +1,20 @@
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
-import { Mail, Phone, MapPin, Clock, Send, MessageCircle } from "lucide-react";
+import { Mail, Phone, MapPin, Clock, Send, MessageCircle, CheckCircle2, AlertCircle } from "lucide-react";
 import { useState } from "react";
 import { toast } from "sonner";
 import SEO from "@/components/SEO";
 import { FaSpinner } from "react-icons/fa6";
+import { contactFormSchema, type ContactFormData } from "@/lib/validations/contact";
+import { contactApi } from "@/lib/contactApi";
+import { z } from "zod";
 
 const Contact = () => {
   const [loading, setLoading] = useState(false);
-  const [formData, setFormData] = useState({
+  const [submitted, setSubmitted] = useState(false);
+  const [errors, setErrors] = useState<Partial<Record<keyof ContactFormData, string>>>({});
+  const [formData, setFormData] = useState<ContactFormData>({
     firstName: "",
     lastName: "",
     email: "",
@@ -17,13 +22,11 @@ const Contact = () => {
     address: "",
     companyName: "",
     helpMessage: "",
-    selectedServices: [] as string[],
+    selectedServices: [],
     dateTime: "",
-    companyLogo: null as File | null,
+    companyLogo: null,
     signature: "",
   });
-
-  console.log("formData:", formData);
 
   const handleInputChange = (
     e: React.ChangeEvent<
@@ -54,56 +57,89 @@ const Contact = () => {
     }
   };
 
+  const validateField = (name: keyof ContactFormData, value: any) => {
+    try {
+      const fieldSchema = contactFormSchema.shape[name];
+      fieldSchema.parse(value);
+      setErrors(prev => ({ ...prev, [name]: undefined }));
+      return true;
+    } catch (error) {
+      if (error instanceof z.ZodError) {
+        setErrors(prev => ({ ...prev, [name]: error.errors[0].message }));
+      }
+      return false;
+    }
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setErrors({});
 
     try {
-      setLoading(true); // Set loading to true before starting the request
+      // Validate all fields
+      const validatedData = contactFormSchema.parse(formData);
+      setLoading(true);
 
       const formDataToSend = new FormData();
-      Object.entries(formData).forEach(([key, value]) => {
+      Object.entries(validatedData).forEach(([key, value]) => {
         if (key === "selectedServices") {
           formDataToSend.append(key, JSON.stringify(value));
         } else if (value instanceof File) {
           formDataToSend.append(key, value);
-        } else {
+        } else if (value !== null && value !== undefined && value !== "") {
           formDataToSend.append(key, String(value));
         }
       });
 
-      // Backend endpoint
-      const response = await fetch("http://localhost:8787/api/contact", {
-        method: "POST",
-        headers: {
-          Accept: "application/json",
-        },
-        body: formDataToSend,
+      await contactApi.submitContactForm(formDataToSend);
+      
+      setSubmitted(true);
+      toast.success(
+        "Thank you! Your enquiry has been submitted successfully. We'll get back to you within 24-48 hours.",
+        { duration: 6000 }
+      );
+
+      // Reset form
+      setFormData({
+        firstName: "",
+        lastName: "",
+        email: "",
+        phone: "",
+        address: "",
+        companyName: "",
+        helpMessage: "",
+        selectedServices: [],
+        dateTime: "",
+        companyLogo: null,
+        signature: "",
       });
 
-      if (response.ok) {
-        toast.success("Form submitted successfully!");
-        // Reset form
-        setFormData({
-          firstName: "",
-          lastName: "",
-          email: "",
-          phone: "",
-          address: "",
-          companyName: "",
-          helpMessage: "",
-          selectedServices: [],
-          dateTime: "",
-          companyLogo: null,
-          signature: "",
-        });
-      } else {
-        throw new Error("Form submission failed");
-      }
+      // Reset file input
+      const fileInput = document.querySelector('input[type="file"]') as HTMLInputElement;
+      if (fileInput) fileInput.value = '';
+
+      // Scroll to top smoothly
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+
     } catch (error) {
-      console.error("Error submitting form:", error);
-      toast.error("Failed to submit form. Please try again.");
+      if (error instanceof z.ZodError) {
+        const fieldErrors: Partial<Record<keyof ContactFormData, string>> = {};
+        error.errors.forEach((err) => {
+          if (err.path[0]) {
+            fieldErrors[err.path[0] as keyof ContactFormData] = err.message;
+          }
+        });
+        setErrors(fieldErrors);
+        toast.error("Please correct the errors in the form before submitting.");
+      } else {
+        console.error("Error submitting form:", error);
+        toast.error(
+          error instanceof Error ? error.message : "Failed to submit form. Please try again or contact us directly.",
+          { duration: 5000 }
+        );
+      }
     } finally {
-      setLoading(false); // Always set loading to false, whether the request succeeded or failed
+      setLoading(false);
     }
   };
 
@@ -171,6 +207,17 @@ const Contact = () => {
         <section className="py-20 relative overflow-hidden">
           <div className="container mx-auto px-6">
             <div className="max-w-4xl mx-auto text-center">
+              {submitted && (
+                <div className="mb-8 p-6 bg-green-500/10 border border-green-500/20 rounded-2xl animate-fade-in">
+                  <div className="flex items-center justify-center gap-3 mb-3">
+                    <CheckCircle2 className="w-8 h-8 text-green-500" />
+                    <h2 className="text-2xl font-bold text-green-500">Enquiry Submitted!</h2>
+                  </div>
+                  <p className="text-muted-foreground">
+                    We've received your project details and will respond within 24-48 hours.
+                  </p>
+                </div>
+              )}
               <h1 className="text-5xl md:text-7xl font-serif font-bold mb-8 leading-tight">
                 Let's Create
                 <span className="block gradient-text animate-gradient italic">
@@ -237,10 +284,19 @@ const Contact = () => {
                         name="firstName"
                         value={formData.firstName}
                         onChange={handleInputChange}
+                        onBlur={() => validateField('firstName', formData.firstName)}
                         required
-                        className="w-full px-4 py-3 bg-card border border-border rounded-xl focus:outline-none focus:ring-2 focus:ring-primary text-foreground"
+                        className={`w-full px-4 py-3 bg-card border rounded-xl focus:outline-none focus:ring-2 focus:ring-primary text-foreground transition-colors ${
+                          errors.firstName ? 'border-red-500 focus:ring-red-500' : 'border-border'
+                        }`}
                         placeholder="John"
                       />
+                      {errors.firstName && (
+                        <p className="mt-1 text-sm text-red-500 flex items-center gap-1">
+                          <AlertCircle className="w-3 h-3" />
+                          {errors.firstName}
+                        </p>
+                      )}
                     </div>
                     <div>
                       <label className="block text-sm font-medium mb-2">
@@ -251,10 +307,19 @@ const Contact = () => {
                         name="lastName"
                         value={formData.lastName}
                         onChange={handleInputChange}
+                        onBlur={() => validateField('lastName', formData.lastName)}
                         required
-                        className="w-full px-4 py-3 bg-card border border-border rounded-xl focus:outline-none focus:ring-2 focus:ring-primary text-foreground"
+                        className={`w-full px-4 py-3 bg-card border rounded-xl focus:outline-none focus:ring-2 focus:ring-primary text-foreground transition-colors ${
+                          errors.lastName ? 'border-red-500 focus:ring-red-500' : 'border-border'
+                        }`}
                         placeholder="Doe"
                       />
+                      {errors.lastName && (
+                        <p className="mt-1 text-sm text-red-500 flex items-center gap-1">
+                          <AlertCircle className="w-3 h-3" />
+                          {errors.lastName}
+                        </p>
+                      )}
                     </div>
                   </div>
 
@@ -268,10 +333,19 @@ const Contact = () => {
                         name="email"
                         value={formData.email}
                         onChange={handleInputChange}
+                        onBlur={() => validateField('email', formData.email)}
                         required
-                        className="w-full px-4 py-3 bg-card border border-border rounded-xl focus:outline-none focus:ring-2 focus:ring-primary text-foreground"
+                        className={`w-full px-4 py-3 bg-card border rounded-xl focus:outline-none focus:ring-2 focus:ring-primary text-foreground transition-colors ${
+                          errors.email ? 'border-red-500 focus:ring-red-500' : 'border-border'
+                        }`}
                         placeholder="john@company.com"
                       />
+                      {errors.email && (
+                        <p className="mt-1 text-sm text-red-500 flex items-center gap-1">
+                          <AlertCircle className="w-3 h-3" />
+                          {errors.email}
+                        </p>
+                      )}
                     </div>
                     <div>
                       <label className="block text-sm font-medium mb-2">
@@ -282,10 +356,19 @@ const Contact = () => {
                         name="phone"
                         value={formData.phone}
                         onChange={handleInputChange}
+                        onBlur={() => validateField('phone', formData.phone)}
                         required
-                        className="w-full px-4 py-3 bg-card border border-border rounded-xl focus:outline-none focus:ring-2 focus:ring-primary text-foreground"
-                        placeholder="+1234567890"
+                        className={`w-full px-4 py-3 bg-card border rounded-xl focus:outline-none focus:ring-2 focus:ring-primary text-foreground transition-colors ${
+                          errors.phone ? 'border-red-500 focus:ring-red-500' : 'border-border'
+                        }`}
+                        placeholder="+234 903 496 4186"
                       />
+                      {errors.phone && (
+                        <p className="mt-1 text-sm text-red-500 flex items-center gap-1">
+                          <AlertCircle className="w-3 h-3" />
+                          {errors.phone}
+                        </p>
+                      )}
                     </div>
                   </div>
 
@@ -312,10 +395,19 @@ const Contact = () => {
                       name="companyName"
                       value={formData.companyName}
                       onChange={handleInputChange}
+                      onBlur={() => validateField('companyName', formData.companyName)}
                       required
-                      className="w-full px-4 py-3 bg-card border border-border rounded-xl focus:outline-none focus:ring-2 focus:ring-primary text-foreground"
+                      className={`w-full px-4 py-3 bg-card border rounded-xl focus:outline-none focus:ring-2 focus:ring-primary text-foreground transition-colors ${
+                        errors.companyName ? 'border-red-500 focus:ring-red-500' : 'border-border'
+                      }`}
                       placeholder="Your Company"
                     />
+                    {errors.companyName && (
+                      <p className="mt-1 text-sm text-red-500 flex items-center gap-1">
+                        <AlertCircle className="w-3 h-3" />
+                        {errors.companyName}
+                      </p>
+                    )}
                   </div>
 
                   <div>
@@ -326,18 +418,35 @@ const Contact = () => {
                       name="helpMessage"
                       value={formData.helpMessage}
                       onChange={handleInputChange}
+                      onBlur={() => validateField('helpMessage', formData.helpMessage)}
                       required
                       rows={4}
-                      className="w-full px-4 py-3 bg-card border border-border rounded-xl focus:outline-none focus:ring-2 focus:ring-primary text-foreground resize-none"
-                      placeholder="Tell us about your needs..."
+                      className={`w-full px-4 py-3 bg-card border rounded-xl focus:outline-none focus:ring-2 focus:ring-primary text-foreground resize-none transition-colors ${
+                        errors.helpMessage ? 'border-red-500 focus:ring-red-500' : 'border-border'
+                      }`}
+                      placeholder="Tell us about your project goals, timeline, and any specific requirements..."
                     />
+                    <div className="flex justify-between mt-1">
+                      {errors.helpMessage ? (
+                        <p className="text-sm text-red-500 flex items-center gap-1">
+                          <AlertCircle className="w-3 h-3" />
+                          {errors.helpMessage}
+                        </p>
+                      ) : (
+                        <p className="text-xs text-muted-foreground">
+                          {formData.helpMessage.length}/2000 characters
+                        </p>
+                      )}
+                    </div>
                   </div>
 
                   <div>
                     <label className="block text-sm font-medium mb-2">
                       Select Services Required *
                     </label>
-                    <div className="grid grid-cols-2 gap-4">
+                    <div className={`grid grid-cols-2 gap-4 p-4 rounded-xl border transition-colors ${
+                      errors.selectedServices ? 'border-red-500 bg-red-500/5' : 'border-border'
+                    }`}>
                       {services.map((service) => (
                         <div
                           key={service}
@@ -345,20 +454,25 @@ const Contact = () => {
                         >
                           <input
                             type="checkbox"
+                            id={`service-${service}`}
                             name="selectedServices"
                             value={service}
-                            checked={formData.selectedServices.includes(
-                              service
-                            )}
+                            checked={formData.selectedServices.includes(service)}
                             onChange={handleInputChange}
                             className="w-4 h-4 rounded border-border text-primary focus:ring-primary cursor-pointer"
                           />
-                          <label htmlFor="selectedServices" className="text-sm">
+                          <label htmlFor={`service-${service}`} className="text-sm cursor-pointer">
                             {service}
                           </label>
                         </div>
                       ))}
                     </div>
+                    {errors.selectedServices && (
+                      <p className="mt-1 text-sm text-red-500 flex items-center gap-1">
+                        <AlertCircle className="w-3 h-3" />
+                        {errors.selectedServices}
+                      </p>
+                    )}
                   </div>
 
                   <div>
@@ -376,15 +490,26 @@ const Contact = () => {
 
                   <div>
                     <label className="block text-sm font-medium mb-2">
-                      Company Logo
+                      Company Logo (Optional)
                     </label>
                     <input
                       type="file"
                       name="companyLogo"
                       onChange={handleInputChange}
-                      accept="image/*"
-                      className="w-full px-4 py-3 bg-card border border-border rounded-xl focus:outline-none focus:ring-2 focus:ring-primary text-foreground"
+                      accept="image/jpeg,image/png,image/webp,image/svg+xml"
+                      className={`w-full px-4 py-3 bg-card border rounded-xl focus:outline-none focus:ring-2 focus:ring-primary text-foreground transition-colors ${
+                        errors.companyLogo ? 'border-red-500 focus:ring-red-500' : 'border-border'
+                      }`}
                     />
+                    <p className="mt-1 text-xs text-muted-foreground">
+                      Accepted formats: JPEG, PNG, WebP, SVG (Max 5MB)
+                    </p>
+                    {errors.companyLogo && (
+                      <p className="mt-1 text-sm text-red-500 flex items-center gap-1">
+                        <AlertCircle className="w-3 h-3" />
+                        {errors.companyLogo}
+                      </p>
+                    )}
                   </div>
 
                   <div>

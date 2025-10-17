@@ -14,6 +14,9 @@ dotenv.config();
 
 const app = express();
 
+// Serve uploaded files
+app.use('/uploads', express.static('uploads'));
+
 // Middleware
 app.use(helmet());
 app.use(express.json({ limit: "5mb" }));

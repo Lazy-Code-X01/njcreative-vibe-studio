@@ -182,13 +182,13 @@ const PortfolioManagement = () => {
             if (!open) resetForm();
           }}>
             <DialogTrigger asChild>
-              <Button className="bg-lemon-500 hover:bg-lemon-600 text-black">
+              <Button className="bg-gradient-to-r from-primary to-primary-glow hover:from-primary-glow hover:to-primary shadow-lg hover:shadow-glow transition-all">
                 <Plus className="w-4 h-4 mr-2" />
                 Add Portfolio
               </Button>
             </DialogTrigger>
 
-            <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto glass-card backdrop-blur-xl border-border/50 rounded-xl shadow-2xl">
+            <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto">
               <DialogHeader>
                 <DialogTitle className="text-2xl font-bold text-center text-lemon-500">
                   {isEditing ? "Edit Portfolio" : "Add New Portfolio"}

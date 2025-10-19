@@ -12,7 +12,11 @@ import { format } from "date-fns";
 const BlogPost = () => {
   const { slug } = useParams();
 
-  const { data: post, isLoading, error } = useQuery({
+  const {
+    data: post,
+    isLoading,
+    error,
+  } = useQuery({
     queryKey: ["blog-post", slug],
     queryFn: async () => {
       const response = await adminApi.getPost(slug!);
@@ -74,7 +78,9 @@ const BlogPost = () => {
       <SEO
         title={post.title}
         description={post.excerpt || post.title}
-        keywords={`blog, ${post.category?.name || 'article'}, ${post.title.toLowerCase()}`}
+        keywords={`blog, ${
+          post.category?.name || "article"
+        }, ${post.title.toLowerCase()}`}
         image={post.featuredImage}
       />
       <Navigation />
@@ -131,7 +137,7 @@ const BlogPost = () => {
               </header>
 
               {/* Article Content */}
-              <div className="prose prose-lg dark:prose-invert max-w-none">
+              <div className="prose prose-lg prose-h2:text-white prose-h3:text-white prose-strong:text-gray-300 max-w-none text-foreground">
                 <div dangerouslySetInnerHTML={{ __html: post.content }} />
               </div>
 

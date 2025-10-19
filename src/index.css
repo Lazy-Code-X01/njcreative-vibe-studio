@@ -2,84 +2,103 @@
 @tailwind components;
 @tailwind utilities;
 
+@plugin "@tailwindcss/typography";
+
 /* NJ Creative Firm - Premium Admin Dashboard Theme */
 
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,500;1,600&family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,500;1,600&family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
 
 @layer base {
   :root {
-  /* Admin Premium Dark Theme - Army Green + Lemon Accents */
-  --background: 0 0% 3%;              /* Almost Black (#080808) */
-  --foreground: 0 0% 98%;             /* Off-white (#FAFAFA) */
+    /* Admin Premium Dark Theme - Army Green + Lemon Accents */
+    --background: 0 0% 3%; /* Almost Black (#080808) */
+    --foreground: 0 0% 98%; /* Off-white (#FAFAFA) */
 
-  /* Card System - Army Green Tones */
-  --card: 82 15% 20%;                 /* Dark Army Green (#2D3320) */
-  --card-foreground: 0 0% 98%;
-  --card-premium: 82 20% 25%;         /* Lighter Army Green */
+    /* Card System - Army Green Tones */
+    --card: 82 15% 20%; /* Dark Army Green (#2D3320) */
+    --card-foreground: 0 0% 98%;
+    --card-premium: 82 20% 25%; /* Lighter Army Green */
 
-  /* Interactive Elements */
-  --popover: 82 15% 18%;              /* Darker Army Green */
-  --popover-foreground: 0 0% 98%;
+    /* Interactive Elements */
+    --popover: 82 15% 18%; /* Darker Army Green */
+    --popover-foreground: 0 0% 98%;
 
-  /* Brand Colors - Army Green & Lemon */
-  --primary: 82 23% 29%;              /* Army Green (#4B5320) */
-  --primary-foreground: 0 0% 98%;
-  --primary-glow: 82 25% 40%;         /* Brighter Army Green */
+    /* Brand Colors - Army Green & Lemon */
+    --primary: 82 23% 29%; /* Army Green (#4B5320) */
+    --primary-foreground: 0 0% 98%;
+    --primary-glow: 82 25% 40%; /* Brighter Army Green */
 
-  --secondary: 75 100% 57%;           /* Lemon Green (#C6FF00) */
-  --secondary-foreground: 82 23% 29%;  /* Army Green text */
-  --secondary-glow: 75 100% 65%;      /* Bright Lemon */
+    --secondary: 75 100% 57%; /* Lemon Green (#C6FF00) */
+    --secondary-foreground: 82 23% 29%; /* Army Green text */
+    --secondary-glow: 75 100% 65%; /* Bright Lemon */
 
-  /* Accent System */
-  --accent: 75 100% 57%;              /* Lemon Green (#C6FF00) */
-  --accent-foreground: 82 23% 29%;    /* Army Green text */
-  --accent-premium: 75 100% 50%;      /* Pure Lemon */
+    /* Accent System */
+    --accent: 75 100% 57%; /* Lemon Green (#C6FF00) */
+    --accent-foreground: 82 23% 29%; /* Army Green text */
+    --accent-premium: 75 100% 50%; /* Pure Lemon */
 
-  /* Muted Tones */
-  --muted: 0 0% 15%;                  /* Dark Grey */
-  --muted-foreground: 0 0% 60%;       /* Medium Grey */
+    /* Muted Tones */
+    --muted: 0 0% 15%; /* Dark Grey */
+    --muted-foreground: 0 0% 60%; /* Medium Grey */
 
-  /* Interactive States */
-  --border: 82 15% 25%;               /* Subtle Army Green Border */
-  --input: 82 15% 18%;                /* Input Background */
-  --ring: 75 100% 57%;                /* Lemon focus ring */
+    /* Interactive States */
+    --border: 82 15% 25%; /* Subtle Army Green Border */
+    --input: 82 15% 18%; /* Input Background */
+    --ring: 75 100% 57%; /* Lemon focus ring */
 
-  /* Destructive */
-  --destructive: 0 75% 60%;
-  --destructive-foreground: 0 0% 98%;
+    /* Destructive */
+    --destructive: 0 75% 60%;
+    --destructive-foreground: 0 0% 98%;
 
-  /* Premium Gradients */
-  --gradient-admin: linear-gradient(135deg, hsl(82 23% 29%) 0%, hsl(82 25% 35%) 50%, hsl(82 15% 20%) 100%);
-  --gradient-lemon: linear-gradient(135deg, hsl(75 100% 57%) 0%, hsl(75 100% 65%) 100%);
-  --gradient-premium: linear-gradient(135deg, hsl(82 23% 29%) 0%, hsl(75 100% 57%) 100%);
-  --gradient-card: linear-gradient(145deg, hsl(82 15% 20%) 0%, hsl(82 20% 25%) 100%);
+    /* Premium Gradients */
+    --gradient-admin: linear-gradient(
+      135deg,
+      hsl(82 23% 29%) 0%,
+      hsl(82 25% 35%) 50%,
+      hsl(82 15% 20%) 100%
+    );
+    --gradient-lemon: linear-gradient(
+      135deg,
+      hsl(75 100% 57%) 0%,
+      hsl(75 100% 65%) 100%
+    );
+    --gradient-premium: linear-gradient(
+      135deg,
+      hsl(82 23% 29%) 0%,
+      hsl(75 100% 57%) 100%
+    );
+    --gradient-card: linear-gradient(
+      145deg,
+      hsl(82 15% 20%) 0%,
+      hsl(82 20% 25%) 100%
+    );
 
-  /* Premium Glass Effects */
-  --glass-card: hsla(82, 15%, 20%, 0.5);
-  --glass-sidebar: hsla(82, 15%, 15%, 0.85);
-  --glass-backdrop: hsla(0, 0%, 3%, 0.9);
+    /* Premium Glass Effects */
+    --glass-card: hsla(82, 15%, 20%, 0.5);
+    --glass-sidebar: hsla(82, 15%, 15%, 0.85);
+    --glass-backdrop: hsla(0, 0%, 3%, 0.9);
 
-  /* Premium Shadows & Glows */
-  --shadow-premium: 0 25px 60px -15px hsla(82, 23%, 29%, 0.5);
-  --shadow-glow: 0 0 40px hsla(75, 100%, 57%, 0.25);
-  --shadow-card: 0 12px 40px hsla(0, 0%, 0%, 0.6);
-  --shadow-lemon: 0 8px 32px hsla(75, 100%, 57%, 0.2);
+    /* Premium Shadows & Glows */
+    --shadow-premium: 0 25px 60px -15px hsla(82, 23%, 29%, 0.5);
+    --shadow-glow: 0 0 40px hsla(75, 100%, 57%, 0.25);
+    --shadow-card: 0 12px 40px hsla(0, 0%, 0%, 0.6);
+    --shadow-lemon: 0 8px 32px hsla(75, 100%, 57%, 0.2);
 
-  /* Animation Timings */
-  --transition-smooth: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
-  --transition-bounce: all 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    /* Animation Timings */
+    --transition-smooth: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+    --transition-bounce: all 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
 
-  --radius: 0.75rem;
+    --radius: 0.75rem;
 
-  /* Sidebar - Dark Army Green */
-  --sidebar-background: 82 15% 12%;
-  --sidebar-foreground: 0 0% 90%;
-  --sidebar-primary: 75 100% 57%;      /* Lemon for active */
-  --sidebar-primary-foreground: 82 23% 29%;
-  --sidebar-accent: 82 20% 20%;
-  --sidebar-accent-foreground: 0 0% 90%;
-  --sidebar-border: 82 15% 18%;
-  --sidebar-ring: 75 100% 57%;
+    /* Sidebar - Dark Army Green */
+    --sidebar-background: 82 15% 12%;
+    --sidebar-foreground: 0 0% 90%;
+    --sidebar-primary: 75 100% 57%; /* Lemon for active */
+    --sidebar-primary-foreground: 82 23% 29%;
+    --sidebar-accent: 82 20% 20%;
+    --sidebar-accent-foreground: 0 0% 90%;
+    --sidebar-border: 82 15% 18%;
+    --sidebar-ring: 75 100% 57%;
   }
 }
 
@@ -90,11 +109,24 @@
 
   body {
     @apply bg-background text-foreground font-body antialiased;
-    background-image: radial-gradient(circle at 20% 80%, hsla(82, 23%, 29%, 0.05) 0%, transparent 50%),
-                      radial-gradient(circle at 80% 20%, hsla(75, 100%, 57%, 0.03) 0%, transparent 50%);
+    background-image: radial-gradient(
+        circle at 20% 80%,
+        hsla(82, 23%, 29%, 0.05) 0%,
+        transparent 50%
+      ),
+      radial-gradient(
+        circle at 80% 20%,
+        hsla(75, 100%, 57%, 0.03) 0%,
+        transparent 50%
+      );
   }
 
-  h1, h2, h3, h4, h5, h6 {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
     @apply font-serif;
   }
 }
@@ -161,9 +193,9 @@
     /* Gradient effect */
     background: linear-gradient(
       135deg,
-      hsl(82 23% 29%) 0%,   /* Army Green */
-      hsl(75 100% 57%) 50%,   /* Lemon Green */
-      hsl(75 100% 65%) 100%  /* Bright Lemon */
+      hsl(82 23% 29%) 0%,
+      /* Army Green */ hsl(75 100% 57%) 50%,
+      /* Lemon Green */ hsl(75 100% 65%) 100% /* Bright Lemon */
     );
 
     background-size: 200% 200%;
@@ -209,32 +241,41 @@
 }
 
 @keyframes gradient {
-  0%, 100% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
+  0%,
+  100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
 }
 
 @keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
 @keyframes slideUp {
-  from { 
+  from {
     opacity: 0;
     transform: translateY(30px);
   }
-  to { 
+  to {
     opacity: 1;
     transform: translateY(0);
   }
 }
 
 @keyframes scaleIn {
-  from { 
+  from {
     opacity: 0;
     transform: scale(0.95);
   }
-  to { 
+  to {
     opacity: 1;
     transform: scale(1);
   }

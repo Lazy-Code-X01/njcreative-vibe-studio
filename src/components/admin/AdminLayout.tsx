@@ -1,21 +1,29 @@
-import { ReactNode } from 'react';
-import { Navigate, Link, useLocation } from 'react-router-dom';
-import { useAdminAuth } from '@/contexts/AdminAuthContext';
-import { LayoutDashboard, MessageSquare, FileText, FolderTree, LogOut, Menu, Briefcase } from 'lucide-react';
-import { Button } from '@/components/ui/button';
-import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
-import logo from '@/assets/webp/creative-firm-logo.webp';
+import { ReactNode } from "react";
+import { Navigate, Link, useLocation } from "react-router-dom";
+import { useAdminAuth } from "@/contexts/AdminAuthContext";
+import {
+  LayoutDashboard,
+  MessageSquare,
+  FileText,
+  FolderTree,
+  LogOut,
+  Menu,
+  Briefcase,
+} from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import logo from "@/assets/webp/creative-firm-logo.webp";
 
 interface AdminLayoutProps {
   children: ReactNode;
 }
 
 const navItems = [
-  { path: '/admin/dashboard', icon: LayoutDashboard, label: 'Dashboard' },
-  { path: '/admin/messages', icon: MessageSquare, label: 'Messages' },
-  { path: '/admin/blog', icon: FileText, label: 'Blog Posts' },
-  { path: '/admin/categories', icon: FolderTree, label: 'Categories' },
-  { path: '/admin/portfolio', icon: Briefcase, label: 'Portfolio' },
+  { path: "/admin/dashboard", icon: LayoutDashboard, label: "Dashboard" },
+  { path: "/admin/messages", icon: MessageSquare, label: "Messages" },
+  { path: "/admin/blog", icon: FileText, label: "Blog Posts" },
+  { path: "/admin/categories", icon: FolderTree, label: "Categories" },
+  { path: "/admin/portfolio", icon: Briefcase, label: "Portfolio" },
 ];
 
 const Sidebar = ({ mobile = false }: { mobile?: boolean }) => {
@@ -23,13 +31,16 @@ const Sidebar = ({ mobile = false }: { mobile?: boolean }) => {
   const { logout, username } = useAdminAuth();
 
   return (
-    <div className="flex flex-col h-full glass-card border-r border-border/50" style={{ background: 'var(--glass-sidebar)' }}>
+    <div
+      className="flex flex-col h-full rounded-none border-r border-border/50"
+      style={{ background: "var(--glass-sidebar)" }}
+    >
       {/* Logo Header */}
       <div className="p-6 border-b border-border/50">
         <div className="flex items-center gap-3">
-          <img 
-            src={logo} 
-            alt="NJ Creative Firm" 
+          <img
+            src={logo}
+            alt="NJ Creative Firm"
             className="w-10 h-10 object-contain"
           />
           <div>
@@ -50,8 +61,8 @@ const Sidebar = ({ mobile = false }: { mobile?: boolean }) => {
               to={item.path}
               className={`flex items-center gap-3 px-4 py-3 rounded-lg font-medium transition-all duration-300 ${
                 isActive
-                  ? 'bg-secondary text-secondary-foreground shadow-lemon'
-                  : 'text-muted-foreground'
+                  ? "bg-secondary text-secondary-foreground shadow-lemon"
+                  : "text-muted-foreground"
               }`}
             >
               <Icon className="h-5 w-5" />
@@ -69,7 +80,7 @@ const Sidebar = ({ mobile = false }: { mobile?: boolean }) => {
         </div>
         <Button
           variant="ghost"
-          className="w-full justify-start gap-3 text-destructive transition-colors"
+          className="w-full justify-start gap-3 text-destructive"
           onClick={logout}
         >
           <LogOut className="h-5 w-5" />
@@ -81,7 +92,7 @@ const Sidebar = ({ mobile = false }: { mobile?: boolean }) => {
 };
 
 export const AdminLayout = ({ children }: AdminLayoutProps) => {
-  const { isAuthenticated } = useAdminAuth();
+  const { isAuthenticated, username } = useAdminAuth();
 
   if (!isAuthenticated) {
     return <Navigate to="/admin/login" replace />;
@@ -98,11 +109,14 @@ export const AdminLayout = ({ children }: AdminLayoutProps) => {
       <div className="md:hidden fixed top-4 left-4 z-50">
         <Sheet>
           <SheetTrigger asChild>
-            <Button variant="outline" size="icon" className="glass-card">
+            <Button variant="outline" size="icon" className="rounded-none">
               <Menu className="h-5 w-5" />
             </Button>
           </SheetTrigger>
-          <SheetContent side="left" className="p-0 w-72 bg-sidebar-background">
+          <SheetContent
+            side="left"
+            className="p-0 w-72 bg-sidebar-background rounded-none"
+          >
             <Sidebar mobile />
           </SheetContent>
         </Sheet>
@@ -111,14 +125,14 @@ export const AdminLayout = ({ children }: AdminLayoutProps) => {
       {/* Main Content Area */}
       <main className="flex-1 overflow-auto">
         {/* Top Navbar */}
-        <div className="sticky top-0 z-40 glass-card border-b border-border/50 px-6 py-4 md:px-8">
+        <div className="sticky bg-black top-0 z-40 border-b border-border/50 px-6 py-4 md:px-8 rounded-none">
           <div className="flex items-center justify-between">
             <div className="md:hidden" />
             <div className="flex-1 md:flex-none" />
             <div className="flex items-center gap-4">
               <div className="w-8 h-8 rounded-full bg-gradient-to-br from-secondary to-secondary-glow flex items-center justify-center">
                 <span className="text-xs font-bold text-secondary-foreground">
-                  {useAdminAuth().username?.charAt(0).toUpperCase()}
+                  {username?.charAt(0).toUpperCase()}
                 </span>
               </div>
             </div>

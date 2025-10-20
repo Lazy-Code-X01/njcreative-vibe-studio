@@ -125,7 +125,7 @@ export const AdminLayout = ({ children }: AdminLayoutProps) => {
       {/* Main Content Area */}
       <main className="flex-1 overflow-auto">
         {/* Top Navbar */}
-        <div className="sticky top-0 z-40 border-b border-border/50 px-6 py-4 md:px-8 rounded-none">
+        <div className="sticky bg-black top-0 z-40 border-b border-border/50 px-6 py-4 md:px-8 rounded-none">
           <div className="flex items-center justify-between">
             <div className="md:hidden" />
             <div className="flex-1 md:flex-none" />

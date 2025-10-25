@@ -209,6 +209,23 @@ const Services = () => {
       technologies: ["Adobe Premiere Pro", "Final Cut Pro", "After Effects"],
       startingPrice: "$10,000",
     },
+    {
+      id: "recruitment-talent",
+      icon: <Cog className="w-12 h-12" />,
+      title: "Recruitment Services",
+      subtitle: "Talent Acquisition & Hiring",
+      description:
+        "We help you find the right talent for your business. We offer a range of services to help you attract, hire, and retain top talent.",
+      features: [
+        "Talent Acquisition",
+        "Talent Hiring",
+        "Talent Retention",
+        "Talent Development",
+        "Employer Branding",
+      ],
+      technologies: ["LinkedIn Recruiter", "Indeed", "Glassdoor"],
+      startingPrice: "$10,000",
+    },
   ];
 
   const process = [

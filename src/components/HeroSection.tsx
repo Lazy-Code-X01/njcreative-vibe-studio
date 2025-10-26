@@ -16,11 +16,11 @@ const HeroSection = () => {
         <div className="max-w-5xl mx-auto animate-fade-in">
           {/* Main Headline */}
           <h1 className="mt-20 text-6xl md:text-8xl font-heading font-black mb-8 leading-[0.9] tracking-tight">
-            <span className="block text-foreground">Future</span>
+            <span className="block text-foreground">Innovate.</span>
             <span className="block gradient-text animate-gradient font-serif italic">
-              Digital
+              Create.
             </span>
-            <span className="block text-foreground">Aesthetics</span>
+            <span className="block text-foreground">Elevate</span>
           </h1>
 
           {/* Subtitle */}

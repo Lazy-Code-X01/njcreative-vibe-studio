@@ -1,19 +1,33 @@
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
-import { Mail, Phone, MapPin, Clock, Send, MessageCircle, CheckCircle2, AlertCircle } from "lucide-react";
+import {
+  Mail,
+  Phone,
+  MapPin,
+  Clock,
+  Send,
+  MessageCircle,
+  CheckCircle2,
+  AlertCircle,
+} from "lucide-react";
 import { useState } from "react";
 import { toast } from "sonner";
 import SEO from "@/components/SEO";
 import { FaSpinner } from "react-icons/fa6";
-import { contactFormSchema, type ContactFormData } from "@/lib/validations/contact";
+import {
+  contactFormSchema,
+  type ContactFormData,
+} from "@/lib/validations/contact";
 import { contactApi } from "@/lib/contactApi";
 import { z } from "zod";
 
 const Contact = () => {
   const [loading, setLoading] = useState(false);
   const [submitted, setSubmitted] = useState(false);
-  const [errors, setErrors] = useState<Partial<Record<keyof ContactFormData, string>>>({});
+  const [errors, setErrors] = useState<
+    Partial<Record<keyof ContactFormData, string>>
+  >({});
   const [formData, setFormData] = useState<ContactFormData>({
     firstName: "",
     lastName: "",
@@ -61,11 +75,11 @@ const Contact = () => {
     try {
       const fieldSchema = contactFormSchema.shape[name];
       fieldSchema.parse(value);
-      setErrors(prev => ({ ...prev, [name]: undefined }));
+      setErrors((prev) => ({ ...prev, [name]: undefined }));
       return true;
     } catch (error) {
       if (error instanceof z.ZodError) {
-        setErrors(prev => ({ ...prev, [name]: error.errors[0].message }));
+        setErrors((prev) => ({ ...prev, [name]: error.errors[0].message }));
       }
       return false;
     }
@@ -92,7 +106,7 @@ const Contact = () => {
       });
 
       await contactApi.submitContactForm(formDataToSend);
-      
+
       setSubmitted(true);
       toast.success(
         "Thank you! Your enquiry has been submitted successfully. We'll get back to you within 24-48 hours.",
@@ -115,12 +129,13 @@ const Contact = () => {
       });
 
       // Reset file input
-      const fileInput = document.querySelector('input[type="file"]') as HTMLInputElement;
-      if (fileInput) fileInput.value = '';
+      const fileInput = document.querySelector(
+        'input[type="file"]'
+      ) as HTMLInputElement;
+      if (fileInput) fileInput.value = "";
 
       // Scroll to top smoothly
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-
+      window.scrollTo({ top: 0, behavior: "smooth" });
     } catch (error) {
       if (error instanceof z.ZodError) {
         const fieldErrors: Partial<Record<keyof ContactFormData, string>> = {};
@@ -134,7 +149,9 @@ const Contact = () => {
       } else {
         console.error("Error submitting form:", error);
         toast.error(
-          error instanceof Error ? error.message : "Failed to submit form. Please try again or contact us directly.",
+          error instanceof Error
+            ? error.message
+            : "Failed to submit form. Please try again or contact us directly.",
           { duration: 5000 }
         );
       }
@@ -149,18 +166,21 @@ const Contact = () => {
       title: "Email Us",
       details: ["projects@njcreativefirm.com"],
       action: "Send Email",
+      link: "mailto:projects@njcreativefirm.com",
     },
     {
       icon: <Phone className="w-6 h-6" />,
       title: "Call Us",
       details: ["+234 903 496 4186"],
       action: "Call Now",
+      link: "tel:+2349034964186",
     },
     {
       icon: <MapPin className="w-6 h-6" />,
       title: "Visit Us",
       details: ["Seaside Estate, Ajah, Lagos", "Nigeria"],
       action: "Get Directions",
+      link: "https://www.google.com/maps/search/?api=1&query=Seaside+Estate+Ajah+Lagos+Nigeria",
     },
     {
       icon: <Clock className="w-6 h-6" />,
@@ -169,7 +189,8 @@ const Contact = () => {
         "Monday - Friday: 9:00 AM - 6:00 PM",
         "Saturday: 10:00 AM - 4:00 PM",
       ],
-      action: "Schedule Call",
+      action: "Schedule Meeting",
+      link: "https://calendly.com/njcreativefirm/30min",
     },
   ];
 
@@ -211,10 +232,13 @@ const Contact = () => {
                 <div className="mb-8 p-6 bg-green-500/10 border border-green-500/20 rounded-2xl animate-fade-in">
                   <div className="flex items-center justify-center gap-3 mb-3">
                     <CheckCircle2 className="w-8 h-8 text-green-500" />
-                    <h2 className="text-2xl font-bold text-green-500">Enquiry Submitted!</h2>
+                    <h2 className="text-2xl font-bold text-green-500">
+                      Enquiry Submitted!
+                    </h2>
                   </div>
                   <p className="text-muted-foreground">
-                    We've received your project details and will respond within 24-48 hours.
+                    We've received your project details and will respond within
+                    24-48 hours.
                   </p>
                 </div>
               )}
@@ -238,9 +262,16 @@ const Contact = () => {
           <div className="container mx-auto px-6">
             <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto">
               {contactInfo.map((info, index) => (
-                <div
+                <a
                   key={index}
-                  className="glass-card p-6 text-center hover:scale-105 transition-all duration-300 group"
+                  href={info.link}
+                  target={info.link.startsWith("http") ? "_blank" : undefined}
+                  rel={
+                    info.link.startsWith("http")
+                      ? "noopener noreferrer"
+                      : undefined
+                  }
+                  className="block glass-card p-6 text-center hover:scale-105 transition-all duration-300 group"
                 >
                   <div className="text-primary mb-4 flex justify-center group-hover:scale-110 transition-transform">
                     {info.icon}
@@ -258,7 +289,7 @@ const Contact = () => {
                   <Button className="btn-outline-luxury text-sm">
                     {info.action}
                   </Button>
-                </div>
+                </a>
               ))}
             </div>
           </div>
@@ -284,10 +315,14 @@ const Contact = () => {
                         name="firstName"
                         value={formData.firstName}
                         onChange={handleInputChange}
-                        onBlur={() => validateField('firstName', formData.firstName)}
+                        onBlur={() =>
+                          validateField("firstName", formData.firstName)
+                        }
                         required
                         className={`w-full px-4 py-3 bg-card border rounded-xl focus:outline-none focus:ring-2 focus:ring-primary text-foreground transition-colors ${
-                          errors.firstName ? 'border-red-500 focus:ring-red-500' : 'border-border'
+                          errors.firstName
+                            ? "border-red-500 focus:ring-red-500"
+                            : "border-border"
                         }`}
                         placeholder="John"
                       />
@@ -307,10 +342,14 @@ const Contact = () => {
                         name="lastName"
                         value={formData.lastName}
                         onChange={handleInputChange}
-                        onBlur={() => validateField('lastName', formData.lastName)}
+                        onBlur={() =>
+                          validateField("lastName", formData.lastName)
+                        }
                         required
                         className={`w-full px-4 py-3 bg-card border rounded-xl focus:outline-none focus:ring-2 focus:ring-primary text-foreground transition-colors ${
-                          errors.lastName ? 'border-red-500 focus:ring-red-500' : 'border-border'
+                          errors.lastName
+                            ? "border-red-500 focus:ring-red-500"
+                            : "border-border"
                         }`}
                         placeholder="Doe"
                       />
@@ -333,10 +372,12 @@ const Contact = () => {
                         name="email"
                         value={formData.email}
                         onChange={handleInputChange}
-                        onBlur={() => validateField('email', formData.email)}
+                        onBlur={() => validateField("email", formData.email)}
                         required
                         className={`w-full px-4 py-3 bg-card border rounded-xl focus:outline-none focus:ring-2 focus:ring-primary text-foreground transition-colors ${
-                          errors.email ? 'border-red-500 focus:ring-red-500' : 'border-border'
+                          errors.email
+                            ? "border-red-500 focus:ring-red-500"
+                            : "border-border"
                         }`}
                         placeholder="john@company.com"
                       />
@@ -356,10 +397,12 @@ const Contact = () => {
                         name="phone"
                         value={formData.phone}
                         onChange={handleInputChange}
-                        onBlur={() => validateField('phone', formData.phone)}
+                        onBlur={() => validateField("phone", formData.phone)}
                         required
                         className={`w-full px-4 py-3 bg-card border rounded-xl focus:outline-none focus:ring-2 focus:ring-primary text-foreground transition-colors ${
-                          errors.phone ? 'border-red-500 focus:ring-red-500' : 'border-border'
+                          errors.phone
+                            ? "border-red-500 focus:ring-red-500"
+                            : "border-border"
                         }`}
                         placeholder="+234 903 496 4186"
                       />
@@ -395,10 +438,14 @@ const Contact = () => {
                       name="companyName"
                       value={formData.companyName}
                       onChange={handleInputChange}
-                      onBlur={() => validateField('companyName', formData.companyName)}
+                      onBlur={() =>
+                        validateField("companyName", formData.companyName)
+                      }
                       required
                       className={`w-full px-4 py-3 bg-card border rounded-xl focus:outline-none focus:ring-2 focus:ring-primary text-foreground transition-colors ${
-                        errors.companyName ? 'border-red-500 focus:ring-red-500' : 'border-border'
+                        errors.companyName
+                          ? "border-red-500 focus:ring-red-500"
+                          : "border-border"
                       }`}
                       placeholder="Your Company"
                     />
@@ -418,11 +465,15 @@ const Contact = () => {
                       name="helpMessage"
                       value={formData.helpMessage}
                       onChange={handleInputChange}
-                      onBlur={() => validateField('helpMessage', formData.helpMessage)}
+                      onBlur={() =>
+                        validateField("helpMessage", formData.helpMessage)
+                      }
                       required
                       rows={4}
                       className={`w-full px-4 py-3 bg-card border rounded-xl focus:outline-none focus:ring-2 focus:ring-primary text-foreground resize-none transition-colors ${
-                        errors.helpMessage ? 'border-red-500 focus:ring-red-500' : 'border-border'
+                        errors.helpMessage
+                          ? "border-red-500 focus:ring-red-500"
+                          : "border-border"
                       }`}
                       placeholder="Tell us about your project goals, timeline, and any specific requirements..."
                     />
@@ -444,9 +495,13 @@ const Contact = () => {
                     <label className="block text-sm font-medium mb-2">
                       Select Services Required *
                     </label>
-                    <div className={`grid grid-cols-2 gap-4 p-4 rounded-xl border transition-colors ${
-                      errors.selectedServices ? 'border-red-500 bg-red-500/5' : 'border-border'
-                    }`}>
+                    <div
+                      className={`grid grid-cols-2 gap-4 p-4 rounded-xl border transition-colors ${
+                        errors.selectedServices
+                          ? "border-red-500 bg-red-500/5"
+                          : "border-border"
+                      }`}
+                    >
                       {services.map((service) => (
                         <div
                           key={service}
@@ -457,11 +512,16 @@ const Contact = () => {
                             id={`service-${service}`}
                             name="selectedServices"
                             value={service}
-                            checked={formData.selectedServices.includes(service)}
+                            checked={formData.selectedServices.includes(
+                              service
+                            )}
                             onChange={handleInputChange}
                             className="w-4 h-4 rounded border-border text-primary focus:ring-primary cursor-pointer"
                           />
-                          <label htmlFor={`service-${service}`} className="text-sm cursor-pointer">
+                          <label
+                            htmlFor={`service-${service}`}
+                            className="text-sm cursor-pointer"
+                          >
                             {service}
                           </label>
                         </div>
@@ -498,7 +558,9 @@ const Contact = () => {
                       onChange={handleInputChange}
                       accept="image/jpeg,image/png,image/webp,image/svg+xml"
                       className={`w-full px-4 py-3 bg-card border rounded-xl focus:outline-none focus:ring-2 focus:ring-primary text-foreground transition-colors ${
-                        errors.companyLogo ? 'border-red-500 focus:ring-red-500' : 'border-border'
+                        errors.companyLogo
+                          ? "border-red-500 focus:ring-red-500"
+                          : "border-border"
                       }`}
                     />
                     <p className="mt-1 text-xs text-muted-foreground">
@@ -546,10 +608,19 @@ const Contact = () => {
                         )}
                       </span>
                     </Button>
-                    <Button type="button" className="btn-outline-luxury flex-1">
-                      <MessageCircle className="mr-2 w-4 h-4" />
-                      Schedule Call
-                    </Button>
+                    <a
+                      href="https://calendly.com/njcreativefirm/30min"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      <Button
+                        type="button"
+                        className="btn-outline-luxury flex-1"
+                      >
+                        <Clock className="mr-2 w-4 h-4" />
+                        Schedule Meeting
+                      </Button>
+                    </a>
                   </div>
                 </form>
               </div>
@@ -579,9 +650,15 @@ const Contact = () => {
                         <br />
                         Nigeria
                       </p>
-                      <Button className="btn-outline-luxury text-sm">
-                        Get Directions
-                      </Button>
+                      <a
+                        href="https://www.google.com/maps/search/?api=1&query=Seaside+Estate+Ajah+Lagos+Nigeria"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        <Button className="btn-outline-luxury text-sm">
+                          Get Directions
+                        </Button>
+                      </a>
                     </div>
                   </div>
                 </div>
@@ -592,7 +669,10 @@ const Contact = () => {
                     Prefer Direct Contact?
                   </h3>
                   <div className="space-y-4">
-                    <div className="flex items-center space-x-3 p-3 rounded-xl hover:bg-muted/10 transition-colors cursor-pointer">
+                    <a
+                      href="tel:+2349034964186"
+                      className="flex items-center space-x-3 p-3 rounded-xl hover:bg-muted/10 transition-colors"
+                    >
                       <div className="w-10 h-10 bg-primary/10 rounded-full flex items-center justify-center">
                         <Phone className="w-5 h-5 text-primary" />
                       </div>
@@ -602,9 +682,12 @@ const Contact = () => {
                           +234 903 496 4186
                         </p>
                       </div>
-                    </div>
+                    </a>
 
-                    <div className="flex items-center space-x-3 p-3 rounded-xl hover:bg-muted/10 transition-colors cursor-pointer">
+                    <a
+                      href="mailto:projects@njcreativefirm.com"
+                      className="flex items-center space-x-3 p-3 rounded-xl hover:bg-muted/10 transition-colors"
+                    >
                       <div className="w-10 h-10 bg-secondary/10 rounded-full flex items-center justify-center">
                         <Mail className="w-5 h-5 text-secondary" />
                       </div>
@@ -614,9 +697,14 @@ const Contact = () => {
                           projects@njcreativefirm.com
                         </p>
                       </div>
-                    </div>
+                    </a>
 
-                    <div className="flex items-center space-x-3 p-3 rounded-xl hover:bg-muted/10 transition-colors cursor-pointer">
+                    <a
+                      href="https://wa.me/2349034964186"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center space-x-3 p-3 rounded-xl hover:bg-muted/10 transition-colors"
+                    >
                       <div className="w-10 h-10 bg-accent-premium/10 rounded-full flex items-center justify-center">
                         <MessageCircle className="w-5 h-5 text-accent-premium" />
                       </div>
@@ -626,7 +714,7 @@ const Contact = () => {
                           +234 903 496 4186
                         </p>
                       </div>
-                    </div>
+                    </a>
                   </div>
                 </div>
               </div>

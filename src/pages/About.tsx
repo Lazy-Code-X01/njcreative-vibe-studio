@@ -1,7 +1,14 @@
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Users, Target, Award, Lightbulb } from "lucide-react";
+import {
+  ArrowRight,
+  Users,
+  Target,
+  Award,
+  Lightbulb,
+  Linkedin,
+} from "lucide-react";
 import SEO from "@/components/SEO";
 
 import wealthImg from "@/assets/wealth.png";
@@ -53,24 +60,28 @@ const About = () => {
       role: "Founder & Creative Director",
       image: natashaImg,
       bio: "Visionary leader with 15+ years crafting award-winning digital experiences for Fortune 500 companies and innovative startups across Africa and beyond.",
+      linkedin: "https://www.linkedin.com/in/natasha-jumbo/",
     },
     {
       name: "Operations Director",
       role: "Head of Operations",
       image: wealthImg,
       bio: "Strategic operations expert specializing in scaling creative processes and delivering exceptional client outcomes through innovative management approaches.",
+      linkedin: "https://www.linkedin.com/company/nj-creative-firm/",
     },
     {
       name: "IDAH SHIDU",
       role: "Human Resources Director",
       image: idahImg,
       bio: "Dynamic HR leader fostering a culture of creativity and excellence, with expertise in talent acquisition and organizational development in the creative industry.",
+      linkedin: "https://www.linkedin.com/in/idah-shidu/",
     },
     {
       name: "ALEXANDRA APPAH",
       role: "Brand Director",
       image: alexandraImg,
       bio: "Innovative brand strategist with a proven track record in developing distinctive brand identities and driving market-leading positioning strategies for diverse clients.",
+      linkedin: "https://www.linkedin.com/in/alexandra-appah/",
     },
   ];
 
@@ -293,9 +304,18 @@ const About = () => {
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-background/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                     <div className="absolute bottom-4 left-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                      <p className="text-sm text-foreground leading-relaxed">
+                      <p className="text-sm text-foreground leading-relaxed mb-4">
                         {member.bio}
                       </p>
+                      <a
+                        href={member.linkedin}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-2 text-sm text-white bg-[#0077b5] hover:bg-[#0077b5]/90 px-4 py-2 rounded-full transition-colors"
+                      >
+                        <Linkedin className="w-4 h-4" />
+                        Connect on LinkedIn
+                      </a>
                     </div>
                   </div>
                   <h3 className="font-heading font-bold text-xl mb-2 group-hover:text-primary transition-colors">

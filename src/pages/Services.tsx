@@ -17,11 +17,11 @@ const Services = () => {
   useEffect(() => {
     const hash = window.location.hash;
     if (hash) {
-      const id = hash.replace('#', '');
+      const id = hash.replace("#", "");
       const element = document.getElementById(id);
       if (element) {
         setTimeout(() => {
-          element.scrollIntoView({ behavior: 'smooth' });
+          element.scrollIntoView({ behavior: "smooth" });
         }, 100);
       }
     }
@@ -29,10 +29,46 @@ const Services = () => {
 
   const services = [
     {
+      id: "branding",
+      icon: <Palette className="w-12 h-12" />,
+      title: "Branding & Rebranding",
+      subtitle: "Memorable, Strategic, Impactful",
+      description:
+        "Crafting identities that communicate value and complete brand identity systems that capture your essence and resonate with your target audience.",
+      features: [
+        "Brand Strategy & Positioning",
+        "Logo & Visual Identity Design",
+        "Brand Guidelines & Systems",
+        "Marketing Collateral Design",
+        "Packaging & Print Design",
+        "Digital Asset Creation",
+      ],
+      technologies: ["Adobe Creative Suite", "Figma", "Sketch", "Principle"],
+      startingPrice: "$3,000",
+    },
+    {
+      id: "logo",
+      icon: <Palette className="w-12 h-12" />,
+      title: "Logo Design & Brand Identity ",
+      subtitle: "Memorable, Strategic, Impactful",
+      description:
+        "Distinct visuals that define your brand. We create logos and complete brand identity systems that capture your essence and resonate with your target audience.",
+      features: [
+        "Brand Strategy & Positioning",
+        "Logo & Visual Identity Design",
+        "Brand Guidelines & Systems",
+        "Marketing Collateral Design",
+        "Packaging & Print Design",
+        "Digital Asset Creation",
+      ],
+      technologies: ["Adobe Creative Suite", "Figma", "Sketch", "Principle"],
+      startingPrice: "$3,000",
+    },
+    {
       id: "web-development",
       icon: <Code className="w-12 h-12" />,
-      title: "Web Development",
-      subtitle: "Modern, Responsive, High-Performance",
+      title: "Website Design & Development",
+      subtitle: "Responsive, sleek, and conversion-driven websites.",
       description:
         "Custom websites and web applications built with cutting-edge technologies that scale with your business growth.",
       features: [
@@ -53,28 +89,55 @@ const Services = () => {
       startingPrice: "$5,000",
     },
     {
-      id: "branding",
-      icon: <Palette className="w-12 h-12" />,
-      title: "Branding & Design",
-      subtitle: "Memorable, Strategic, Impactful",
+      id: "ui-ux",
+      icon: <TrendingUp className="w-12 h-12" />,
+      title: "UI/UX Design",
+      subtitle: "User-centered interfaces that boost engagement.",
       description:
-        "Complete brand identity systems that capture your essence and resonate with your target audience.",
+        "Strategic digital marketing campaigns that drive engagement, conversions, and sustainable growth.",
       features: [
-        "Brand Strategy & Positioning",
-        "Logo & Visual Identity Design",
-        "Brand Guidelines & Systems",
-        "Marketing Collateral Design",
-        "Packaging & Print Design",
-        "Digital Asset Creation",
+        "SEO & Content Strategy",
+        "Social Media Marketing",
+        "Pay-Per-Click Advertising",
+        "Email Marketing Automation",
+        "Analytics & Reporting",
+        "Conversion Optimization",
       ],
-      technologies: ["Adobe Creative Suite", "Figma", "Sketch", "Principle"],
-      startingPrice: "$3,000",
+      technologies: [
+        "Google Analytics",
+        "SEMrush",
+        "Mailchimp",
+        "Facebook Ads",
+      ],
+      startingPrice: "$2,500/mo",
+    },
+    {
+      id: "social-media",
+      icon: <TrendingUp className="w-12 h-12" />,
+      title: "Socail Media Management",
+      subtitle: "Strategy, content, and analytics for digital presence.",
+      description:
+        "Strategic digital marketing campaigns that drive engagement, conversions, and sustainable growth.",
+      features: [
+        "Social Media Strategy",
+        "Content Creation",
+        "Analytics & Reporting",
+        "Conversion Optimization",
+        "Community Management",
+      ],
+      technologies: [
+        "Google Analytics",
+        "SEMrush",
+        "Mailchimp",
+        "Facebook Ads",
+      ],
+      startingPrice: "$2,500/mo",
     },
     {
       id: "marketing",
       icon: <TrendingUp className="w-12 h-12" />,
-      title: "Digital Marketing",
-      subtitle: "Data-Driven, Results-Focused",
+      title: "Digital Marketing & Advertisment",
+      subtitle: "Targeted campaigns that deliver measurable ROI.",
       description:
         "Strategic digital marketing campaigns that drive engagement, conversions, and sustainable growth.",
       features: [
@@ -112,10 +175,10 @@ const Services = () => {
       startingPrice: "$10,000",
     },
     {
-      id: "services",
+      id: "content-creation",
       icon: <Cog className="w-12 h-12" />,
-      title: "Services",
-      subtitle: "Custom, Scalable, Innovative",
+      title: "Conten Creation & Cpoyywriting",
+      subtitle: "Storytelling that connects and converts.",
       description:
         "Bespoke technology solutions including mobile apps, automation systems, and enterprise platforms.",
       features: [
@@ -130,57 +193,37 @@ const Services = () => {
       startingPrice: "$10,000",
     },
     {
-      id: "printing",
+      id: "video-production",
       icon: <Cog className="w-12 h-12" />,
-      title: "Printing",
-      subtitle: "Custom, Scalable, Innovative",
+      title: "Video Production",
+      subtitle: "Engaging visuals that elevate brand emotion.",
       description:
         "Bespoke technology solutions including mobile apps, automation systems, and enterprise platforms.",
       features: [
-        "Mobile App Development",
-        "Custom Software Solutions",
-        "System Integration",
-        "Process Automation",
-        "Cloud Solutions",
-        "Technical Consulting",
+        "Video Editing",
+        "Motion Graphics",
+        "VFX & VFX Compositing",
+        "Animation & Motion Design",
+        "Color Grading & Correction",
       ],
-      technologies: ["React Native", "Python", "AWS", "Docker", "PostgreSQL"],
-      startingPrice: "$10,000",
-    },
-    {
-      id: "photography",
-      icon: <Cog className="w-12 h-12" />,
-      title: "Photography",
-      subtitle: "Custom, Scalable, Innovative",
-      description:
-        "Bespoke technology solutions including mobile apps, automation systems, and enterprise platforms.",
-      features: [
-        "Mobile App Development",
-        "Custom Software Solutions",
-        "System Integration",
-        "Process Automation",
-        "Cloud Solutions",
-        "Technical Consulting",
-      ],
-      technologies: ["React Native", "Python", "AWS", "Docker", "PostgreSQL"],
+      technologies: ["Adobe Premiere Pro", "Final Cut Pro", "After Effects"],
       startingPrice: "$10,000",
     },
     {
       id: "recruitment-talent",
       icon: <Cog className="w-12 h-12" />,
-      title: "Recruitment & Talent Branding",
-      subtitle: "Custom, Scalable, Innovative",
+      title: "Recruitment Services",
+      subtitle: "Talent Acquisition & Hiring",
       description:
-        "Bespoke technology solutions including mobile apps, automation systems, and enterprise platforms.",
+        "We help you find the right talent for your business. We offer a range of services to help you attract, hire, and retain top talent.",
       features: [
-        "Mobile App Development",
-        "Custom Software Solutions",
-        "System Integration",
-        "Process Automation",
-        "Cloud Solutions",
-        "Technical Consulting",
+        "Talent Acquisition",
+        "Talent Hiring",
+        "Talent Retention",
+        "Talent Development",
+        "Employer Branding",
       ],
-      technologies: ["React Native", "Python", "AWS", "Docker", "PostgreSQL"],
+      technologies: ["LinkedIn Recruiter", "Indeed", "Glassdoor"],
       startingPrice: "$10,000",
     },
   ];
@@ -226,7 +269,7 @@ const Services = () => {
 
   return (
     <div className="min-h-screen bg-background">
-      <SEO 
+      <SEO
         title="Our Services"
         description="Explore our comprehensive range of digital services including web development, branding, marketing, and tech solutions tailored for your business success."
         keywords="digital services, web development, branding, marketing, tech solutions"

@@ -227,6 +227,16 @@ const Footer = () => {
               </a>
             </div>
           </div>
+
+          <div className="mt-5 space-y-3 text-muted-foreground text-sm">
+            <p>Registration No: 8136817 TIN: 32608398-0001</p>
+            <p>Address: 2 Seaside Estate, Badore, Ajah, Lagos</p>
+            <p>Bank: Wema/Alat – NJ Creative Firm – 0126564974</p>
+            <p>
+              Add Privacy Policy, Terms, Cookie Policy, and © 2025 NJ Creative
+              Firm
+            </p>
+          </div>
         </div>
       </div>
     </footer>

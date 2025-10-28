@@ -28,9 +28,10 @@ const Navigation = () => {
         { label: "Branding & Design", path: "/services#branding" },
         { label: "Digital Marketing", path: "/services#marketing" },
         { label: "Tech Solutions", path: "/services#tech-solutions" },
-        { label: "UI-UX", path: "/services#ui-ux" },
-        { label: "social-media", path: "/services#social-media" },
-        { label: "Content-Creation", path: "/services#content-creation" },
+        { label: "UI UX", path: "/services#ui-ux" },
+        { label: "Social Media", path: "/services#social-media" },
+        { label: "Content Creation", path: "/services#content-creation" },
+        { label: "SEO", path: "/services#content-creation" },
         { label: "Recuiment Services", path: "/services#recruitment-talent" },
       ],
     },
@@ -96,30 +97,32 @@ const Navigation = () => {
 
                     {/* Dropdown */}
                     <div
-                      className={`absolute top-full left-0 mt-2 w-64 glass-card rounded-2xl p-2 transition-all duration-300 ${
+                      className={`absolute top-full left-0 mt-2 w-[480px] glass-card rounded-2xl p-2 transition-all duration-300 ${
                         isServicesOpen
                           ? "opacity-100 visible translate-y-0"
                           : "opacity-0 invisible -translate-y-2"
                       }`}
                     >
-                      {item.dropdown.map((dropdownItem) => (
-                        <Link
-                          key={dropdownItem.label}
-                          to={dropdownItem.path}
-                          onClick={(e) => {
-                            const id = dropdownItem.path.split("#")[1];
-                            const element = document.getElementById(id);
-                            if (element) {
-                              e.preventDefault();
-                              element.scrollIntoView({ behavior: "smooth" });
-                              setIsServicesOpen(false);
-                            }
-                          }}
-                          className="block px-4 py-3 text-muted-foreground hover:text-primary hover:bg-glass-luxury rounded-xl transition-all duration-300 font-medium"
-                        >
-                          {dropdownItem.label}
-                        </Link>
-                      ))}
+                      <div className="grid grid-cols-2 gap-6">
+                        {item.dropdown.map((dropdownItem) => (
+                          <Link
+                            key={dropdownItem.label}
+                            to={dropdownItem.path}
+                            onClick={(e) => {
+                              const id = dropdownItem.path.split("#")[1];
+                              const element = document.getElementById(id);
+                              if (element) {
+                                e.preventDefault();
+                                element.scrollIntoView({ behavior: "smooth" });
+                                setIsServicesOpen(false);
+                              }
+                            }}
+                            className="block px-4 py-3 text-muted-foreground hover:text-primary-foreground hover:bg-glass-luxury rounded-xl transition-all duration-300 font-medium"
+                          >
+                            {dropdownItem.label}
+                          </Link>
+                        ))}
+                      </div>
                     </div>
                   </div>
                 ) : (

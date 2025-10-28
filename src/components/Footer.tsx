@@ -189,7 +189,7 @@ const Footer = () => {
           <div className="flex flex-col md:flex-row justify-between items-center gap-4">
             {/* Copyright */}
             <div className="text-muted-foreground text-sm">
-              © 2024 NJ Creative Firm. All rights reserved.
+              © 2025 NJ Creative Firm. All rights reserved.
             </div>
 
             {/* Social Links */}

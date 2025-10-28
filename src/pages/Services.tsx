@@ -226,6 +226,22 @@ const Services = () => {
       technologies: ["LinkedIn Recruiter", "Indeed", "Glassdoor"],
       startingPrice: "$10,000",
     },
+    {
+      id: "seo",
+      icon: <Cog className="w-12 h-12" />,
+      title: "SEO (Search Engine Optimization)",
+      subtitle: "– Visibility through strategy and ranking.",
+      description:
+        "We help you optimize your website for search engines and drive organic traffic to your site.",
+      features: [
+        "Keyword Research",
+        "On-Page Optimization",
+        "Off-Page Optimization",
+        "Content Marketing",
+      ],
+      technologies: ["Google Analytics", "SEMrush", "Ahrefs"],
+      startingPrice: "$1,500/mo",
+    },
   ];
 
   const process = [

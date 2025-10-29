@@ -57,13 +57,13 @@ const About = () => {
   const team = [
     {
       name: "NATASHA JUMBO",
-      role: "Founder & Creative Director",
+      role: "Founder & CEO",
       image: natashaImg,
       bio: "Visionary leader with 15+ years crafting award-winning digital experiences for Fortune 500 companies and innovative startups across Africa and beyond.",
       linkedin: "https://www.linkedin.com/in/natasha-jumbo/",
     },
     {
-      name: "Operations Director",
+      name: "WELTS FIVO",
       role: "Head of Operations",
       image: wealthImg,
       bio: "Strategic operations expert specializing in scaling creative processes and delivering exceptional client outcomes through innovative management approaches.",

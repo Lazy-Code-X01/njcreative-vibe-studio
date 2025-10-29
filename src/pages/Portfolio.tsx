@@ -8,6 +8,7 @@ import { portfolioApi } from "@/lib/portfolioApi";
 import { Link } from "react-router-dom";
 import Marquee from "react-fast-marquee";
 import SEO from "@/components/SEO";
+import FloatingElements from "@/components/FloatingElements";
 
 const Portfolio = () => {
   const [activeFilter, setActiveFilter] = useState("all");
@@ -44,6 +45,7 @@ const Portfolio = () => {
 
   return (
     <div className="min-h-screen bg-background">
+      <FloatingElements />
       <SEO
         title="Portfolio - Our Work"
         description="Discover our portfolio of successful digital transformations. See how we've helped businesses achieve remarkable results through strategic design and development."

@@ -1,15 +1,15 @@
-export function renderAdminContactEmail({ 
-  firstName, 
-  lastName, 
-  email, 
-  phone, 
-  address, 
-  companyName, 
-  helpMessage, 
-  selectedServices, 
-  dateTime, 
+export function renderAdminContactEmail({
+  firstName,
+  lastName,
+  email,
+  phone,
+  address,
+  companyName,
+  helpMessage,
+  selectedServices,
+  dateTime,
   signature,
-  companyLogo 
+  companyLogo,
 }: any) {
   return `
     <!DOCTYPE html>
@@ -33,7 +33,9 @@ export function renderAdminContactEmail({
     <body>
       <div class="container">
         <div class="header">
-          <img src="${process.env.EMAIL_LOGO_URL || ''}" alt="NJ Creative Firm" class="logo"/>
+          <img src="${
+            process.env.EMAIL_LOGO_URL || ""
+          }" alt="NJ Creative Firm" class="logo"/>
           <h1 style="color: #ffffff; margin: 10px 0 0 0; font-size: 28px; font-weight: 700; text-shadow: 0 2px 4px rgba(0,0,0,0.2);">New Project Enquiry</h1>
         </div>
         <div class="content">
@@ -52,42 +54,67 @@ export function renderAdminContactEmail({
             <div class="value">
               <span class="highlight">Email:</span> ${email}<br/>
               <span class="highlight">Phone:</span> ${phone}
-              ${address ? `<br/><span class="highlight">Address:</span> ${address}` : ''}
+              ${
+                address
+                  ? `<br/><span class="highlight">Address:</span> ${address}`
+                  : ""
+              }
             </div>
           </div>
           
           <div class="field">
             <div class="label">Services Required</div>
             <div class="services-list">
-              ${selectedServices?.map((s: string) => `<span class="service-tag">${s}</span>`).join('') || 'Not specified'}
+              ${
+                selectedServices
+                  ?.map((s: string) => `<span class="service-tag">${s}</span>`)
+                  .join("") || "Not specified"
+              }
             </div>
           </div>
           
-          ${dateTime ? `
+          ${
+            dateTime
+              ? `
           <div class="field">
             <div class="label">Preferred Meeting Date/Time</div>
-            <div class="value">${new Date(dateTime).toLocaleString('en-US', { dateStyle: 'full', timeStyle: 'short' })}</div>
+            <div class="value">${new Date(dateTime).toLocaleString("en-US", {
+              dateStyle: "full",
+              timeStyle: "short",
+            })}</div>
           </div>
-          ` : ''}
+          `
+              : ""
+          }
           
           <div class="field">
             <div class="label">Project Description</div>
             <div class="value" style="white-space: pre-wrap;">${helpMessage}</div>
           </div>
           
-          ${signature ? `
+          ${
+            signature
+              ? `
           <div class="field">
             <div class="label">Signature</div>
             <div class="value" style="font-style: italic;">${signature}</div>
           </div>
-          ` : ''}
+          `
+              : ""
+          }
           
-          ${companyLogo ? `
+          ${
+            companyLogo
+              ? `
           <div class="field">
             <div class="label">Company Logo</div>
-            <img src="${process.env.BACKEND_URL || 'http://localhost:8787'}${companyLogo}" alt="Company Logo" class="company-logo"/>
+            <img src="${
+              process.env.BACKEND_URL || "http://localhost:8787"
+            }${companyLogo}" alt="Company Logo" class="company-logo"/>
           </div>
-          ` : ''}
+          `
+              : ""
+          }
         </div>
       </div>
     </body>
@@ -117,7 +144,9 @@ export function renderUserAutoReply({ name }: any) {
     <body>
       <div class="container">
         <div class="header">
-          <img src="${process.env.EMAIL_LOGO_URL || ''}" alt="NJ Creative Firm" class="logo"/>
+          <img src="${
+            process.env.EMAIL_LOGO_URL || ""
+          }" alt="NJ Creative Firm" class="logo"/>
           <h1 style="color: #ffffff; margin: 0; font-size: 32px; font-weight: 700; text-shadow: 0 2px 6px rgba(0,0,0,0.2);">Thank You for Reaching Out!</h1>
         </div>
         <div class="content">
@@ -142,7 +171,7 @@ export function renderUserAutoReply({ name }: any) {
           <div class="footer">
             <p class="footer-brand">NJ Creative Firm</p>
             <p style="margin: 8px 0;">Seaside Estate, Ajah, Lagos, Nigeria</p>
-            <p style="margin: 8px 0;">Email: projects@njcreativefirm.com | Phone: +234 903 496 4186</p>
+            <p style="margin: 8px 0;">Email: info@creativefirm.com | Phone: +234 903 496 4186</p>
             <p style="margin-top: 20px; color: #95a5a6; font-size: 12px;">
               This is an automated message. Please do not reply directly to this email.
             </p>

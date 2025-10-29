@@ -74,9 +74,9 @@ const AboutSection = () => {
             {/* Stats */}
             <div className="grid grid-cols-2 gap-6">
               <div>
-                <div className="text-3xl font-bold text-secondary mb-2">5+</div>
+                <div className="text-3xl font-bold text-secondary mb-2">3+</div>
                 <div className="text-sm text-muted-foreground">
-                  Years of Excellence
+                  Years of Experience
                 </div>
               </div>
               <div>

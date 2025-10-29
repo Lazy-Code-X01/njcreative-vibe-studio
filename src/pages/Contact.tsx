@@ -164,9 +164,9 @@ const Contact = () => {
     {
       icon: <Mail className="w-6 h-6" />,
       title: "Email Us",
-      details: ["projects@njcreativefirm.com"],
+      details: ["info@creativefirm.com"],
       action: "Send Email",
-      link: "mailto:projects@njcreativefirm.com",
+      link: "mailto:info@creativefirm.com",
     },
     {
       icon: <Phone className="w-6 h-6" />,
@@ -202,7 +202,8 @@ const Contact = () => {
     "E-commerce",
     "Mobile App Development",
     "SEO & Analytics",
-    "Other",
+    "Recuiment Services",
+    "Others",
   ];
 
   const budgetRanges = [
@@ -685,7 +686,7 @@ const Contact = () => {
                     </a>
 
                     <a
-                      href="mailto:projects@njcreativefirm.com"
+                      href="mailto:info@creativefirm.com"
                       className="flex items-center space-x-3 p-3 rounded-xl hover:bg-muted/10 transition-colors"
                     >
                       <div className="w-10 h-10 bg-secondary/10 rounded-full flex items-center justify-center">
@@ -694,7 +695,7 @@ const Contact = () => {
                       <div>
                         <p className="font-medium">Email us</p>
                         <p className="text-sm text-muted-foreground">
-                          projects@njcreativefirm.com
+                          info@creativefirm.com
                         </p>
                       </div>
                     </a>

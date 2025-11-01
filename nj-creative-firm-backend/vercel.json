@@ -2,23 +2,14 @@
   "version": 2,
   "builds": [
     {
-      "src": "dist/index.js",
+      "src": "src/index.ts",
       "use": "@vercel/node"
     }
   ],
   "routes": [
-    {
-      "src": "/uploads/(.*)",
-      "dest": "/dist/index.js"
-    },
-    {
-      "src": "/api/(.*)",
-      "dest": "/dist/index.js"
-    },
-    {
-      "src": "/(.*)",
-      "dest": "/dist/index.js"
-    }
+    { "src": "/uploads/(.*)", "dest": "/src/index.ts" },
+    { "src": "/api/(.*)", "dest": "/src/index.ts" },
+    { "src": "/(.*)", "dest": "/src/index.ts" }
   ],
   "env": {
     "NODE_ENV": "production"

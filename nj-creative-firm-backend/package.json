@@ -4,9 +4,9 @@
   "description": "Backend for NJ Creative Firm - Contact, Blog, Uploads, Admin Auth",
   "main": "dist/index.js",
   "scripts": {
-    "dev": "nodemon",
+    "dev": "nodemon src/index.ts",
     "build": "tsc -p .",
-    "start": "node dist/vercel.js"
+    "start": "node dist/index.js"
   },
   "author": "NJ Creative Firm",
   "license": "MIT",

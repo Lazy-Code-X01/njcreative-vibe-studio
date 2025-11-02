@@ -3,11 +3,10 @@
   "version": "1.0.0",
   "description": "Backend for NJ Creative Firm - Contact, Blog, Uploads, Admin Auth",
   "main": "dist/index.js",
-  "type": "module",
   "scripts": {
-    "dev": "nodemon",
+    "dev": "nodemon src/index.ts",
     "build": "tsc -p .",
-    "start": "node dist/vercel.js"
+    "start": "node dist/index.js"
   },
   "author": "NJ Creative Firm",
   "license": "MIT",

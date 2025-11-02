@@ -20,7 +20,7 @@ const HeroSection = () => {
             <span className="block gradient-text animate-gradient font-serif italic">
               Create.
             </span>
-            <span className="block text-foreground">Elevate</span>
+            <span className="block text-foreground">Elevate.</span>
           </h1>
 
           {/* Subtitle */}

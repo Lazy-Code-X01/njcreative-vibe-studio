@@ -10,6 +10,8 @@ import {
   Linkedin,
 } from "lucide-react";
 import SEO from "@/components/SEO";
+import FloatingElements from "@/components/FloatingElements";
+import MouseInteractive from "@/components/MouseInteractive";
 
 import wealthImg from "@/assets/wealth.png";
 import natashaImg from "@/assets/natasha.jpg";
@@ -114,6 +116,7 @@ const About = () => {
 
   return (
     <div className="min-h-screen bg-background">
+      <FloatingElements />
       <SEO
         title="About Us"
         description="Learn about NJ Creative Firm's journey, our passionate team, and our commitment to delivering exceptional digital solutions that drive business growth."
@@ -330,8 +333,9 @@ const About = () => {
         </section>
 
         {/* Timeline */}
-        <section className="py-20">
-          <div className="container mx-auto px-6">
+        <section className="py-20 relative">
+          <MouseInteractive />
+          <div className="container mx-auto px-6 relative z-10">
             <div className="text-center mb-16">
               <h2 className="text-4xl md:text-5xl font-serif font-bold mb-6">
                 Our Journey

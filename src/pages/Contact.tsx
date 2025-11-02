@@ -21,6 +21,7 @@ import {
 } from "@/lib/validations/contact";
 import { contactApi } from "@/lib/contactApi";
 import { z } from "zod";
+import FloatingElements from "@/components/FloatingElements";
 
 const Contact = () => {
   const [loading, setLoading] = useState(false);
@@ -217,6 +218,7 @@ const Contact = () => {
 
   return (
     <div className="min-h-screen bg-background">
+      <FloatingElements />
       <SEO
         title="Contact Us"
         description="Get in touch with NJ Creative Firm for premium digital solutions. Let's discuss your project and create something extraordinary together."

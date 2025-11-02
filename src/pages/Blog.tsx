@@ -8,6 +8,7 @@ import { useQuery } from "@tanstack/react-query";
 import { adminApi } from "@/lib/adminApi";
 import SEO from "@/components/SEO";
 import { format } from "date-fns";
+import FloatingElements from "@/components/FloatingElements";
 
 const Blog = () => {
   const location = useLocation();
@@ -108,6 +109,7 @@ const Blog = () => {
 
   return (
     <div className="min-h-screen bg-background">
+      <FloatingElements />
       <SEO
         title="Blog - Digital Insights & Expert Perspectives"
         description="Stay ahead of the curve with our latest insights on web development, design trends, marketing strategies, and business growth."

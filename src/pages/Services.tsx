@@ -11,6 +11,7 @@ import {
   Check,
 } from "lucide-react";
 import SEO from "@/components/SEO";
+import FloatingElements from "@/components/FloatingElements";
 
 const Services = () => {
   // Handle initial hash navigation
@@ -285,6 +286,7 @@ const Services = () => {
 
   return (
     <div className="min-h-screen bg-background">
+      <FloatingElements />
       <SEO
         title="Our Services"
         description="Explore our comprehensive range of digital services including web development, branding, marketing, and tech solutions tailored for your business success."

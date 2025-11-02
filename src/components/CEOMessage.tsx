@@ -60,9 +60,7 @@ const CEOMessage = () => {
                   />
                   <div>
                     <h3 className="font-bold text-xl">Natasha Jumbo</h3>
-                    <p className="text-muted-foreground">
-                      Founder & Creative Director
-                    </p>
+                    <p className="text-muted-foreground">Founder & CEO</p>
                   </div>
                 </div>
 

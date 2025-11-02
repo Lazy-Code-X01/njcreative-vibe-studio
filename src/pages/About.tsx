@@ -180,10 +180,11 @@ const About = () => {
                   everything they need to look, sound, and perform like market
                   leaders.
                   <br />
-                  <br />​ We don’t just create designs; we craft identities. We
-                  don’t just post on social media; we build connections. And we
-                  don’t just deliver projects; we deliver results that help you
-                  grow, thrive, and succeed.
+                  <br />
+                  ​We don’t just create designs; we craft identities. We don’t
+                  just post on social media; we build connections. And we don’t
+                  just deliver projects; we deliver results that help you grow,
+                  thrive, and succeed.
                 </p>
                 <div className="space-y-4">
                   <div className="flex items-center space-x-3">

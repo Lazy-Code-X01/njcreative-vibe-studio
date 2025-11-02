@@ -218,7 +218,6 @@ const Contact = () => {
 
   return (
     <div className="min-h-screen bg-background">
-      <FloatingElements />
       <SEO
         title="Contact Us"
         description="Get in touch with NJ Creative Firm for premium digital solutions. Let's discuss your project and create something extraordinary together."
@@ -229,6 +228,7 @@ const Contact = () => {
       <main className="pt-24">
         {/* Hero Section */}
         <section className="py-20 relative overflow-hidden">
+          <FloatingElements />
           <div className="container mx-auto px-6">
             <div className="max-w-4xl mx-auto text-center">
               {submitted && (

@@ -10,7 +10,7 @@ const FloatingElements = () => {
   if (!mounted) return null;
 
   return (
-    <div className="fixed inset-0 pointer-events-none overflow-hidden z-0">
+    <div className="absolute inset-0 pointer-events-none overflow-hidden z-0">
       {/* Large Floating Green Bubbles */}
       <div className="absolute top-[15%] left-[10%] w-24 h-24 rounded-full bg-primary/20 backdrop-blur-sm animate-float-slow" />
       <div className="absolute top-[60%] right-[8%] w-32 h-32 rounded-full bg-secondary/15 backdrop-blur-sm animate-float-slower" />

@@ -286,7 +286,6 @@ const Services = () => {
 
   return (
     <div className="min-h-screen bg-background">
-      <FloatingElements />
       <SEO
         title="Our Services"
         description="Explore our comprehensive range of digital services including web development, branding, marketing, and tech solutions tailored for your business success."
@@ -297,6 +296,7 @@ const Services = () => {
       <main className="pt-24">
         {/* Hero Section */}
         <section className="py-20 relative overflow-hidden">
+          <FloatingElements />
           <div className="container mx-auto px-6">
             <div className="max-w-4xl mx-auto text-center">
               <h1 className="text-5xl md:text-7xl font-serif font-bold mb-8 leading-tight">

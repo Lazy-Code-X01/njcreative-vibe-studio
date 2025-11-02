@@ -63,17 +63,17 @@ const About = () => {
       linkedin: "https://www.linkedin.com/in/natasha-jumbo/",
     },
     {
-      name: "WELTS FIVO",
-      role: "Head of Operations",
+      name: "WEALTH FAVOUR",
+      role: "Executive Director (Head of Operations)",
       image: wealthImg,
       bio: "Strategic operations expert specializing in scaling creative processes and delivering exceptional client outcomes through innovative management approaches.",
       linkedin: "https://www.linkedin.com/company/nj-creative-firm/",
     },
     {
       name: "IDAH SHIDU",
-      role: "Human Resources Director",
+      role: "Non-Executive Director",
       image: idahImg,
-      bio: "Dynamic HR leader fostering a culture of creativity and excellence, with expertise in talent acquisition and organizational development in the creative industry.",
+      bio: "Seasoned business strategist and Non-Executive Director providing governance oversight, strategic direction, and people-centric leadership to drive sustainable growth and innovation across the creative sector.",
       linkedin: "https://www.linkedin.com/in/idah-shidu/",
     },
     {

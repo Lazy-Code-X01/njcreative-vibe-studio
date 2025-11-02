@@ -32,7 +32,7 @@ const CEOMessage = () => {
 
               <div className="space-y-6 text-lg text-muted-foreground leading-relaxed">
                 <p>
-                  "Welcome to NJ Creative Firm, where innovation meets
+                  Welcome to NJ Creative Firm, where innovation meets
                   excellence. Since our inception, we've been driven by a
                   singular vision: to transform businesses through exceptional
                   digital experiences that inspire, engage, and deliver results.
@@ -47,7 +47,7 @@ const CEOMessage = () => {
                 <p>
                   Whether you're a startup looking to make your mark or an
                   established business ready for digital transformation, we're
-                  here to turn your vision into reality."
+                  here to turn your vision into reality.
                 </p>
               </div>
 

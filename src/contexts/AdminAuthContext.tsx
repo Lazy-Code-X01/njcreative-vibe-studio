@@ -1,5 +1,6 @@
 import { createContext, useContext, useState, useEffect, ReactNode } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { adminApi } from '@/lib/adminApi';
 
 interface AdminAuthContextType {
   token: string | null;
@@ -26,22 +27,17 @@ export const AdminAuthProvider = ({ children }: { children: ReactNode }) => {
   }, []);
 
   const login = async (username: string, password: string) => {
-    const response = await fetch('http://localhost:8787/api/admin/login', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ username, password }),
-    });
-
-    if (!response.ok) {
-      const error = await response.json();
-      throw new Error(error.message || 'Login failed');
+    try {
+      const res = await adminApi.login({ username, password });
+      const data = res.data;
+      setToken(data.token);
+      setUsername(username);
+      localStorage.setItem('admin_token', data.token);
+      localStorage.setItem('admin_username', username);
+    } catch (err: any) {
+      const message = err?.response?.data?.message || err?.message || 'Login failed';
+      throw new Error(message);
     }
-
-    const data = await response.json();
-    setToken(data.token);
-    setUsername(username);
-    localStorage.setItem('admin_token', data.token);
-    localStorage.setItem('admin_username', username);
   };
 
   const logout = () => {

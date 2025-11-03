@@ -11,9 +11,9 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from 
 import { Card, CardContent } from "@/components/ui/card";
 import { toast } from "sonner";
 import { ImageUploader } from "@/components/admin/ImageUploader";
-import axios from "axios";
+import { portfolioApi } from "@/lib/portfolioApi";
 
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:8787/api';
+
 
 const PortfolioManagement = () => {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
@@ -37,14 +37,11 @@ const PortfolioManagement = () => {
 
   const { data: projects = [], isLoading } = useQuery({
     queryKey: ["portfolio-projects"],
-    queryFn: () => axios.get(`${API_BASE_URL}/portfolio`).then((res) => res.data),
+    queryFn: () => portfolioApi.getProjects().then((res) => res.data),
   });
 
   const createMutation = useMutation({
-    mutationFn: (data: any) =>
-      axios.post(`${API_BASE_URL}/portfolio`, data, {
-        headers: { Authorization: `Bearer ${token}` },
-      }),
+    mutationFn: (data: any) => portfolioApi.createProject(data, token || ''),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["portfolio-projects"] });
       toast.success("Project created successfully!");
@@ -57,10 +54,7 @@ const PortfolioManagement = () => {
   });
 
   const updateMutation = useMutation({
-    mutationFn: (data: any) =>
-      axios.put(`${API_BASE_URL}/portfolio/${data._id}`, data, {
-        headers: { Authorization: `Bearer ${token}` },
-      }),
+    mutationFn: (data: any) => portfolioApi.updateProject(data._id, data, token || ''),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["portfolio-projects"] });
       toast.success("Project updated successfully!");
@@ -73,10 +67,7 @@ const PortfolioManagement = () => {
   });
 
   const deleteMutation = useMutation({
-    mutationFn: (id: string) =>
-      axios.delete(`${API_BASE_URL}/portfolio/${id}`, {
-        headers: { Authorization: `Bearer ${token}` },
-      }),
+    mutationFn: (id: string) => portfolioApi.deleteProject(id, token || ''),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["portfolio-projects"] });
       toast.success("Project deleted successfully!");

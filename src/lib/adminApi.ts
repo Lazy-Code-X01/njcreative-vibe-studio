@@ -33,6 +33,9 @@ apiClient.interceptors.response.use(
 );
 
 export const adminApi = {
+  // Auth
+  login: (data: { username: string; password: string }) => apiClient.post("/admin/login", data),
+
   // Analytics
   getAnalytics: () => apiClient.get("/admin/analytics"),
 

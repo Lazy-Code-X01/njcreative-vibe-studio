@@ -27,13 +27,37 @@ const Portfolio = () => {
   ];
 
   const companyLogo = [
-    { name: "Airtable", src: "/src/assets/companyLogo/Airtable.png" },
-    { name: "ClickUp", src: "/src/assets/companyLogo/ClickUp.png" },
-    { name: "companyLogo", src: "/src/assets/companyLogo/companylogo.png" },
-    { name: "Loom", src: "/src/assets/companyLogo/Loom.png" },
-    { name: "Shopify", src: "/src/assets/companyLogo/Shopify.png" },
-    { name: "Slack ", src: "/src/assets/companyLogo/Slack.png" },
-    { name: "Twilio", src: "/src/assets/companyLogo/Twilio.png" },
+    {
+      name: "JumboTreats",
+      src: new URL("../assets/companyLogo/JumboTreats.png", import.meta.url)
+        .href,
+    },
+    {
+      name: "BuksSkills",
+      src: new URL("../assets/companyLogo/BuksSkills.png", import.meta.url)
+        .href,
+    },
+    {
+      name: "Ocean21",
+      src: new URL("../assets/companyLogo/Ocean21.png", import.meta.url).href,
+    },
+    {
+      name: "Auitria",
+      src: new URL("../assets/companyLogo/Auitira.png", import.meta.url).href,
+    },
+    {
+      name: "Kingress",
+      src: new URL("../assets/companyLogo/Kingress.png", import.meta.url).href,
+    },
+    // {
+    //   name: "SipandPaint",
+    //   src: new URL("../assets/companyLogo/SipandPaintjpg.png", import.meta.url)
+    //     .href,
+    // },
+    {
+      name: "BlueDutch",
+      src: new URL("../assets/companyLogo/Bluedutch.png", import.meta.url).href,
+    },
   ];
 
   const filteredProjects =
@@ -252,7 +276,7 @@ const Portfolio = () => {
             </div>
           </div>
         </section>
-        <div className="rounded-xs overflow-hidden mt-20 md:max-w-[500px] max-w-[320px] mx-auto">
+        <div className="rounded-xs overflow-hidden mt-20 md:max-w-[800px] max-w-[320px] mx-auto bg-gray-100 px-8">
           <Marquee delay={5} speed={30}>
             <div className="flex items-center justify-center gap-10 mx-3">
               {companyLogo.map((logo, index) => (
@@ -260,8 +284,8 @@ const Portfolio = () => {
                   <img
                     src={logo.src}
                     alt={logo.name}
-                    width={40}
-                    height={40}
+                    width={120}
+                    height={120}
                     className="object-contain"
                   />
                 </div>
@@ -269,7 +293,7 @@ const Portfolio = () => {
             </div>
           </Marquee>
         </div>
-        6{/* CTA Section */}
+        {/* CTA Section */}
         <section className="py-20">
           <div className="container mx-auto px-6 text-center">
             <h2 className="text-4xl md:text-5xl font-serif font-bold mb-8">

@@ -50,14 +50,14 @@ const ServicesSection = () => {
     },
     {
       icon: Smartphone,
-      title: "Tech Solutions",
+      title: "Recuiment Services",
       description:
-        "Custom applications and platforms that streamline operations and enhance user experience.",
+        "Connecting top tech talent with innovative companies for mutual growth.",
       features: [
-        "Mobile Apps",
-        "Custom Platforms",
-        "API Integration",
-        "Automation Tools",
+        "Talent Sourcing",
+        "Candidate Screening",
+        "Interview Coordination",
+        "Onboarding Support",
       ],
       color: "from-primary to-secondary",
     },
@@ -128,10 +128,12 @@ const ServicesSection = () => {
                   </ul>
 
                   {/* CTA */}
-                  <div className="flex items-center text-secondary group-hover:text-secondary-glow transition-colors duration-300">
-                    <span className="font-medium">Learn More</span>
-                    <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-2 transition-transform duration-300" />
-                  </div>
+                  <Link to="/services" className="inline-block">
+                    <div className="flex items-center text-secondary group-hover:text-secondary-glow transition-colors duration-300">
+                      <span className="font-medium">Learn More</span>
+                      <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-2 transition-transform duration-300" />
+                    </div>
+                  </Link>
                 </div>
               </div>
             );

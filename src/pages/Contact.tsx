@@ -165,9 +165,9 @@ const Contact = () => {
     {
       icon: <Mail className="w-6 h-6" />,
       title: "Email Us",
-      details: ["info@creativefirm.com"],
+      details: ["info@njcreativefirm.com"],
       action: "Send Email",
-      link: "mailto:info@creativefirm.com",
+      link: "mailto:info@njcreativefirm.com",
     },
     {
       icon: <Phone className="w-6 h-6" />,
@@ -688,7 +688,7 @@ const Contact = () => {
                     </a>
 
                     <a
-                      href="mailto:info@creativefirm.com"
+                      href="mailto:info@njcreativefirm.com"
                       className="flex items-center space-x-3 p-3 rounded-xl hover:bg-muted/10 transition-colors"
                     >
                       <div className="w-10 h-10 bg-secondary/10 rounded-full flex items-center justify-center">
@@ -697,7 +697,7 @@ const Contact = () => {
                       <div>
                         <p className="font-medium">Email us</p>
                         <p className="text-sm text-muted-foreground">
-                          info@creativefirm.com
+                          info@njcreativefirm.com
                         </p>
                       </div>
                     </a>

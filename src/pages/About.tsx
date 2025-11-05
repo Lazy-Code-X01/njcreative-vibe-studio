@@ -92,7 +92,7 @@ const About = () => {
       year: "2022",
       title: "Vision Ignited",
       description:
-        "NJ Creative Firm was born from a revolutionary vision — to transform African businesses through world-class digital experiences and strategic branding.",
+        "NJ Creative Firm was born from a revolutionary vision to transform African businesses through world-class digital experiences and strategic branding.",
     },
     {
       year: "2023",
@@ -144,7 +144,14 @@ const About = () => {
                 ambitious visions into extraordinary digital experiences that
                 captivate, convert, and inspire.
               </p>
-              <Button className="btn-luxury group text-lg px-10 py-5">
+              <Button
+                onClick={() => {
+                  document
+                    .getElementById("journey")
+                    ?.scrollIntoView({ behavior: "smooth" });
+                }}
+                className="btn-luxury group text-lg px-10 py-5 transition-all"
+              >
                 Our Story
                 <ArrowRight className="ml-3 w-5 h-5 group-hover:translate-x-2 transition-transform" />
               </Button>
@@ -299,33 +306,30 @@ const About = () => {
 
             <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
               {team.map((member, index) => (
-                <div key={index} className="group cursor-pointer">
+                <div key={index} className="group">
                   <div className="relative overflow-hidden rounded-2xl mb-6">
                     <img
                       src={member.image}
                       alt={member.name}
                       className="w-full h-80 object-cover transition-transform duration-500 group-hover:scale-110"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-background/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                    <div className="absolute bottom-4 left-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                      <p className="text-sm text-foreground leading-relaxed mb-4">
-                        {member.bio}
-                      </p>
-                      <a
-                        href={member.linkedin}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="inline-flex items-center gap-2 text-sm text-white bg-[#0077b5] hover:bg-[#0077b5]/90 px-4 py-2 rounded-full transition-colors"
-                      >
-                        <Linkedin className="w-4 h-4" />
-                        Connect on LinkedIn
-                      </a>
-                    </div>
                   </div>
                   <h3 className="font-heading font-bold text-xl mb-2 group-hover:text-primary transition-colors">
                     {member.name}
                   </h3>
-                  <p className="text-muted-foreground">{member.role}</p>
+                  <p className="text-muted-foreground mb-4">{member.role}</p>
+                  <p className="text-sm text-muted-foreground leading-relaxed mb-4">
+                    {member.bio}
+                  </p>
+                  <a
+                    href={member.linkedin}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 text-sm text-white bg-[#0077b5] hover:bg-[#0077b5]/90 px-4 py-2 rounded-full transition-colors"
+                  >
+                    <Linkedin className="w-4 h-4" />
+                    Connect on LinkedIn
+                  </a>
                 </div>
               ))}
             </div>
@@ -333,7 +337,7 @@ const About = () => {
         </section>
 
         {/* Timeline */}
-        <section className="py-20 relative">
+        <section className="py-20 relative" id="journey">
           <MouseInteractive />
           <div className="container mx-auto px-6 relative z-10">
             <div className="text-center mb-16">

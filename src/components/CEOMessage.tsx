@@ -1,20 +1,21 @@
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
 import { Link } from "react-router-dom";
-import natashaImg from "@/assets/natasha.jpg";
+import ceoMessagePicture from "@/assets/cei-message-picturejpg.jpg";
 
 const CEOMessage = () => {
   return (
     <section className="py-24 relative overflow-hidden">
       <div className="container mx-auto px-6">
-        <div className="grid lg:grid-cols-2 gap-16 items-center">
+        <div className="grid lg:grid-cols-2 gap-4 items-center">
           {/* Image Column */}
           <div className="relative">
             <div className="relative z-10">
               <img
-                src={natashaImg}
+                src={ceoMessagePicture}
                 alt="Natasha Jumbo - Founder & CEO"
                 className="w-full aspect-[3/4] object-cover rounded-2xl shadow-luxury"
+                style={{ objectPosition: "center 20%" }}
               />
               {/* Decorative elements */}
               <div className="absolute -top-6 -left-6 w-24 h-24 border-2 border-primary/20 rounded-2xl -z-10" />
@@ -54,9 +55,10 @@ const CEOMessage = () => {
               <div className="mt-8 space-y-6">
                 <div className="flex items-center gap-4">
                   <img
-                    src={natashaImg}
+                    src={ceoMessagePicture}
                     alt="Natasha Jumbo"
                     className="w-16 h-16 rounded-full object-cover"
+                    style={{ objectPosition: "center 20%" }}
                   />
                   <div>
                     <h3 className="font-bold text-xl">Natasha Jumbo</h3>

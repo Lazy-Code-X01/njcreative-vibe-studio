@@ -229,7 +229,7 @@ const Contact = () => {
         {/* Hero Section */}
         <section className="py-20 relative overflow-hidden">
           <FloatingElements />
-          <div className="container mx-auto px-6">
+          <div className="container mx-auto px-6 relative z-10">
             <div className="max-w-4xl mx-auto text-center">
               {submitted && (
                 <div className="mb-8 p-6 bg-green-500/10 border border-green-500/20 rounded-2xl animate-fade-in">

@@ -69,7 +69,6 @@ const Portfolio = () => {
 
   return (
     <div className="min-h-screen bg-background">
-      <FloatingElements />
       <SEO
         title="Portfolio - Our Work"
         description="Discover our portfolio of successful digital transformations. See how we've helped businesses achieve remarkable results through strategic design and development."
@@ -80,7 +79,8 @@ const Portfolio = () => {
       <main className="pt-24">
         {/* Hero Section */}
         <section className="py-20 relative overflow-hidden">
-          <div className="container mx-auto px-6">
+          <FloatingElements />
+          <div className="container mx-auto px-6 relative z-10">
             <div className="max-w-4xl mx-auto text-center">
               <h1 className="text-5xl md:text-7xl font-serif font-bold mb-8 leading-tight">
                 Our Premium

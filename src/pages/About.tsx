@@ -13,10 +13,10 @@ import SEO from "@/components/SEO";
 import FloatingElements from "@/components/FloatingElements";
 import MouseInteractive from "@/components/MouseInteractive";
 
-import wealthImg from "@/assets/wealth.png";
-import natashaImg from "@/assets/natasha.jpg";
-import idahImg from "@/assets/idah.png";
-import alexandraImg from "@/assets/alexandra.png";
+import wealthImg from "@/assets/wealth-favour.jpg";
+import natashaImg from "@/assets/natasha-jumbo.jpg";
+import idahImg from "@/assets/IdahShidu.jpg";
+import alexandraImg from "@/assets/alexandra-aprah.jpg";
 import { Link } from "react-router-dom";
 
 const About = () => {
@@ -61,29 +61,33 @@ const About = () => {
       name: "NATASHA JUMBO",
       role: "Founder & CEO",
       image: natashaImg,
-      bio: "Visionary leader with 15+ years crafting award-winning digital experiences for Fortune 500 companies and innovative startups across Africa and beyond.",
-      linkedin: "https://www.linkedin.com/in/natasha-jumbo/",
+      bio: "Visioneer leader with 10+ years crafting award-winning creative and charitable experiences for Fortune 100+ companies and innovative startups across Africa and beyond.",
+      linkedin:
+        "https://www.linkedin.com/in/natasha-jumbo?utm_source=share_via&utm_content=profile&utm_medium=member_ios",
     },
     {
       name: "WEALTH FAVOUR",
       role: "Executive Director (Head of Operations)",
       image: wealthImg,
-      bio: "Strategic operations expert specializing in scaling creative processes and delivering exceptional client outcomes through innovative management approaches.",
-      linkedin: "https://www.linkedin.com/company/nj-creative-firm/",
+      bio: "Strategic operations lead focused on optimizing workflows, managing teams, and delivering consistent results through efficient creative processes.",
+      linkedin:
+        "https://www.linkedin.com/in/wealth-jumbo-58b767263?utm_source=share_via&utm_content=profile&utm_medium=member_ios",
     },
     {
       name: "IDAH SHIDU",
       role: "Non-Executive Director",
       image: idahImg,
-      bio: "Seasoned business strategist and Non-Executive Director providing governance oversight, strategic direction, and people-centric leadership to drive sustainable growth and innovation across the creative sector.",
-      linkedin: "https://www.linkedin.com/in/idah-shidu/",
+      bio: "Experienced business strategist providing governance, direction, and mentorship to ensure sustainable growth and innovation across all departments.",
+      linkedin:
+        "https://www.linkedin.com/in/sheidu-i-20b525195?utm_source=share_via&utm_content=profile&utm_medium=member_ios",
     },
     {
       name: "ALEXANDRA APPAH",
       role: "Brand Director",
       image: alexandraImg,
-      bio: "Innovative brand strategist with a proven track record in developing distinctive brand identities and driving market-leading positioning strategies for diverse clients.",
-      linkedin: "https://www.linkedin.com/in/alexandra-appah/",
+      bio: "Creative strategist specializing in developing distinctive brand identities, ensuring design excellence, and maintaining a unified creative vision for all clients.",
+      linkedin:
+        "https://www.linkedin.com/in/alexandra-appah-568132315?utm_source=share_via&utm_content=profile&utm_medium=member_ios",
     },
   ];
 
@@ -127,7 +131,7 @@ const About = () => {
         {/* Hero Section */}
         <section className="py-20 relative overflow-hidden">
           <FloatingElements />
-          <div className="container mx-auto px-6">
+          <div className="container mx-auto px-6 relative z-10">
             <div className="max-w-4xl mx-auto text-center">
               <h1 className="text-5xl md:text-7xl font-serif font-bold mb-8 leading-tight">
                 Crafting Digital
@@ -305,33 +309,44 @@ const About = () => {
             </div>
 
             <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-              {team.map((member, index) => (
-                <div key={index} className="group">
-                  <div className="relative overflow-hidden rounded-2xl mb-6">
-                    <img
-                      src={member.image}
-                      alt={member.name}
-                      className="w-full h-80 object-cover transition-transform duration-500 group-hover:scale-110"
-                    />
+              {team.map((member, index) => {
+                const zoomed = new Set([
+                  "NATASHA JUMBO",
+                  "WEALTH FAVOUR",
+                  "ALEXANDRA APPAH",
+                ]).has(member.name);
+
+                return (
+                  <div key={index} className="group">
+                    <div className="relative overflow-hidden rounded-2xl mb-6">
+                      <img
+                        src={member.image}
+                        alt={member.name}
+                        className={`w-full h-80 object-cover transition-transform duration-500 group-hover:scale-110 ${
+                          zoomed ? "scale-107" : ""
+                        }`}
+                        style={{ objectPosition: "center 10%" }}
+                      />
+                    </div>
+                    <h3 className="font-heading font-bold text-xl mb-2 group-hover:text-primary transition-colors">
+                      {member.name}
+                    </h3>
+                    <p className="text-muted-foreground mb-4">{member.role}</p>
+                    <p className="text-sm text-muted-foreground leading-relaxed mb-4">
+                      {member.bio}
+                    </p>
+                    <a
+                      href={member.linkedin}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-2 text-sm text-white bg-[#0077b5] hover:bg-[#0077b5]/90 px-4 py-2 rounded-full transition-colors"
+                    >
+                      <Linkedin className="w-4 h-4" />
+                      Connect on LinkedIn
+                    </a>
                   </div>
-                  <h3 className="font-heading font-bold text-xl mb-2 group-hover:text-primary transition-colors">
-                    {member.name}
-                  </h3>
-                  <p className="text-muted-foreground mb-4">{member.role}</p>
-                  <p className="text-sm text-muted-foreground leading-relaxed mb-4">
-                    {member.bio}
-                  </p>
-                  <a
-                    href={member.linkedin}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2 text-sm text-white bg-[#0077b5] hover:bg-[#0077b5]/90 px-4 py-2 rounded-full transition-colors"
-                  >
-                    <Linkedin className="w-4 h-4" />
-                    Connect on LinkedIn
-                  </a>
-                </div>
-              ))}
+                );
+              })}
             </div>
           </div>
         </section>

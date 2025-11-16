@@ -2,8 +2,12 @@ import { ExternalLink, ArrowRight } from "lucide-react";
 import { useQuery } from "@tanstack/react-query";
 import { portfolioApi } from "@/lib/portfolioApi";
 import { Link } from "react-router-dom";
+import { useScrollReveal } from "@/hooks/useScrollReveal";
 
 const PortfolioSection = () => {
+  const sectionRef = useScrollReveal({ threshold: 0.1 });
+  const headerRef = useScrollReveal({ threshold: 0.2, delay: 0.2 });
+  
   const { data: projects = [], isLoading } = useQuery({
     queryKey: ["portfolio-projects"],
     queryFn: () => portfolioApi.getProjects().then((res) => res.data),
@@ -13,10 +17,10 @@ const PortfolioSection = () => {
   const displayProjects = projects.filter((p: any) => p.featured).slice(0, 3);
 
   return (
-    <section id="portfolio" className="py-20">
+    <section id="portfolio" className="py-20" ref={sectionRef}>
       <div className="container mx-auto px-6">
         {/* Section Header */}
-        <div className="text-center mb-16">
+        <div className="text-center mb-16" ref={headerRef}>
           <div className="inline-flex items-center px-4 py-2 rounded-full glass-card mb-6">
             <span className="text-secondary text-sm font-medium">
               🎨 Our Work

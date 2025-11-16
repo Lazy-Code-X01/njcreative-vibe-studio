@@ -8,8 +8,10 @@ import SEO from "@/components/SEO";
 import { useQuery } from "@tanstack/react-query";
 import { adminApi } from "@/lib/adminApi";
 import { format } from "date-fns";
+import { useScrollReveal } from "@/hooks/useScrollReveal";
 
 const BlogPost = () => {
+  const articleRef = useScrollReveal({ threshold: 0.1 });
   const { slug } = useParams();
 
   const {
@@ -87,7 +89,7 @@ const BlogPost = () => {
 
       <main className="pt-24">
         {/* Hero Section */}
-        <article className="pb-20">
+        <article className="pb-20" ref={articleRef}>
           <div className="container mx-auto px-6">
             <div className="max-w-4xl mx-auto">
               {/* Back to Blog */}

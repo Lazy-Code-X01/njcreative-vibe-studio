@@ -9,8 +9,14 @@ import { adminApi } from "@/lib/adminApi";
 import SEO from "@/components/SEO";
 import { format } from "date-fns";
 import FloatingElements from "@/components/FloatingElements";
+import { useScrollReveal } from "@/hooks/useScrollReveal";
 
 const Blog = () => {
+  const heroRef = useScrollReveal({ threshold: 0.1 });
+  const featuredRef = useScrollReveal({ threshold: 0.2, delay: 0.2 });
+  const filterRef = useScrollReveal({ threshold: 0.2, delay: 0.3 });
+  const postsRef = useScrollReveal({ threshold: 0.2, delay: 0.2 });
+  
   const location = useLocation();
   const navigate = useNavigate();
   const [searchTerm, setSearchTerm] = useState("");
@@ -118,7 +124,7 @@ const Blog = () => {
 
       <main className="pt-24">
         {/* Hero Section */}
-        <section className="py-20 relative overflow-hidden">
+        <section className="py-20 relative overflow-hidden" ref={heroRef}>
           <FloatingElements />
           <div className="container mx-auto px-6 relative z-10">
             <div className="max-w-4xl mx-auto text-center">
@@ -139,7 +145,7 @@ const Blog = () => {
         </section>
 
         {/* Search & Filter */}
-        <section className="pb-10">
+        <section className="pb-10" ref={filterRef}>
           <div className="container mx-auto px-6">
             <div className="max-w-4xl mx-auto">
               {/* Search Bar */}
@@ -196,7 +202,7 @@ const Blog = () => {
 
         {/* Featured Post */}
         {featuredPost && (
-          <section className="pb-16">
+          <section className="pb-16" ref={featuredRef}>
             <div className="container mx-auto px-6">
               <div className="max-w-6xl mx-auto">
                 <h2 className="text-3xl font-bold mb-8 font-heading">
@@ -254,7 +260,7 @@ const Blog = () => {
         )}
 
         {/* Blog Posts Grid */}
-        <section className="pb-20">
+        <section className="pb-20" ref={postsRef}>
           <div className="container mx-auto px-6">
             <div className="max-w-6xl mx-auto">
               {/* Pagination Info */}

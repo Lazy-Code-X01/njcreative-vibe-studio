@@ -18,8 +18,15 @@ import natashaImg from "@/assets/natasha-jumbo.jpg";
 import idahImg from "@/assets/IdahShidu.jpg";
 import alexandraImg from "@/assets/alexandra-aprah.jpg";
 import { Link } from "react-router-dom";
+import { useScrollReveal } from "@/hooks/useScrollReveal";
 
 const About = () => {
+  const heroRef = useScrollReveal({ threshold: 0.1 });
+  const storyRef = useScrollReveal({ threshold: 0.2, delay: 0.2 });
+  const valuesRef = useScrollReveal({ threshold: 0.2, delay: 0.3 });
+  const teamRef = useScrollReveal({ threshold: 0.2, delay: 0.2 });
+  const timelineRef = useScrollReveal({ threshold: 0.2, delay: 0.3 });
+  
   const choose = [
     {
       icon: <Lightbulb className="w-8 h-8" />,
@@ -129,7 +136,7 @@ const About = () => {
 
       <main className="pt-24">
         {/* Hero Section */}
-        <section className="py-20 relative overflow-hidden">
+        <section className="py-20 relative overflow-hidden" ref={heroRef}>
           <FloatingElements />
           <div className="container mx-auto px-6 relative z-10">
             <div className="max-w-4xl mx-auto text-center">
@@ -169,8 +176,8 @@ const About = () => {
           </div>
         </section>
 
-        {/* Mission & Values */}
-        <section className="py-20">
+        {/* Our Story Section */}
+        <section className="py-20" ref={storyRef}>
           <div className="container mx-auto px-6">
             <div className="grid lg:grid-cols-2 gap-16 items-center">
               <div>
@@ -243,7 +250,7 @@ const About = () => {
         </section>
 
         {/* new Vision */}
-        <section className="py-20">
+        <section className="py-20" ref={teamRef}>
           <div className="container mx-auto px-6">
             <div className="grid lg:grid-cols-2 gap-16 items-center">
               <div>
@@ -296,7 +303,7 @@ const About = () => {
         </section>
 
         {/* Team Section */}
-        <section className="py-20 bg-card" id="team">
+        <section className="py-20 bg-card" id="team" ref={valuesRef}>
           <div className="container mx-auto px-6">
             <div className="text-center mb-16">
               <h2 className="text-4xl md:text-5xl font-serif font-bold mb-6">
@@ -352,7 +359,7 @@ const About = () => {
         </section>
 
         {/* Timeline */}
-        <section className="py-20 relative" id="journey">
+        <section className="py-20 relative" id="journey" ref={timelineRef}>
           <MouseInteractive />
           <div className="container mx-auto px-6 relative z-10">
             <div className="text-center mb-16">

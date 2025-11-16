@@ -12,8 +12,14 @@ import {
 } from "lucide-react";
 import SEO from "@/components/SEO";
 import FloatingElements from "@/components/FloatingElements";
+import { useScrollReveal } from "@/hooks/useScrollReveal";
 
 const Services = () => {
+  const heroRef = useScrollReveal({ threshold: 0.1 });
+  const servicesRef = useScrollReveal({ threshold: 0.2, delay: 0.2 });
+  const processRef = useScrollReveal({ threshold: 0.2, delay: 0.3 });
+  const ctaRef = useScrollReveal({ threshold: 0.2, delay: 0.2 });
+  
   // Handle initial hash navigation
   useEffect(() => {
     const hash = window.location.hash;
@@ -289,7 +295,7 @@ const Services = () => {
 
       <main className="pt-24">
         {/* Hero Section */}
-        <section className="py-20 relative overflow-hidden">
+        <section className="py-20 relative overflow-hidden" ref={heroRef}>
           <FloatingElements />
           <div className="container mx-auto px-6 relative z-10">
             <div className="max-w-4xl mx-auto text-center">
@@ -310,7 +316,7 @@ const Services = () => {
         </section>
 
         {/* Services Grid */}
-        <section className="py-20">
+        <section className="py-20" ref={servicesRef}>
           <div className="container mx-auto px-6">
             <div className="space-y-20">
               {services.map((service, index) => (
@@ -396,7 +402,7 @@ const Services = () => {
         </section>
 
         {/* Process Section */}
-        <section className="py-20 bg-card">
+        <section className="py-20 bg-card" ref={processRef}>
           <div className="container mx-auto px-6">
             <div className="text-center mb-16">
               <h2 className="text-4xl md:text-5xl font-serif font-bold mb-6">
@@ -433,7 +439,7 @@ const Services = () => {
         </section>
 
         {/* CTA Section */}
-        <section className="py-20 relative overflow-hidden">
+        <section className="py-20 relative overflow-hidden" ref={ctaRef}>
           <div className="container mx-auto px-6 text-center">
             <h2 className="text-4xl md:text-5xl font-serif font-bold mb-8">
               Ready to Start Your Project?

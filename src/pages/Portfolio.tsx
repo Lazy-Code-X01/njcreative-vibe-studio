@@ -9,8 +9,14 @@ import { Link } from "react-router-dom";
 import Marquee from "react-fast-marquee";
 import SEO from "@/components/SEO";
 import FloatingElements from "@/components/FloatingElements";
+import { useScrollReveal } from "@/hooks/useScrollReveal";
 
 const Portfolio = () => {
+  const heroRef = useScrollReveal({ threshold: 0.1 });
+  const filterRef = useScrollReveal({ threshold: 0.2, delay: 0.2 });
+  const projectsRef = useScrollReveal({ threshold: 0.2, delay: 0.3 });
+  const clientsRef = useScrollReveal({ threshold: 0.2, delay: 0.2 });
+  
   const [activeFilter, setActiveFilter] = useState("all");
 
   const { data: projects = [], isLoading } = useQuery({
@@ -78,7 +84,7 @@ const Portfolio = () => {
 
       <main className="pt-24">
         {/* Hero Section */}
-        <section className="py-20 relative overflow-hidden">
+        <section className="py-20 relative overflow-hidden" ref={heroRef}>
           <FloatingElements />
           <div className="container mx-auto px-6 relative z-10">
             <div className="max-w-4xl mx-auto text-center">
@@ -98,7 +104,7 @@ const Portfolio = () => {
           </div>
         </section>
         {/* Filter Section */}
-        <section className="pb-10">
+        <section className="pb-10" ref={filterRef}>
           <div className="container mx-auto px-6">
             <div className="flex flex-wrap justify-center gap-4">
               {categories.map((category) => (
@@ -276,7 +282,8 @@ const Portfolio = () => {
             </div>
           </div>
         </section>
-        <div className="rounded-xs overflow-hidden mt-20 md:max-w-[800px] max-w-[320px] mx-auto bg-gray-100 px-8">
+        {/* Client Logos Marquee */}
+        <div className="rounded-xs overflow-hidden mt-20 md:max-w-[800px] max-w-[320px] mx-auto bg-gray-100 px-8" ref={clientsRef}>
           <Marquee delay={5} speed={30}>
             <div className="flex items-center justify-center gap-10 mx-3">
               {companyLogo.map((logo, index) => (

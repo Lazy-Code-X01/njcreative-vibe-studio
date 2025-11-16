@@ -22,8 +22,13 @@ import {
 import { contactApi } from "@/lib/contactApi";
 import { z } from "zod";
 import FloatingElements from "@/components/FloatingElements";
+import { useScrollReveal } from "@/hooks/useScrollReveal";
 
 const Contact = () => {
+  const heroRef = useScrollReveal({ threshold: 0.1 });
+  const formRef = useScrollReveal({ threshold: 0.2, delay: 0.2 });
+  const infoRef = useScrollReveal({ threshold: 0.2, delay: 0.3 });
+  
   const [loading, setLoading] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const [errors, setErrors] = useState<
@@ -227,7 +232,7 @@ const Contact = () => {
 
       <main className="pt-24">
         {/* Hero Section */}
-        <section className="py-20 relative overflow-hidden">
+        <section className="py-20 relative overflow-hidden" ref={heroRef}>
           <FloatingElements />
           <div className="container mx-auto px-6 relative z-10">
             <div className="max-w-4xl mx-auto text-center">
@@ -298,8 +303,8 @@ const Contact = () => {
           </div>
         </section>
 
-        {/* Contact Form & Map */}
-        <section className="pb-20">
+        {/* Contact Form Section */}
+        <section className="pb-20" ref={formRef}>
           <div className="container mx-auto px-6">
             <div className="grid lg:grid-cols-2 gap-12 max-w-7xl mx-auto">
               {/* Contact Form */}
@@ -726,7 +731,7 @@ const Contact = () => {
         </section>
 
         {/* FAQ Section */}
-        <section className="py-20 bg-card">
+        <section className="py-20 bg-card" ref={infoRef}>
           <div className="container mx-auto px-6">
             <div className="max-w-4xl mx-auto">
               <div className="text-center mb-16">

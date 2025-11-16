@@ -2,14 +2,18 @@ import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
 import { Link } from "react-router-dom";
 import ceoMessagePicture from "@/assets/cei-message-picturejpg.jpg";
+import { useScrollReveal } from "@/hooks/useScrollReveal";
 
 const CEOMessage = () => {
+  const imageRef = useScrollReveal({ threshold: 0.2, delay: 0.1 });
+  const contentRef = useScrollReveal({ threshold: 0.2, delay: 0.3 });
+
   return (
     <section className="py-24 relative overflow-hidden">
       <div className="container mx-auto px-6">
         <div className="grid lg:grid-cols-2 gap-4 items-center">
           {/* Image Column */}
-          <div className="relative">
+          <div className="relative" ref={imageRef}>
             <div className="relative z-10">
               <img
                 src={ceoMessagePicture}
@@ -24,7 +28,7 @@ const CEOMessage = () => {
           </div>
 
           {/* Message Column */}
-          <div className="lg:pl-8">
+          <div className="lg:pl-8" ref={contentRef}>
             <div className="max-w-xl">
               <h2 className="text-4xl md:text-5xl font-serif font-bold mb-8">
                 A Message from Our{" "}

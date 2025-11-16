@@ -6,8 +6,12 @@ import {
   ArrowRight,
 } from "lucide-react";
 import { Link } from "react-router-dom";
+import { useScrollReveal } from "@/hooks/useScrollReveal";
 
 const ServicesSection = () => {
+  const sectionRef = useScrollReveal({ threshold: 0.1 });
+  const headerRef = useScrollReveal({ threshold: 0.2, delay: 0.2 });
+
   const services = [
     {
       icon: Globe,
@@ -64,10 +68,10 @@ const ServicesSection = () => {
   ];
 
   return (
-    <section id="services" className="py-20 relative">
+    <section id="services" className="py-20 relative" ref={sectionRef}>
       <div className="container mx-auto px-6">
         {/* Section Header */}
-        <div className="text-center mb-16">
+        <div className="text-center mb-16" ref={headerRef}>
           <div className="inline-flex items-center px-4 py-2 rounded-full glass-card mb-6">
             <span className="text-secondary text-sm font-medium">
               ⚡ Our Expertise

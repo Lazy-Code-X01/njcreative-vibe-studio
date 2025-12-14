@@ -47,7 +47,9 @@ const CaseStudy = () => {
       <SEO
         title={`${project.title} - Case Study`}
         description={project.description}
-        keywords={`portfolio, case study, ${project.category}, ${project.technologies?.join(", ")}`}
+        keywords={`portfolio, case study, ${
+          project.category
+        }, ${project.technologies?.join(", ")}`}
       />
       <Navigation />
 
@@ -79,10 +81,16 @@ const CaseStudy = () => {
                 {project.description}
               </p>
               {project.link && (
-                <Button className="btn-luxury group">
-                  Visit Project
-                  <ExternalLink className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
-                </Button>
+                <a
+                  href={project.link}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <Button className="btn-luxury group">
+                    Visit Project
+                    <ExternalLink className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                  </Button>
+                </a>
               )}
             </div>
           </div>

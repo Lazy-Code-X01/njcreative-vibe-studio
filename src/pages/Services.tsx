@@ -14,6 +14,103 @@ import SEO from "@/components/SEO";
 import FloatingElements from "@/components/FloatingElements";
 import { useScrollReveal } from "@/hooks/useScrollReveal";
 
+// Service Item Component with scroll reveal
+interface ServiceItemProps {
+  service: {
+    id: string;
+    icon: React.ReactNode;
+    title: string;
+    subtitle: string;
+    description: string;
+    features: string[];
+    technologies: string[];
+    startingPrice: string;
+  };
+  index: number;
+}
+
+const ServiceItem = ({ service, index }: ServiceItemProps) => {
+  const { ref } = useScrollReveal({
+    threshold: 0.15,
+    rootMargin: "0px",
+    delay: index * 0.1,
+    distance: "50px",
+    duration: "0.8s",
+  });
+
+  return (
+    <div
+      ref={ref}
+      id={service.id}
+      className={`grid lg:grid-cols-2 gap-12 items-center scroll-mt-24 ${
+        index % 2 === 1 ? "lg:grid-flow-col-dense" : ""
+      }`}
+    >
+      <div className={index % 2 === 1 ? "lg:col-start-2" : ""}>
+        <div className="glass-card p-8 hover:scale-105 transition-all duration-500">
+          <div className="text-primary mb-6">{service.icon}</div>
+          <span className="text-sm text-muted-foreground tracking-wider uppercase font-medium">
+            {service.subtitle}
+          </span>
+          <h2 className="text-4xl font-serif font-bold mb-4 mt-2">
+            {service.title}
+          </h2>
+          <p className="text-muted-foreground mb-8 leading-relaxed">
+            {service.description}
+          </p>
+
+          <div className="space-y-3 mb-8">
+            {service.features.map((feature, idx) => (
+              <div key={idx} className="flex items-center space-x-3">
+                <Check className="w-5 h-5 text-primary flex-shrink-0" />
+                <span className="text-foreground">{feature}</span>
+              </div>
+            ))}
+          </div>
+
+          <div className="mb-8">
+            <h4 className="font-semibold mb-3">Technologies We Use:</h4>
+            <div className="flex flex-wrap gap-2">
+              {service.technologies.map((tech, idx) => (
+                <span
+                  key={idx}
+                  className="px-3 py-1 bg-primary/10 text-primary rounded-full text-sm font-medium"
+                >
+                  {tech}
+                </span>
+              ))}
+            </div>
+          </div>
+
+          <div className="flex items-center justify-between">
+            <div>
+              <span className="text-sm text-muted-foreground">Starting at</span>
+              <div className="text-2xl font-bold text-primary">
+                {service.startingPrice}
+              </div>
+            </div>
+            <Button className="btn-luxury group">
+              Get Started
+              <ArrowRight className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
+            </Button>
+          </div>
+        </div>
+      </div>
+
+      <div className={index % 2 === 1 ? "lg:col-start-1" : ""}>
+        <div className="relative">
+          <img
+            src="/api/placeholder/600/400"
+            alt={service.title}
+            className="w-full h-80 object-cover rounded-2xl"
+          />
+          <div className="absolute inset-0 bg-gradient-to-br from-primary/20 to-secondary/20 rounded-2xl" />
+        </div>
+      </div>
+    </div>
+  );
+};
+
 const Services = () => {
   const heroRef = useScrollReveal({ threshold: 0.1 });
   const servicesRef = useScrollReveal({ threshold: 0.2, delay: 0.2 });
@@ -32,29 +129,6 @@ const Services = () => {
         }, 100);
       }
     }
-  }, []);
-
-  // Fix for scroll reveal animations not triggering in production
-  useEffect(() => {
-    // Force visibility of all service sections after mount
-    const timer = setTimeout(() => {
-      const serviceSections = document.querySelectorAll(
-        '[id^="branding"], [id^="printing"], [id^="web-development"], [id^="ui-ux"], [id^="design-for-media"], [id^="marketing"], [id^="tech-solutions"], [id^="ai-generation"], [id^="video-production"], [id^="recruitment"], [id^="seo"]'
-      );
-      const servicesGrid = document.querySelector("section.py-20");
-
-      if (servicesGrid) {
-        (servicesGrid as HTMLElement).style.opacity = "1";
-        (servicesGrid as HTMLElement).style.transform = "translateY(0)";
-      }
-
-      serviceSections.forEach((section) => {
-        (section as HTMLElement).style.opacity = "1";
-        (section as HTMLElement).style.transform = "translateY(0)";
-      });
-    }, 100);
-
-    return () => clearTimeout(timer);
   }, []);
 
   const services = [
@@ -339,93 +413,11 @@ const Services = () => {
         </section>
 
         {/* Services Grid */}
-        <section
-          className="py-20"
-          style={{
-            opacity: 1,
-            transform: "translateY(0)",
-            transition: "none",
-          }}
-        >
+        <section className="py-20">
           <div className="container mx-auto px-6">
             <div className="space-y-20">
               {services.map((service, index) => (
-                <div
-                  id={service.id}
-                  key={service.id}
-                  className={`grid lg:grid-cols-2 gap-12 items-center scroll-mt-24 ${
-                    index % 2 === 1 ? "lg:grid-flow-col-dense" : ""
-                  }`}
-                >
-                  <div className={index % 2 === 1 ? "lg:col-start-2" : ""}>
-                    <div className="glass-card p-8 hover:scale-105 transition-all duration-500">
-                      <div className="text-primary mb-6">{service.icon}</div>
-                      <span className="text-sm text-muted-foreground tracking-wider uppercase font-medium">
-                        {service.subtitle}
-                      </span>
-                      <h2 className="text-4xl font-serif font-bold mb-4 mt-2">
-                        {service.title}
-                      </h2>
-                      <p className="text-muted-foreground mb-8 leading-relaxed">
-                        {service.description}
-                      </p>
-
-                      <div className="space-y-3 mb-8">
-                        {service.features.map((feature, idx) => (
-                          <div
-                            key={idx}
-                            className="flex items-center space-x-3"
-                          >
-                            <Check className="w-5 h-5 text-primary flex-shrink-0" />
-                            <span className="text-foreground">{feature}</span>
-                          </div>
-                        ))}
-                      </div>
-
-                      <div className="mb-8">
-                        <h4 className="font-semibold mb-3">
-                          Technologies We Use:
-                        </h4>
-                        <div className="flex flex-wrap gap-2">
-                          {service.technologies.map((tech, idx) => (
-                            <span
-                              key={idx}
-                              className="px-3 py-1 bg-primary/10 text-primary rounded-full text-sm font-medium"
-                            >
-                              {tech}
-                            </span>
-                          ))}
-                        </div>
-                      </div>
-
-                      <div className="flex items-center justify-between">
-                        <div>
-                          <span className="text-sm text-muted-foreground">
-                            Starting at
-                          </span>
-                          <div className="text-2xl font-bold text-primary">
-                            {service.startingPrice}
-                          </div>
-                        </div>
-                        <Button className="btn-luxury group">
-                          Get Started
-                          <ArrowRight className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
-                        </Button>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className={index % 2 === 1 ? "lg:col-start-1" : ""}>
-                    <div className="relative">
-                      <img
-                        src="/api/placeholder/600/400"
-                        alt={service.title}
-                        className="w-full h-80 object-cover rounded-2xl"
-                      />
-                      <div className="absolute inset-0 bg-gradient-to-br from-primary/20 to-secondary/20 rounded-2xl" />
-                    </div>
-                  </div>
-                </div>
+                <ServiceItem key={service.id} service={service} index={index} />
               ))}
             </div>
           </div>

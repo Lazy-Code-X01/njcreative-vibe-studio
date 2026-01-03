@@ -34,6 +34,29 @@ const Services = () => {
     }
   }, []);
 
+  // Fix for scroll reveal animations not triggering in production
+  useEffect(() => {
+    // Force visibility of all service sections after mount
+    const timer = setTimeout(() => {
+      const serviceSections = document.querySelectorAll(
+        '[id^="branding"], [id^="printing"], [id^="web-development"], [id^="ui-ux"], [id^="design-for-media"], [id^="marketing"], [id^="tech-solutions"], [id^="ai-generation"], [id^="video-production"], [id^="recruitment"], [id^="seo"]'
+      );
+      const servicesGrid = document.querySelector("section.py-20");
+
+      if (servicesGrid) {
+        (servicesGrid as HTMLElement).style.opacity = "1";
+        (servicesGrid as HTMLElement).style.transform = "translateY(0)";
+      }
+
+      serviceSections.forEach((section) => {
+        (section as HTMLElement).style.opacity = "1";
+        (section as HTMLElement).style.transform = "translateY(0)";
+      });
+    }, 100);
+
+    return () => clearTimeout(timer);
+  }, []);
+
   const services = [
     {
       id: "branding",
@@ -316,7 +339,14 @@ const Services = () => {
         </section>
 
         {/* Services Grid */}
-        <section className="py-20" ref={servicesRef}>
+        <section
+          className="py-20"
+          style={{
+            opacity: 1,
+            transform: "translateY(0)",
+            transition: "none",
+          }}
+        >
           <div className="container mx-auto px-6">
             <div className="space-y-20">
               {services.map((service, index) => (

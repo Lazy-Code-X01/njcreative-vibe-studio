@@ -25,6 +25,7 @@ interface ServiceItemProps {
     features: string[];
     technologies: string[];
     startingPrice: string;
+    image: string;
   };
   index: number;
 }
@@ -98,13 +99,13 @@ const ServiceItem = ({ service, index }: ServiceItemProps) => {
       </div>
 
       <div className={index % 2 === 1 ? "lg:col-start-1" : ""}>
-        <div className="relative">
+        <div className="relative w-full">
           <img
-            src="/api/placeholder/600/400"
+            src={service.image}
             alt={service.title}
-            className="w-full h-80 object-cover rounded-2xl"
+            className="w-full h-auto object-contain rounded-2xl"
           />
-          <div className="absolute inset-0 bg-gradient-to-br from-primary/20 to-secondary/20 rounded-2xl" />
+          <div className="absolute inset-0 bg-gradient-to-br from-primary/20 to-secondary/20 rounded-2xl pointer-events-none" />
         </div>
       </div>
     </div>
@@ -149,6 +150,7 @@ const Services = () => {
       ],
       technologies: ["Adobe Creative Suite", "Figma", "Sketch", "Principle"],
       startingPrice: "$3,000",
+      image: "/uploads/services/branding-rebranding.jpg",
     },
     {
       id: "printing-and-banners",
@@ -165,6 +167,7 @@ const Services = () => {
       ],
       technologies: ["Adobe Illustrator", "Adobe Photoshop", "InDesign"],
       startingPrice: "$3,000",
+      image: "/uploads/services/printing-banners.jpg",
     },
     {
       id: "web-development",
@@ -189,6 +192,7 @@ const Services = () => {
         "Tailwind CSS",
       ],
       startingPrice: "$5,000",
+      image: "/uploads/services/web-development.jpg",
     },
     {
       id: "ui-ux",
@@ -206,6 +210,7 @@ const Services = () => {
       ],
       technologies: ["Figma", "Sketch", "Adobe XD", "InVision"],
       startingPrice: "$2,500/mo",
+      image: "/uploads/services/ui-ux-design.jpg",
     },
     {
       id: "design-for-media",
@@ -227,6 +232,7 @@ const Services = () => {
         "Facebook Ads",
       ],
       startingPrice: "$2,500/mo",
+      image: "/uploads/services/ads-management.jpg",
     },
     {
       id: "marketing",
@@ -250,6 +256,7 @@ const Services = () => {
         "Facebook Ads",
       ],
       startingPrice: "$2,500/mo",
+      image: "/uploads/services/digital-marketing.jpg",
     },
     {
       id: "tech-solutions",
@@ -268,6 +275,7 @@ const Services = () => {
       ],
       technologies: ["React Native", "Python", "AWS", "Docker", "PostgreSQL"],
       startingPrice: "$10,000",
+      image: "/uploads/services/tech-solutions.jpg",
     },
     {
       id: "ai-generation",
@@ -289,6 +297,7 @@ const Services = () => {
         "Generative AI",
       ],
       startingPrice: "$10,000",
+      image: "/uploads/services/ai-generation.jpg",
     },
     {
       id: "video-production",
@@ -306,6 +315,7 @@ const Services = () => {
       ],
       technologies: ["Adobe Premiere Pro", "Final Cut Pro", "After Effects"],
       startingPrice: "$10,000",
+      image: "/uploads/services/video-production.jpg",
     },
     {
       id: "recruitment-talent",
@@ -323,6 +333,7 @@ const Services = () => {
       ],
       technologies: ["LinkedIn Recruiter", "Indeed", "Glassdoor"],
       startingPrice: "$10,000",
+      image: "/uploads/services/recruitment-services.jpg",
     },
     {
       id: "seo",
@@ -339,6 +350,7 @@ const Services = () => {
       ],
       technologies: ["Google Analytics", "SEMrush", "Ahrefs"],
       startingPrice: "$1,500/mo",
+      image: "/uploads/services/seo.jpg",
     },
   ];
 

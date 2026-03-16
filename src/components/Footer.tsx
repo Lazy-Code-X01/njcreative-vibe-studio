@@ -1,8 +1,8 @@
+import React from "react";
 import {
   Mail,
   Phone,
   MapPin,
-  Twitter,
   Linkedin,
   Instagram,
 } from "lucide-react";
@@ -14,8 +14,18 @@ import {
   FaFacebook,
 } from "react-icons/fa6";
 
-const Footer = () => {
-  const quickLinks = [
+// --- Types ---
+interface LinkItem {
+  label: string;
+  href: string;
+}
+
+interface SocialLink extends LinkItem {
+  icon: React.ElementType;
+}
+
+const Footer: React.FC = () => {
+  const quickLinks: LinkItem[] = [
     { label: "About Us", href: "#about" },
     { label: "Services", href: "#services" },
     { label: "Portfolio", href: "#portfolio" },
@@ -23,7 +33,7 @@ const Footer = () => {
     { label: "Contact", href: "#contact" },
   ];
 
-  const services = [
+  const services: LinkItem[] = [
     { label: "Web Development", href: "#" },
     { label: "Branding & Design", href: "#" },
     { label: "Digital Marketing", href: "#" },
@@ -31,25 +41,25 @@ const Footer = () => {
     { label: "Consultation", href: "#" },
   ];
 
-  const socialLinks = [
+  const socialLinks: SocialLink[] = [
     {
       icon: FaThreads,
-      href: " https://www.threads.com/@nj_creativefirm?igshid=NTc4MTIwNjQ2YQ==",
+      href: "https://www.threads.com/@nj_creativefirm?igshid=NTc4MTIwNjQ2YQ==",
       label: "Threads",
     },
     {
       icon: Linkedin,
-      href: " https://www.linkedin.com/company/nj-creativefirm/",
+      href: "https://www.linkedin.com/company/nj-creativefirm/",
       label: "LinkedIn",
     },
     {
       icon: Instagram,
-      href: " https://www.instagram.com/nj_creativefirm?igsh=ZWdtODVwYXNnZnE0&utm_source=qr",
+      href: "https://www.instagram.com/nj_creativefirm?igsh=ZWdtODVwYXNnZnE0&utm_source=qr",
       label: "Instagram",
     },
     {
       icon: FaTiktok,
-      href: " https://www.tiktok.com/@nj_creativefirm?_t=ZS-8zzrTOskTGG&_r=1",
+      href: "https://www.tiktok.com/@nj_creativefirm?_t=ZS-8zzrTOskTGG&_r=1",
       label: "Tiktok",
     },
     {
@@ -57,10 +67,14 @@ const Footer = () => {
       href: "https://pin.it/BCLx4uf73",
       label: "Pinterest",
     },
-    { icon: FaWhatsapp, href: "wa.me/2349034964186", label: "Whatsapp" },
+    {
+      icon: FaWhatsapp,
+      href: "https://wa.me/2349034964186",
+      label: "Whatsapp",
+    },
     {
       icon: FaFacebook,
-      href: " https://www.facebook.com/share/1RYXxnDbRs/",
+      href: "https://www.facebook.com/share/1RYXxnDbRs/",
       label: "Facebook",
     },
   ];
@@ -68,12 +82,12 @@ const Footer = () => {
   return (
     <footer className="bg-card/50 border-t border-border">
       <div className="container mx-auto px-6">
+        
         {/* Main Footer Content */}
         <div className="py-16">
           <div className="grid lg:grid-cols-4 md:grid-cols-2 gap-8">
             {/* Company Info */}
             <div className="lg:col-span-2">
-              {/* Logo */}
               <div className="flex items-center space-x-2 mb-6">
                 <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-primary to-secondary flex items-center justify-center">
                   <span className="text-primary-foreground font-bold text-xl">
@@ -109,7 +123,7 @@ const Footer = () => {
                 <div className="flex items-center space-x-3">
                   <MapPin className="w-5 h-5 text-secondary" />
                   <span className="text-muted-foreground">
-                    Seaside Estate, Ajah, Lagos
+                    2 Seaside Estate, Badore, Ajah, Lagos
                   </span>
                 </div>
               </div>
@@ -125,8 +139,6 @@ const Footer = () => {
                   <li key={index}>
                     <a
                       href={link.href}
-                      target="_blank"
-                      rel="noopener noreferrer"
                       className="text-muted-foreground hover:text-secondary transition-colors duration-300"
                     >
                       {link.label}
@@ -159,10 +171,10 @@ const Footer = () => {
 
         {/* Newsletter Signup */}
         <div className="py-8 border-t border-border">
-          <div className="glass-card p-8">
+          <div className="glass-card p-8 rounded-2xl">
             <div className="grid md:grid-cols-2 gap-8 items-center">
               <div>
-                <h3 className="text-2xl font-bold mb-4">Stay In The Loop</h3>
+                <h3 className="text-2xl font-bold mb-4 text-foreground">Stay In The Loop</h3>
                 <p className="text-muted-foreground">
                   Get the latest insights on design, development, and digital
                   strategy delivered straight to your inbox.
@@ -175,7 +187,7 @@ const Footer = () => {
                     placeholder="Enter your email"
                     className="flex-1 px-4 py-3 rounded-lg bg-input border border-border focus:ring-2 focus:ring-secondary focus:border-transparent outline-none text-foreground"
                   />
-                  <button className="btn-hero px-6 py-3 whitespace-nowrap">
+                  <button className="btn-hero bg-primary text-primary-foreground hover:bg-primary/90 px-6 py-3 rounded-lg transition-colors whitespace-nowrap">
                     Subscribe
                   </button>
                 </div>
@@ -184,16 +196,32 @@ const Footer = () => {
           </div>
         </div>
 
-        {/* Bottom Bar */}
-        <div className="py-6 border-t border-border">
-          <div className="flex flex-col md:flex-row justify-between items-center gap-4">
-            {/* Copyright */}
-            <div className="text-muted-foreground text-sm">
-              © 2025 NJ Creative Firm. All rights reserved.
+        {/* Bottom Bar - Restructured for Mobile & Desktop */}
+        <div className="py-8 border-t border-border flex flex-col gap-8">
+          
+          {/* Company Details & Legal Links Tier */}
+          <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
+            <div className="space-y-1 text-sm text-muted-foreground">
+              <p><span className="font-semibold text-foreground">Registration No:</span> 8136817 <span className="mx-2">|</span> <span className="font-semibold text-foreground">TIN:</span> 32608398-0001</p>
+              <p><span className="font-semibold text-foreground">Bank Details:</span> Wema/Alat – NJ Creative Firm – 0126564974</p>
+            </div>
+            
+            <div className="flex flex-wrap gap-4 text-sm">
+              <a href="#" className="text-muted-foreground hover:text-secondary transition-colors duration-300">Privacy Policy</a>
+              <span className="text-border hidden sm:inline">•</span>
+              <a href="#" className="text-muted-foreground hover:text-secondary transition-colors duration-300">Terms of Service</a>
+              <span className="text-border hidden sm:inline">•</span>
+              <a href="#" className="text-muted-foreground hover:text-secondary transition-colors duration-300">Cookie Policy</a>
+            </div>
+          </div>
+
+          {/* Copyright & Socials Tier */}
+          <div className="flex flex-col-reverse md:flex-row justify-between items-center gap-6 pt-6 border-t border-border/50">
+            <div className="text-muted-foreground text-sm text-center md:text-left">
+              © {new Date().getFullYear()} NJ Creative Firm. All rights reserved.
             </div>
 
-            {/* Social Links */}
-            <div className="flex items-center space-x-4">
+            <div className="flex flex-wrap justify-center gap-3">
               {socialLinks.map((social, index) => {
                 const IconComponent = social.icon;
                 return (
@@ -202,7 +230,7 @@ const Footer = () => {
                     href={social.href}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="w-10 h-10 rounded-lg bg-accent hover:bg-accent-premium flex items-center justify-center text-accent-foreground hover:text-black transition-all duration-300 hover:scale-110"
+                    className="w-10 h-10 rounded-lg bg-accent hover:bg-secondary flex items-center justify-center text-accent-foreground hover:text-white transition-all duration-300 hover:-translate-y-1"
                     aria-label={social.label}
                   >
                     <IconComponent className="w-5 h-5" />
@@ -210,33 +238,8 @@ const Footer = () => {
                 );
               })}
             </div>
-
-            {/* Legal Links */}
-            <div className="flex items-center space-x-6 text-sm">
-              <a
-                href="#"
-                className="text-muted-foreground hover:text-secondary transition-colors duration-300"
-              >
-                Privacy Policy
-              </a>
-              <a
-                href="#"
-                className="text-muted-foreground hover:text-secondary transition-colors duration-300"
-              >
-                Terms of Service
-              </a>
-            </div>
           </div>
 
-          <div className="mt-5 space-y-3 text-muted-foreground text-sm">
-            <p>Registration No: 8136817 TIN: 32608398-0001</p>
-            <p>Address: 2 Seaside Estate, Badore, Ajah, Lagos</p>
-            <p>Bank: Wema/Alat – NJ Creative Firm – 0126564974</p>
-            <p>
-              Add Privacy Policy, Terms, Cookie Policy, and © 2025 NJ Creative
-              Firm
-            </p>
-          </div>
         </div>
       </div>
     </footer>

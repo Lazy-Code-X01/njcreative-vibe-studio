@@ -26,19 +26,19 @@ interface SocialLink extends LinkItem {
 
 const Footer: React.FC = () => {
   const quickLinks: LinkItem[] = [
-    { label: "About Us", href: "#about" },
-    { label: "Services", href: "#services" },
-    { label: "Portfolio", href: "#portfolio" },
-    { label: "Blog", href: "#blog" },
-    { label: "Contact", href: "#contact" },
+    { label: "About Us", href: "about" },
+    { label: "Services", href: "services" },
+    { label: "Portfolio", href: "portfolio" },
+    { label: "Blog", href: "blog" },
+    { label: "Contact", href: "contact" },
   ];
 
   const services: LinkItem[] = [
-    { label: "Web Development", href: "#" },
-    { label: "Branding & Design", href: "#" },
-    { label: "Digital Marketing", href: "#" },
-    { label: "Tech Solutions", href: "#" },
-    { label: "Consultation", href: "#" },
+    { label: "Web Development", href: "services/#web-development" },
+    { label: "Branding & Design", href: "services/#branding" },
+    { label: "Digital Marketing", href: "services/#marketing" },
+    { label: "Tech Solutions", href: "services/#tech-solutions" },
+    { label: "Video Production", href: "services/#video-production" },
   ];
 
   const socialLinks: SocialLink[] = [
@@ -204,14 +204,6 @@ const Footer: React.FC = () => {
             <div className="space-y-1 text-sm text-muted-foreground">
               <p><span className="font-semibold text-foreground">Registration No:</span> 8136817 <span className="mx-2">|</span> <span className="font-semibold text-foreground">TIN:</span> 32608398-0001</p>
               <p><span className="font-semibold text-foreground">Bank Details:</span> Wema/Alat – NJ Creative Firm – 0126564974</p>
-            </div>
-            
-            <div className="flex flex-wrap gap-4 text-sm">
-              <a href="#" className="text-muted-foreground hover:text-secondary transition-colors duration-300">Privacy Policy</a>
-              <span className="text-border hidden sm:inline">•</span>
-              <a href="#" className="text-muted-foreground hover:text-secondary transition-colors duration-300">Terms of Service</a>
-              <span className="text-border hidden sm:inline">•</span>
-              <a href="#" className="text-muted-foreground hover:text-secondary transition-colors duration-300">Cookie Policy</a>
             </div>
           </div>
 

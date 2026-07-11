@@ -32,7 +32,7 @@ const Navigation = () => {
         { label: "Design", path: "/services#design-for-media" },
         { label: "AI Generation", path: "/services#ai-generation" },
         { label: "SEO", path: "/services#content-creation" },
-        { label: "Recuiment Services", path: "/services#recruitment-talent" },
+        { label: "Recruitment Services", path: "/services#recruitment-talent" },
       ],
     },
     { label: "Portfolio", path: "/portfolio" },
@@ -55,7 +55,7 @@ const Navigation = () => {
             <div className="relative">
               <img
                 src="/uploads/logo.png"
-                alt="DJ Creative Firm Logo"
+                alt="NJ Creative Firm Logo"
                 className="w-12 h-12 object-contain transition-transform duration-300 group-hover:scale-105"
               />
             </div>
@@ -83,8 +83,8 @@ const Navigation = () => {
                       to={item.path}
                       className={`flex items-center px-4 py-2 rounded-lg font-medium transition-all duration-300 ${
                         isActive(item.path)
-                          ? "text-primary bg-glass-primary"
-                          : "text-muted-foreground hover:text-primary hover:bg-glass-luxury"
+                          ? "text-primary bg-primary/10"
+                          : "text-muted-foreground hover:text-primary hover:bg-muted/50"
                       }`}
                     >
                       {item.label}
@@ -117,7 +117,7 @@ const Navigation = () => {
                                 setIsServicesOpen(false);
                               }
                             }}
-                            className="block px-4 py-3 text-muted-foreground hover:text-primary-foreground hover:bg-glass-luxury rounded-xl transition-all duration-300 font-medium"
+                            className="block px-4 py-3 text-muted-foreground hover:text-primary-foreground hover:bg-muted/50 rounded-xl transition-all duration-300 font-medium"
                           >
                             {dropdownItem.label}
                           </Link>
@@ -130,8 +130,8 @@ const Navigation = () => {
                     to={item.path}
                     className={`px-4 py-2 rounded-lg font-medium transition-all duration-300 ${
                       isActive(item.path)
-                        ? "text-primary bg-glass-primary"
-                        : "text-muted-foreground hover:text-primary hover:bg-glass-luxury"
+                        ? "text-primary bg-primary/10"
+                        : "text-muted-foreground hover:text-primary hover:bg-muted/50"
                     }`}
                   >
                     {item.label}
@@ -160,7 +160,7 @@ const Navigation = () => {
         {/* Mobile Menu */}
         <div
           className={`lg:hidden overflow-hidden transition-all duration-500 ${
-            isMobileMenuOpen ? "max-h-96 opacity-100 mt-6" : "max-h-0 opacity-0"
+            isMobileMenuOpen ? "max-h-[600px] opacity-100 mt-6" : "max-h-0 opacity-0"
           }`}
         >
           <div className="glass-card rounded-2xl p-6">

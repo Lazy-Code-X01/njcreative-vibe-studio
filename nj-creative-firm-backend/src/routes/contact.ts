@@ -127,6 +127,20 @@ router.get('/', requireAuth, async (req, res, next) => {
   }
 });
 
+// Mark a message as read (admin only)
+router.patch('/:id/read', requireAuth, async (req, res, next) => {
+  try {
+    const message = await Message.findByIdAndUpdate(
+      req.params.id,
+      { read: true },
+      { new: true }
+    );
+    res.json(message);
+  } catch (err) {
+    next(err);
+  }
+});
+
 // Delete a message (admin only)
 router.delete('/:id', requireAuth, async (req, res, next) => {
   try {

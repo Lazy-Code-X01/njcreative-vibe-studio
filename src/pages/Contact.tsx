@@ -208,17 +208,8 @@ const Contact = () => {
     "E-commerce",
     "Mobile App Development",
     "SEO & Analytics",
-    "Recuiment Services",
+    "Recruitment Services",
     "Others",
-  ];
-
-  const budgetRanges = [
-    "Under $5,000",
-    "$5,000 - $10,000",
-    "$10,000 - $25,000",
-    "$25,000 - $50,000",
-    "$50,000 - $100,000",
-    "$100,000+",
   ];
 
   return (
@@ -252,7 +243,7 @@ const Contact = () => {
               )}
               <h1 className="text-5xl md:text-7xl font-serif font-bold mb-8 leading-tight">
                 Let's Create
-                <span className="block gradient-text animate-gradient italic">
+                <span className="block gradient-text italic">
                   Something
                 </span>
                 Extraordinary
@@ -640,22 +631,24 @@ const Contact = () => {
                     Our Location
                   </h3>
                   <div className="glass-card p-6 mb-6">
-                    <div className="aspect-w-16 aspect-h-12 mb-4">
+                    <div className="mb-4">
                       <iframe
-                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3022.9663095343008!2d-74.00425878428698!3d40.74844684379132!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c259bf5c1654f3%3A0xc80f9cfce5383d5d!2sNew%20York%2C%20NY%2010001%2C%20USA!5e0!3m2!1sen!2sus!4v1640995200000!5m2!1sen!2sus"
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3964.5!2d3.5850!3d6.4698!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x103bf85b8e6f9a3b%3A0x0!2sSeaside+Estate%2C+Ajah%2C+Lagos%2C+Nigeria!5e0!3m2!1sen!2sng!4v1640995200000!5m2!1sen!2sng"
                         width="100%"
                         height="300"
                         style={{ border: 0, borderRadius: "12px" }}
                         allowFullScreen
                         loading="lazy"
                         referrerPolicy="no-referrer-when-downgrade"
+                        title="NJ Creative Firm location — Seaside Estate, Ajah, Lagos"
                       />
                     </div>
                     <div className="text-center">
                       <h4 className="font-bold mb-2">NJ Creative Firm HQ</h4>
-                      <p className="text-muted-foreground text-sm mb-4">
+                      <p className="text-muted-foreground text-sm">
                         Seaside Estate, Ajah, Lagos
-                        <br />
+                      </p>
+                      <p className="text-muted-foreground text-sm mb-4">
                         Nigeria
                       </p>
                       <a
@@ -713,8 +706,8 @@ const Contact = () => {
                       rel="noopener noreferrer"
                       className="flex items-center space-x-3 p-3 rounded-xl hover:bg-muted/10 transition-colors"
                     >
-                      <div className="w-10 h-10 bg-accent-premium/10 rounded-full flex items-center justify-center">
-                        <MessageCircle className="w-5 h-5 text-accent-premium" />
+                      <div className="w-10 h-10 bg-primary/10 rounded-full flex items-center justify-center">
+                        <MessageCircle className="w-5 h-5 text-primary" />
                       </div>
                       <div>
                         <p className="font-medium">WhatsApp</p>

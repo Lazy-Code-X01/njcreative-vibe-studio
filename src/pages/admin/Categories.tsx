@@ -4,11 +4,25 @@ import { adminApi } from '@/lib/adminApi';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
-import { Trash2, Plus, Edit2, Check, X, FolderTree } from 'lucide-react';
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from '@/components/ui/table';
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogFooter,
+} from '@/components/ui/dialog';
+import { Trash2, Plus, Edit2 } from 'lucide-react';
 import { toast } from 'sonner';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import {
   AlertDialog,
   AlertDialogAction,
@@ -21,11 +35,20 @@ import {
   AlertDialogTrigger,
 } from '@/components/ui/alert-dialog';
 
+const toSlug = (name: string) =>
+  name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
+
 export default function AdminCategories() {
   const queryClient = useQueryClient();
-  const [isAdding, setIsAdding] = useState(false);
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [editingId, setEditingId] = useState<string | null>(null);
   const [formData, setFormData] = useState({ name: '', slug: '', description: '' });
+
+  useEffect(() => {
+    if (isDialogOpen && !editingId) {
+      setFormData((prev) => ({ ...prev, slug: toSlug(prev.name) }));
+    }
+  }, [formData.name, isDialogOpen, editingId]);
 
   const { data: categories, isLoading } = useQuery({
     queryKey: ['categories'],
@@ -39,37 +62,29 @@ export default function AdminCategories() {
     mutationFn: (data: any) => adminApi.createCategory(data),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['categories'] });
-      toast.success('Category created successfully');
-      setIsAdding(false);
-      setFormData({ name: '', slug: '', description: '' });
+      toast.success('Category created');
+      closeDialog();
     },
-    onError: () => {
-      toast.error('Failed to create category');
-    },
+    onError: () => toast.error('Failed to create category'),
   });
 
   const updateMutation = useMutation({
     mutationFn: ({ id, data }: { id: string; data: any }) => adminApi.updateCategory(id, data),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['categories'] });
-      toast.success('Category updated successfully');
-      setEditingId(null);
-      setFormData({ name: '', slug: '', description: '' });
+      toast.success('Category updated');
+      closeDialog();
     },
-    onError: () => {
-      toast.error('Failed to update category');
-    },
+    onError: () => toast.error('Failed to update category'),
   });
 
   const deleteMutation = useMutation({
     mutationFn: (id: string) => adminApi.deleteCategory(id),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['categories'] });
-      toast.success('Category deleted successfully');
+      toast.success('Category deleted');
     },
-    onError: () => {
-      toast.error('Failed to delete category');
-    },
+    onError: () => toast.error('Failed to delete category'),
   });
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -83,25 +98,29 @@ export default function AdminCategories() {
 
   const handleEdit = (category: any) => {
     setEditingId(category._id);
-    setFormData({
-      name: category.name,
-      slug: category.slug,
-      description: category.description || '',
-    });
-    setIsAdding(false);
+    setFormData({ name: category.name, slug: category.slug, description: category.description || '' });
+    setIsDialogOpen(true);
   };
 
-  const handleCancel = () => {
-    setIsAdding(false);
+  const openNew = () => {
+    setEditingId(null);
+    setFormData({ name: '', slug: '', description: '' });
+    setIsDialogOpen(true);
+  };
+
+  const closeDialog = () => {
+    setIsDialogOpen(false);
     setEditingId(null);
     setFormData({ name: '', slug: '', description: '' });
   };
+
+  const isSaving = createMutation.isPending || updateMutation.isPending;
 
   if (isLoading) {
     return (
       <AdminLayout>
         <div className="flex items-center justify-center h-96">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary"></div>
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary" />
         </div>
       </AdminLayout>
     );
@@ -109,127 +128,80 @@ export default function AdminCategories() {
 
   return (
     <AdminLayout>
-      <div className="space-y-8">
-        <div className="flex justify-between items-center">
-          <div className="space-y-2">
-            <h1 className="text-4xl font-bold tracking-tight bg-gradient-to-r from-foreground via-foreground to-secondary bg-clip-text text-transparent">
-              Categories
-            </h1>
-            <p className="text-muted-foreground text-lg">Manage blog post categories</p>
+      <div className="space-y-6">
+        {/* Header */}
+        <div className="flex items-center justify-between">
+          <div className="space-y-1">
+            <h1 className="text-3xl font-bold text-foreground">Categories</h1>
+            <p className="text-muted-foreground">Manage blog post categories</p>
           </div>
-          {!isAdding && !editingId && (
-            <Button onClick={() => setIsAdding(true)} className="bg-gradient-to-r from-primary to-primary-glow hover:from-primary-glow hover:to-primary shadow-lg hover:shadow-glow transition-all">
-              <Plus className="h-4 w-4 mr-2" />
-              Add Category
-            </Button>
-          )}
+          <Button
+            onClick={openNew}
+            className="bg-primary hover:bg-primary-glow text-primary-foreground transition-colors"
+          >
+            <Plus className="h-4 w-4 mr-2" />
+            Add Category
+          </Button>
         </div>
 
-        {(isAdding || editingId) && (
-          <Card className="glass-card">
-            <CardHeader>
-              <CardTitle>{editingId ? 'Edit Category' : 'New Category'}</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <form onSubmit={handleSubmit} className="space-y-4">
-                <div className="grid md:grid-cols-2 gap-4">
-                  <div className="space-y-2">
-                    <Label htmlFor="name">Name</Label>
-                    <Input
-                      id="name"
-                      value={formData.name}
-                      onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                      required
-                    />
-                  </div>
-                  <div className="space-y-2">
-                    <Label htmlFor="slug">Slug</Label>
-                    <Input
-                      id="slug"
-                      value={formData.slug}
-                      onChange={(e) => setFormData({ ...formData, slug: e.target.value })}
-                      required
-                    />
-                  </div>
-                </div>
-                <div className="space-y-2">
-                  <Label htmlFor="description">Description</Label>
-                  <Input
-                    id="description"
-                    value={formData.description}
-                    onChange={(e) => setFormData({ ...formData, description: e.target.value })}
-                  />
-                </div>
-                <div className="flex gap-2">
-                  <Button type="submit">
-                    <Check className="h-4 w-4 mr-2" />
-                    {editingId ? 'Update' : 'Create'}
-                  </Button>
-                  <Button type="button" variant="outline" onClick={handleCancel}>
-                    <X className="h-4 w-4 mr-2" />
-                    Cancel
-                  </Button>
-                </div>
-              </form>
-            </CardContent>
-          </Card>
-        )}
-
+        {/* Categories list */}
         <Card className="glass-card">
           <CardHeader>
-            <div className="flex items-center gap-2">
-              <FolderTree className="h-5 w-5 text-secondary" />
-              <div>
-                <CardTitle>All Categories</CardTitle>
-                <CardDescription className="mt-1">
-                  {categories?.length || 0} total categor{categories?.length !== 1 ? 'ies' : 'y'}
-                </CardDescription>
-              </div>
-            </div>
+            <CardTitle className="text-sm font-semibold text-foreground">All Categories</CardTitle>
+            <CardDescription>
+              {categories?.length || 0} categor{categories?.length !== 1 ? 'ies' : 'y'}
+            </CardDescription>
           </CardHeader>
-          <CardContent>
+          <CardContent className="p-0">
             <Table>
               <TableHeader>
-                <TableRow>
-                  <TableHead>Name</TableHead>
+                <TableRow className="border-border/50">
+                  <TableHead className="pl-5">Name</TableHead>
                   <TableHead>Slug</TableHead>
                   <TableHead>Description</TableHead>
-                  <TableHead className="text-right">Actions</TableHead>
+                  <TableHead className="text-right pr-5">Actions</TableHead>
                 </TableRow>
               </TableHeader>
               <TableBody>
                 {!categories || categories.length === 0 ? (
                   <TableRow>
-                    <TableCell colSpan={4} className="text-center text-muted-foreground">
-                      No categories yet
+                    <TableCell colSpan={4} className="text-center text-muted-foreground py-12">
+                      No categories yet. Add your first one above.
                     </TableCell>
                   </TableRow>
                 ) : (
                   categories.map((category: any) => (
-                    <TableRow key={category._id}>
-                      <TableCell className="font-medium">{category.name}</TableCell>
-                      <TableCell>{category.slug}</TableCell>
-                      <TableCell>{category.description || '-'}</TableCell>
-                      <TableCell className="text-right">
-                        <div className="flex justify-end gap-2">
+                    <TableRow key={category._id} className="border-border/50">
+                      <TableCell className="pl-5 font-medium text-foreground">
+                        {category.name}
+                      </TableCell>
+                      <TableCell className="text-muted-foreground text-sm font-mono">
+                        {category.slug}
+                      </TableCell>
+                      <TableCell className="text-muted-foreground text-sm">
+                        {category.description || <span className="text-border">—</span>}
+                      </TableCell>
+                      <TableCell className="text-right pr-5">
+                        <div className="flex items-center justify-end gap-1">
                           <Button
-                            variant="outline"
+                            variant="ghost"
                             size="icon"
                             onClick={() => handleEdit(category)}
+                            title="Edit category"
                           >
                             <Edit2 className="h-4 w-4" />
                           </Button>
                           <AlertDialog>
                             <AlertDialogTrigger asChild>
-                              <Button variant="destructive" size="icon">
-                                <Trash2 className="h-4 w-4" />
+                              <Button variant="ghost" size="icon" title="Delete category">
+                                <Trash2 className="h-4 w-4 text-destructive" />
                               </Button>
                             </AlertDialogTrigger>
                             <AlertDialogContent>
                               <AlertDialogHeader>
                                 <AlertDialogTitle>Delete Category</AlertDialogTitle>
                                 <AlertDialogDescription>
-                                  Are you sure you want to delete this category? This action cannot be undone.
+                                  Are you sure you want to delete "{category.name}"? Posts in this category will become uncategorized.
                                 </AlertDialogDescription>
                               </AlertDialogHeader>
                               <AlertDialogFooter>
@@ -253,6 +225,62 @@ export default function AdminCategories() {
           </CardContent>
         </Card>
       </div>
+      {/* Add / Edit dialog */}
+      <Dialog open={isDialogOpen} onOpenChange={(open) => !open && closeDialog()}>
+        <DialogContent className="max-w-md">
+          <DialogHeader>
+            <DialogTitle className="text-lg font-semibold text-foreground">
+              {editingId ? 'Edit Category' : 'New Category'}
+            </DialogTitle>
+          </DialogHeader>
+
+          <form onSubmit={handleSubmit} className="space-y-4">
+            <div className="space-y-2">
+              <Label htmlFor="name">Name *</Label>
+              <Input
+                id="name"
+                value={formData.name}
+                onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                placeholder="e.g. Brand Strategy"
+                required
+                autoFocus
+              />
+            </div>
+            <div className="space-y-2">
+              <Label htmlFor="slug">Slug *</Label>
+              <Input
+                id="slug"
+                value={formData.slug}
+                onChange={(e) => setFormData({ ...formData, slug: e.target.value })}
+                placeholder="brand-strategy"
+                required
+              />
+            </div>
+            <div className="space-y-2">
+              <Label htmlFor="description">Description</Label>
+              <Input
+                id="description"
+                value={formData.description}
+                onChange={(e) => setFormData({ ...formData, description: e.target.value })}
+                placeholder="Optional short description"
+              />
+            </div>
+
+            <DialogFooter className="pt-2">
+              <Button type="button" variant="outline" onClick={closeDialog}>
+                Cancel
+              </Button>
+              <Button
+                type="submit"
+                className="bg-primary hover:bg-primary-glow text-primary-foreground transition-colors"
+                disabled={isSaving}
+              >
+                {isSaving ? 'Saving…' : editingId ? 'Update' : 'Create'}
+              </Button>
+            </DialogFooter>
+          </form>
+        </DialogContent>
+      </Dialog>
     </AdminLayout>
   );
 }

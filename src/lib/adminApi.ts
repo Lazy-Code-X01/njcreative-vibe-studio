@@ -56,6 +56,7 @@ export const adminApi = {
 
   // Messages
   getMessages: () => apiClient.get("/contact"),
+  markMessageRead: (id: string) => apiClient.patch(`/contact/${id}/read`),
   deleteMessage: (id: string) => apiClient.delete(`/contact/${id}`),
 
   // Portfolio
@@ -65,6 +66,13 @@ export const adminApi = {
   updatePortfolioProject: (id: string, data: any) =>
     apiClient.put(`/portfolio/${id}`, data),
   deletePortfolioProject: (id: string) => apiClient.delete(`/portfolio/${id}`),
+
+  // Services
+  getServices: () => apiClient.get("/services/all"),
+  createService: (data: any) => apiClient.post("/services", data),
+  updateService: (id: string, data: any) => apiClient.put(`/services/${id}`, data),
+  deleteService: (id: string) => apiClient.delete(`/services/${id}`),
+  seedServices: () => apiClient.post("/services/seed", {}),
 
   // Upload
   uploadImage: (file: File) => {

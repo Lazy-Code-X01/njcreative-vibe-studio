@@ -123,7 +123,7 @@ const BackgroundSlider = () => {
       </button>
 
       {/* Slide Indicators */}
-      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex space-x-3 z-20">
+      <div className="absolute bottom-16 left-1/2 -translate-x-1/2 flex space-x-3 z-20">
         {slides.map((_, index) => (
           <button
             key={index}
@@ -138,17 +138,6 @@ const BackgroundSlider = () => {
         ))}
       </div>
 
-      {/* Progress Bar */}
-      <div className="absolute bottom-0 left-0 w-full h-1 bg-white/20 z-20">
-        <div
-          className="h-full bg-gradient-to-r from-primary to-secondary transition-all duration-300 ease-out"
-          style={{
-            width: isAutoPlaying
-              ? `${((currentSlide + 1) / slides.length) * 100}%`
-              : "100%",
-          }}
-        />
-      </div>
     </div>
   );
 };

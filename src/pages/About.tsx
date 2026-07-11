@@ -13,10 +13,10 @@ import SEO from "@/components/SEO";
 import FloatingElements from "@/components/FloatingElements";
 import MouseInteractive from "@/components/MouseInteractive";
 
-import wealthImg from "@/assets/wealth-favour.jpg";
+import wealthImg from "@/assets/wealth-favour.jpeg";
 import natashaImg from "@/assets/natasha-jumbo.jpg";
-import idahImg from "@/assets/IdahShidu.jpg";
-import alexandraImg from "@/assets/alexandra-aprah.jpg";
+import idahImg from "@/assets/IdahShidu.jpeg";
+import alexandraImg from "@/assets/alexandra-aprah.jpeg";
 import { Link } from "react-router-dom";
 import { useScrollReveal } from "@/hooks/useScrollReveal";
 
@@ -27,15 +27,6 @@ const About = () => {
   const teamRef = useScrollReveal({ threshold: 0.2, delay: 0.2 });
   const timelineRef = useScrollReveal({ threshold: 0.2, delay: 0.3 });
   
-  const choose = [
-    {
-      icon: <Lightbulb className="w-8 h-8" />,
-      title: "Innovation First",
-      description:
-        "We pioneer digital solutions by embracing cutting-edge technologies and creative methodologies, setting new benchmarks in the industry while ensuring your brand stays ahead of the curve.",
-    },
-  ];
-
   const values = [
     {
       icon: <Lightbulb className="w-8 h-8" />,
@@ -140,14 +131,13 @@ const About = () => {
           <FloatingElements />
           <div className="container mx-auto px-6 relative z-10">
             <div className="max-w-4xl mx-auto text-center">
+              <p className="text-sm text-muted-foreground tracking-widest uppercase mb-6 font-medium">
+                Est. 2022 · Officially Licensed 2024
+              </p>
               <h1 className="text-5xl md:text-7xl font-serif font-bold mb-8 leading-tight">
                 Crafting Digital
-                <span className="block gradient-text animate-gradient italic">
+                <span className="block gradient-text italic">
                   Excellence
-                </span>
-                Since 2022
-                <span className="block gradient-text animate-gradient italic text-base">
-                  (Officially Licensed in 2024.)
                 </span>
               </h1>
               <p className="text-xl md:text-2xl text-muted-foreground leading-relaxed mb-10">
@@ -184,48 +174,39 @@ const About = () => {
                 <h2 className="text-4xl md:text-5xl font-serif font-bold mb-8">
                   Our Mission
                 </h2>
-                <p className="text-lg text-muted-foreground leading-relaxed mb-8">
-                  At NJ Creative Firm, we believe every brand has a story worth
-                  telling, and telling it well makes all the difference. We are
-                  a dynamic branding and creative solutions agency based in
-                  Lagos, Nigeria, dedicated to transforming ideas into impactful
-                  visual experiences that inspire action and drive results.
-                  <br />
-                  <br />
-                  ​Founded with a vision to help businesses stand out in a
-                  competitive marketplace, NJ Creative Firm is more than just a
-                  design agency; we are your strategic partner. From branding
-                  and logo design to social media management, website
-                  development, video production, and recruitment services, we
-                  provide a one-stop creative hub where businesses can get
-                  everything they need to look, sound, and perform like market
-                  leaders.
-                  <br />
-                  <br />
-                  ​We don’t just create designs; we craft identities. We don’t
-                  just post on social media; we build connections. And we don’t
-                  just deliver projects; we deliver results that help you grow,
-                  thrive, and succeed.
-                </p>
-                <div className="space-y-4">
-                  <div className="flex items-center space-x-3">
-                    <div className="w-2 h-2 bg-primary rounded-full" />
-                    <span className="text-foreground">
-                      Strategic thinking meets creative excellence
-                    </span>
-                  </div>
-                  <div className="flex items-center space-x-3">
-                    <div className="w-2 h-2 bg-secondary rounded-full" />
-                    <span className="text-foreground">
-                      Technology-driven, human-centered solutions
-                    </span>
-                  </div>
-                  <div className="flex items-center space-x-3">
-                    <div className="w-2 h-2 bg-accent-premium rounded-full" />
-                    <span className="text-foreground">
-                      Long-term partnerships, not just projects
-                    </span>
-                  </div>
+                <div className="space-y-5 text-lg text-muted-foreground leading-relaxed mb-8">
+                  <p>
+                    At NJ Creative Firm, we believe every brand has a story worth
+                    telling, and telling it well makes all the difference. We are
+                    a dynamic branding and creative solutions agency based in
+                    Lagos, Nigeria, dedicated to transforming ideas into impactful
+                    visual experiences that inspire action and drive results.
+                  </p>
+                  <p>
+                    Founded with a vision to help businesses stand out in a
+                    competitive marketplace, NJ Creative Firm is more than just a
+                    design agency — we are your strategic partner. From branding
+                    and logo design to social media management, website
+                    development, video production, and recruitment services, we
+                    provide a one-stop creative hub.
+                  </p>
+                  <p>
+                    We don’t just create designs; we craft identities. We don’t
+                    just post on social media; we build connections. And we don’t
+                    just deliver projects; we deliver results.
+                  </p>
+                </div>
+                <div className="space-y-3">
+                  {[
+                    "Strategic thinking meets creative excellence",
+                    "Technology-driven, human-centered solutions",
+                    "Long-term partnerships, not just projects",
+                  ].map((item, i) => (
+                    <div key={i} className="flex items-center space-x-3">
+                      <div className="w-2 h-2 bg-primary rounded-full shrink-0" />
+                      <span className="text-foreground">{item}</span>
+                    </div>
+                  ))}
                 </div>
               </div>
 
@@ -249,53 +230,65 @@ const About = () => {
           </div>
         </section>
 
-        {/* new Vision */}
+        {/* Vision & Why Choose Us */}
         <section className="py-20" ref={teamRef}>
           <div className="container mx-auto px-6">
-            <div className="grid lg:grid-cols-2 gap-16 items-center">
+            <div className="grid lg:grid-cols-2 gap-16 items-start">
+              {/* Vision */}
               <div>
-                <h2 className="text-4xl md:text-5xl font-serif font-bold mb-8">
+                <h2 className="text-4xl md:text-5xl font-serif font-bold mb-6">
                   Our Vision
                 </h2>
-                {choose.map((value, index) => (
-                  <div
-                    key={index}
-                    className="glass-card p-6 hover:scale-105 transition-all duration-300"
-                  >
-                    <div className="text-primary mb-4">{value.icon}</div>
-                    <h3 className="font-heading font-bold text-lg mb-3">
-                      {value.title}
-                    </h3>
-                    <p className="text-sm text-muted-foreground leading-relaxed">
-                      {value.description}
-                    </p>
+                <p className="text-lg text-muted-foreground leading-relaxed mb-8">
+                  To become Africa's most trusted creative and digital
+                  solutions partner — pioneering world-class experiences that
+                  help businesses grow, stand out, and make a lasting impact
+                  on the global stage.
+                </p>
+                <div className="glass-card p-6 border-l-2 border-primary">
+                  <div className="text-primary mb-3">
+                    <Lightbulb className="w-7 h-7" />
                   </div>
-                ))}
+                  <h3 className="font-bold text-lg mb-2">Innovation First</h3>
+                  <p className="text-sm text-muted-foreground leading-relaxed">
+                    We pioneer digital solutions by embracing cutting-edge
+                    technologies and creative methodologies, setting new
+                    benchmarks while ensuring your brand stays ahead of the curve.
+                  </p>
+                </div>
               </div>
 
-              <div className="">
+              {/* Why Choose Us */}
+              <div>
+                <h2 className="text-4xl md:text-5xl font-serif font-bold mb-6">
+                  Why Choose Us
+                </h2>
                 <div className="space-y-4">
-                  <h2 className="text-4xl md:text-5xl font-serif font-bold mb-8">
-                    Why Choose Us
-                  </h2>
-                  <div className="flex items-center space-x-3">
-                    <div className="w-2 h-2 bg-primary rounded-full" />
-                    <span className="text-foreground">
-                      Complete Creative Solutions in One Place
-                    </span>
-                  </div>
-                  <div className="flex items-center space-x-3">
-                    <div className="w-2 h-2 bg-secondary rounded-full" />
-                    <span className="text-foreground">
-                      Strategy + Creativity That Delivers Results
-                    </span>
-                  </div>
-                  <div className="flex items-center space-x-3">
-                    <div className="w-2 h-2 bg-accent-premium rounded-full" />
-                    <span className="text-foreground">
-                      Dedicated Partnership, Not Just a Service
-                    </span>
-                  </div>
+                  {[
+                    {
+                      icon: <Target className="w-5 h-5 text-primary" />,
+                      title: "Complete Creative Solutions in One Place",
+                      desc: "From branding to web development, marketing to recruitment — everything under one roof.",
+                    },
+                    {
+                      icon: <Award className="w-5 h-5 text-primary" />,
+                      title: "Strategy + Creativity That Delivers Results",
+                      desc: "We combine strategic thinking with creative execution to produce measurable business outcomes.",
+                    },
+                    {
+                      icon: <Users className="w-5 h-5 text-primary" />,
+                      title: "Dedicated Partnership, Not Just a Service",
+                      desc: "We invest in your long-term success, building relationships that go well beyond the project.",
+                    },
+                  ].map((item, i) => (
+                    <div key={i} className="glass-card p-5 flex gap-4 items-start">
+                      <div className="mt-0.5 shrink-0">{item.icon}</div>
+                      <div>
+                        <h4 className="font-semibold mb-1">{item.title}</h4>
+                        <p className="text-sm text-muted-foreground leading-relaxed">{item.desc}</p>
+                      </div>
+                    </div>
+                  ))}
                 </div>
               </div>
             </div>
@@ -324,33 +317,41 @@ const About = () => {
                 ]).has(member.name);
 
                 return (
-                  <div key={index} className="group">
-                    <div className="relative overflow-hidden rounded-2xl mb-6">
+                  <div key={index} className="group glass-card overflow-hidden p-0">
+                    {/* Image */}
+                    <div className="relative overflow-hidden">
                       <img
                         src={member.image}
                         alt={member.name}
-                        className={`w-full h-80 object-cover transition-transform duration-500 group-hover:scale-110 ${
+                        className={`w-full h-72 object-cover transition-transform duration-500 group-hover:scale-110 ${
                           zoomed ? "scale-107" : ""
                         }`}
                         style={{ objectPosition: "center 10%" }}
                       />
+                      {/* LinkedIn overlay */}
+                      <div className="absolute inset-0 bg-black/60 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                        <a
+                          href={member.linkedin}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="inline-flex items-center gap-2 text-sm text-white bg-[#0077b5] hover:bg-[#0077b5]/90 px-4 py-2 rounded-full transition-colors"
+                        >
+                          <Linkedin className="w-4 h-4" />
+                          Connect
+                        </a>
+                      </div>
                     </div>
-                    <h3 className="font-heading font-bold text-xl mb-2 group-hover:text-primary transition-colors">
-                      {member.name}
-                    </h3>
-                    <p className="text-muted-foreground mb-4">{member.role}</p>
-                    <p className="text-sm text-muted-foreground leading-relaxed mb-4">
-                      {member.bio}
-                    </p>
-                    <a
-                      href={member.linkedin}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-flex items-center gap-2 text-sm text-white bg-[#0077b5] hover:bg-[#0077b5]/90 px-4 py-2 rounded-full transition-colors"
-                    >
-                      <Linkedin className="w-4 h-4" />
-                      Connect on LinkedIn
-                    </a>
+
+                    {/* Info */}
+                    <div className="p-5">
+                      <h3 className="font-heading font-bold text-base mb-1 group-hover:text-primary transition-colors">
+                        {member.name}
+                      </h3>
+                      <p className="text-primary text-sm font-medium mb-3">{member.role}</p>
+                      <p className="text-sm text-muted-foreground leading-relaxed">
+                        {member.bio}
+                      </p>
+                    </div>
                   </div>
                 );
               })}

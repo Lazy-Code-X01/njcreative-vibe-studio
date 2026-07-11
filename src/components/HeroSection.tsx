@@ -1,4 +1,3 @@
-import { ArrowRight, Play, Star } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import BackgroundSlider from "./BackgroundSlider";
@@ -11,13 +10,16 @@ const HeroSection = () => {
         <BackgroundSlider />
       </div>
 
+      {/* Bottom fade to background */}
+      <div className="absolute bottom-0 left-0 right-0 h-40 bg-gradient-to-t from-background to-transparent z-10 pointer-events-none" />
+
       {/* Content */}
       <div className="relative z-10 container mx-auto px-6 text-center">
         <div className="max-w-5xl mx-auto animate-fade-in">
           {/* Main Headline */}
           <h1 className="mt-20 text-6xl md:text-8xl font-heading font-black mb-8 leading-[0.9] tracking-tight">
             <span className="block text-foreground">Innovate.</span>
-            <span className="block gradient-text animate-gradient font-serif italic">
+            <span className="block gradient-text font-serif italic">
               Create.
             </span>
             <span className="block text-foreground">Elevate.</span>
@@ -33,42 +35,18 @@ const HeroSection = () => {
           {/* CTA Buttons */}
           <div className="flex flex-col sm:flex-row gap-6 justify-center items-center mb-16 animate-slide-up">
             <Link to="/contact">
-              <Button className="btn-luxury group text-lg px-10 py-5 font-semibold">
+              <Button className="btn-luxury text-lg px-10 py-5 font-semibold">
                 Start Your Journey
-                <ArrowRight className="ml-3 w-5 h-5 group-hover:translate-x-2 transition-transform duration-300" />
               </Button>
             </Link>
 
             <Link to="/portfolio">
-              <Button className="btn-outline-luxury group text-lg px-10 py-5 font-medium">
-                <Play className="mr-3 w-5 h-5" />
+              <Button className="btn-outline-luxury text-lg px-10 py-5 font-medium">
                 View Our Work
               </Button>
             </Link>
           </div>
 
-          {/* Stats */}
-          {/* <div className="grid grid-cols-2 md:grid-cols-4 gap-8 animate-scale-in">
-            {[
-              { number: "200+", label: "Premium Projects", icon: "🏆" },
-              { number: "99%", label: "Client Satisfaction", icon: "⭐" },
-              { number: "50M+", label: "Revenue Generated", icon: "💰" },
-              { number: "8+", label: "Years Excellence", icon: "🚀" }
-            ].map((stat, index) => (
-              <div 
-                key={index} 
-                className="text-center group hover:scale-105 transition-all duration-300"
-              >
-                <div className="text-4xl mb-2">{stat.icon}</div>
-                <div className="text-3xl md:text-4xl font-black text-primary mb-2 font-heading">
-                  {stat.number}
-                </div>
-                <div className="text-sm text-muted-foreground font-body tracking-wide">
-                  {stat.label}
-                </div>
-              </div>
-            ))}
-          </div> */}
         </div>
       </div>
     </section>

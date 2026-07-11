@@ -13,19 +13,15 @@ const PortfolioSection = () => {
     queryFn: () => portfolioApi.getProjects().then((res) => res.data),
   });
 
-  // Show only featured projects or first 3
-  const displayProjects = projects.filter((p: any) => p.featured).slice(0, 3);
+  // Show featured projects, fall back to first 3 if none are featured
+  const featured = projects.filter((p: any) => p.featured);
+  const displayProjects = (featured.length > 0 ? featured : projects).slice(0, 3);
 
   return (
     <section id="portfolio" className="py-20" ref={sectionRef}>
       <div className="container mx-auto px-6">
         {/* Section Header */}
         <div className="text-center mb-16" ref={headerRef}>
-          <div className="inline-flex items-center px-4 py-2 rounded-full glass-card mb-6">
-            <span className="text-secondary text-sm font-medium">
-              🎨 Our Work
-            </span>
-          </div>
           <h2 className="text-4xl md:text-6xl font-bold mb-6">
             Projects That
             <span className="block gradient-text">Inspire</span>
@@ -76,16 +72,11 @@ const PortfolioSection = () => {
                   alt={project.title}
                   className="w-full h-64 object-cover group-hover:scale-110 transition-transform duration-700"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-/80 to-transparent opacitbackgroundy-0 group-hover:opacity-100 transition-opacity duration-300" />
+                <div className="absolute inset-0 bg-gradient-to-t from-background/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
 
                 {/* Overlay Content */}
-                <div className="absolute bottom-4 left-4 right-4 transform translate-y-4 group-hover:translate-y-0 opacity-0 group-hover:opacity-100 transition-all duration-300">
-                  <div className="flex items-center justify-between">
-                    <span className="text-secondary text-sm font-medium bg-background/20 backdrop-blur-sm px-3 py-1 rounded-full">
-                      {project.category}
-                    </span>
-                    <ExternalLink className="w-5 h-5 text-secondary" />
-                  </div>
+                <div className="absolute bottom-4 right-4 transform translate-y-4 group-hover:translate-y-0 opacity-0 group-hover:opacity-100 transition-all duration-300">
+                  <ExternalLink className="w-5 h-5 text-secondary" />
                 </div>
               </div>
 
@@ -97,18 +88,6 @@ const PortfolioSection = () => {
                 <p className="text-muted-foreground text-sm mb-4 leading-relaxed">
                   {project.description}
                 </p>
-
-                {/* Tags */}
-                <div className="flex flex-wrap gap-2 mb-4">
-                  {project.technologies?.slice(0, 4).map((tech: string, tagIndex: number) => (
-                    <span
-                      key={tagIndex}
-                      className="px-3 py-1 bg-accent/50 text-xs rounded-full text-accent-foreground"
-                    >
-                      {tech}
-                    </span>
-                  ))}
-                </div>
 
                 {/* Results */}
                 <div className="flex items-center justify-between">

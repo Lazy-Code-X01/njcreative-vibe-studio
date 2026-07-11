@@ -110,20 +110,27 @@ const BlogPost = () => {
                 </h1>
 
                 <div className="flex flex-wrap items-center gap-4 text-sm text-muted-foreground mb-8">
+                  {post.category && (
+                    <Link
+                      to={`/blog?category=${post.category.slug}`}
+                      className="text-primary font-medium uppercase tracking-widest text-xs hover:underline"
+                    >
+                      {post.category.name}
+                    </Link>
+                  )}
+                  <span className="text-border">·</span>
                   <div className="flex items-center space-x-1">
                     <Calendar className="w-4 h-4" />
                     <span>{format(new Date(post.date), "MMMM d, yyyy")}</span>
                   </div>
                   {post.readTime > 0 && (
-                    <div className="flex items-center space-x-1">
-                      <Clock className="w-4 h-4" />
-                      <span>{post.readTime} min read</span>
-                    </div>
-                  )}
-                  {post.category && (
-                    <div className="px-3 py-1 bg-primary/20 text-primary rounded-full text-xs font-medium">
-                      {post.category.name}
-                    </div>
+                    <>
+                      <span className="text-border">·</span>
+                      <div className="flex items-center space-x-1">
+                        <Clock className="w-4 h-4" />
+                        <span>{post.readTime} min read</span>
+                      </div>
+                    </>
                   )}
                 </div>
 
@@ -139,39 +146,29 @@ const BlogPost = () => {
               </header>
 
               {/* Article Content */}
-              <div className="prose prose-lg prose-h2:text-white prose-h3:text-white prose-strong:text-gray-300 max-w-none text-foreground">
+              <div className="prose prose-lg prose-invert max-w-none">
                 <div dangerouslySetInnerHTML={{ __html: post.content }} />
               </div>
 
               {/* Article Footer */}
-              <footer className="mt-12 pt-8 border-t border-border">
-                <div className="flex flex-wrap items-center justify-between gap-4">
-                  {post.category && (
-                    <div>
-                      <span className="text-sm text-muted-foreground">
-                        Category:
-                      </span>
-                      <Link
-                        to={`/blog?category=${post.category.slug}`}
-                        className="ml-2 text-sm text-primary hover:underline"
-                      >
-                        {post.category.name}
-                      </Link>
-                    </div>
-                  )}
-                  {post.tags && post.tags.length > 0 && (
-                    <div className="flex gap-2 flex-wrap">
-                      {post.tags.map((tag: string) => (
-                        <span
-                          key={tag}
-                          className="px-3 py-1 bg-muted rounded-full text-xs"
-                        >
-                          {tag}
-                        </span>
-                      ))}
-                    </div>
-                  )}
-                </div>
+              <footer className="mt-16 pt-8 border-t border-border flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">
+                <Link to="/blog">
+                  <Button variant="ghost" className="hover:bg-transparent hover:text-primary pl-0">
+                    <ArrowLeft className="mr-2 w-4 h-4" />
+                    Back to Blog
+                  </Button>
+                </Link>
+                {post.category && (
+                  <div className="text-sm text-muted-foreground">
+                    Filed under{" "}
+                    <Link
+                      to={`/blog?category=${post.category.slug}`}
+                      className="text-primary hover:underline"
+                    >
+                      {post.category.name}
+                    </Link>
+                  </div>
+                )}
               </footer>
             </div>
           </div>

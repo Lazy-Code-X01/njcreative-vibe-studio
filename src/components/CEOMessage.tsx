@@ -11,7 +11,7 @@ const CEOMessage = () => {
   return (
     <section className="py-24 relative overflow-hidden">
       <div className="container mx-auto px-6">
-        <div className="grid lg:grid-cols-2 gap-4 items-center">
+        <div className="grid lg:grid-cols-2 gap-12 items-center">
           {/* Image Column */}
           <div className="relative" ref={imageRef}>
             <div className="relative z-10">
@@ -21,9 +21,6 @@ const CEOMessage = () => {
                 className="w-full aspect-[3/4] object-cover rounded-2xl shadow-luxury"
                 style={{ objectPosition: "center 20%" }}
               />
-              {/* Decorative elements */}
-              <div className="absolute -top-6 -left-6 w-24 h-24 border-2 border-primary/20 rounded-2xl -z-10" />
-              <div className="absolute -bottom-6 -right-6 w-32 h-32 border-2 border-secondary/20 rounded-2xl -z-10" />
             </div>
           </div>
 
@@ -32,7 +29,7 @@ const CEOMessage = () => {
             <div className="max-w-xl">
               <h2 className="text-4xl md:text-5xl font-serif font-bold mb-8">
                 A Message from Our{" "}
-                <span className="gradient-text animate-gradient">CEO</span>
+                <span className="gradient-text">CEO</span>
               </h2>
 
               <div className="space-y-6 text-lg text-muted-foreground leading-relaxed">
@@ -82,11 +79,6 @@ const CEOMessage = () => {
         </div>
       </div>
 
-      {/* Background Elements */}
-      <div className="absolute inset-0 -z-10 opacity-10">
-        <div className="absolute top-1/4 -left-32 w-64 h-64 rounded-full bg-primary blur-3xl" />
-        <div className="absolute bottom-1/4 -right-32 w-64 h-64 rounded-full bg-secondary blur-3xl" />
-      </div>
     </section>
   );
 };

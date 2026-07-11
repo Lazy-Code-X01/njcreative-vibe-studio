@@ -6,7 +6,7 @@ import { FileText, MessageSquare, CheckCircle, TrendingUp } from 'lucide-react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, PieChart, Pie, Cell } from 'recharts';
 
-const COLORS = ['#556B2F', '#FFF44F', '#8B9556', '#FFE680', '#6B8E23'];
+const COLORS = ['#166534', '#15803d', '#16a34a', '#22c55e', '#4ade80'];
 
 export default function AdminDashboard() {
   const { data: analytics, isLoading } = useQuery({
@@ -33,11 +33,9 @@ export default function AdminDashboard() {
     <AdminLayout>
       <div className="space-y-8">
         {/* Header */}
-        <div className="space-y-2">
-          <h1 className="text-4xl font-bold tracking-tight bg-gradient-to-r from-foreground via-foreground to-secondary bg-clip-text text-transparent">
-            Dashboard
-          </h1>
-          <p className="text-muted-foreground text-lg">Welcome back! Here's your overview</p>
+        <div className="space-y-1">
+          <h1 className="text-3xl font-bold text-foreground">Dashboard</h1>
+          <p className="text-muted-foreground">Here's your overview</p>
         </div>
 
         {/* Stats Grid */}
@@ -73,10 +71,7 @@ export default function AdminDashboard() {
           {/* Monthly Activity */}
           <Card className="glass-card">
             <CardHeader>
-              <CardTitle className="flex items-center gap-2">
-                <div className="w-2 h-2 rounded-full bg-secondary animate-pulse" />
-                Monthly Activity
-              </CardTitle>
+              <CardTitle className="text-sm font-semibold text-foreground">Monthly Activity</CardTitle>
               <CardDescription>Contact messages over time</CardDescription>
             </CardHeader>
             <CardContent>
@@ -85,14 +80,18 @@ export default function AdminDashboard() {
                   <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" opacity={0.3} />
                   <XAxis dataKey="_id" stroke="hsl(var(--muted-foreground))" fontSize={12} />
                   <YAxis stroke="hsl(var(--muted-foreground))" fontSize={12} />
-                  <Tooltip 
-                    contentStyle={{ 
-                      backgroundColor: 'hsl(var(--card))', 
+                  <Tooltip
+                    contentStyle={{
+                      backgroundColor: 'hsl(0 0% 9%)',
                       border: '1px solid hsl(var(--border))',
-                      borderRadius: '8px'
-                    }} 
+                      borderRadius: '8px',
+                      color: 'hsl(var(--foreground))'
+                    }}
+                    labelStyle={{ color: 'hsl(var(--foreground))' }}
+                    itemStyle={{ color: 'hsl(var(--foreground))' }}
+                    cursor={{ fill: 'hsl(var(--primary) / 0.08)' }}
                   />
-                  <Bar dataKey="count" fill="hsl(var(--secondary))" radius={[8, 8, 0, 0]} />
+                  <Bar dataKey="count" fill="hsl(var(--primary-glow))" radius={[4, 4, 0, 0]} />
                 </BarChart>
               </ResponsiveContainer>
             </CardContent>
@@ -101,10 +100,7 @@ export default function AdminDashboard() {
           {/* Posts by Category */}
           <Card className="glass-card">
             <CardHeader>
-              <CardTitle className="flex items-center gap-2">
-                <div className="w-2 h-2 rounded-full bg-primary animate-pulse" />
-                Posts by Category
-              </CardTitle>
+              <CardTitle className="text-sm font-semibold text-foreground">Posts by Category</CardTitle>
               <CardDescription>Distribution of blog posts</CardDescription>
             </CardHeader>
             <CardContent>
@@ -119,17 +115,22 @@ export default function AdminDashboard() {
                     outerRadius={90}
                     fill="#8884d8"
                     dataKey="count"
+                    nameKey="category"
                   >
                     {(analytics?.postsByCategory || []).map((_: any, index: number) => (
                       <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
                     ))}
                   </Pie>
-                  <Tooltip 
-                    contentStyle={{ 
-                      backgroundColor: 'hsl(var(--card))', 
+                  <Tooltip
+                    contentStyle={{
+                      backgroundColor: 'hsl(0 0% 9%)',
                       border: '1px solid hsl(var(--border))',
-                      borderRadius: '8px'
-                    }} 
+                      borderRadius: '8px',
+                      color: 'hsl(var(--foreground))'
+                    }}
+                    labelStyle={{ color: 'hsl(var(--foreground))' }}
+                    itemStyle={{ color: 'hsl(var(--foreground))' }}
+                    formatter={(value: number, _name, item: any) => [value, item?.payload?.category || 'Uncategorized']}
                   />
                 </PieChart>
               </ResponsiveContainer>

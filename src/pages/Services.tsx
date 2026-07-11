@@ -1,7 +1,9 @@
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import { useEffect } from "react";
+import { useQuery } from "@tanstack/react-query";
 import { Button } from "@/components/ui/button";
+import { Link } from "react-router-dom";
 import {
   ArrowRight,
   Code,
@@ -13,6 +15,17 @@ import {
 import SEO from "@/components/SEO";
 import FloatingElements from "@/components/FloatingElements";
 import { useScrollReveal } from "@/hooks/useScrollReveal";
+
+const API_BASE_URL = import.meta.env.PROD
+  ? "https://api.njcreativefirm.com"
+  : import.meta.env.VITE_API_BASE_URL || "http://localhost:8787";
+
+const iconMap: Record<string, React.ReactNode> = {
+  Palette: <Palette className="w-12 h-12" />,
+  Code: <Code className="w-12 h-12" />,
+  TrendingUp: <TrendingUp className="w-12 h-12" />,
+  Cog: <Cog className="w-12 h-12" />,
+};
 
 // Service Item Component with scroll reveal
 interface ServiceItemProps {
@@ -28,6 +41,21 @@ interface ServiceItemProps {
     image: string;
   };
   index: number;
+}
+
+interface ApiService {
+  _id: string;
+  serviceId: string;
+  icon: string;
+  title: string;
+  subtitle: string;
+  description: string;
+  features: string[];
+  technologies: string[];
+  startingPrice: string;
+  image: string;
+  order: number;
+  active: boolean;
 }
 
 const ServiceItem = ({ service, index }: ServiceItemProps) => {
@@ -70,17 +98,10 @@ const ServiceItem = ({ service, index }: ServiceItemProps) => {
           </div>
 
           <div className="mb-8">
-            <h4 className="font-semibold mb-3">Technologies We Use:</h4>
-            <div className="flex flex-wrap gap-2">
-              {service.technologies.map((tech, idx) => (
-                <span
-                  key={idx}
-                  className="px-3 py-1 bg-primary/10 text-primary rounded-full text-sm font-medium"
-                >
-                  {tech}
-                </span>
-              ))}
-            </div>
+            <h4 className="font-semibold mb-3 text-sm uppercase tracking-wider text-muted-foreground">Technologies We Use</h4>
+            <p className="text-foreground text-sm leading-relaxed">
+              {service.technologies.join(" · ")}
+            </p>
           </div>
 
           <div className="flex items-center justify-between">
@@ -117,7 +138,17 @@ const Services = () => {
   const servicesRef = useScrollReveal({ threshold: 0.2, delay: 0.2 });
   const processRef = useScrollReveal({ threshold: 0.2, delay: 0.3 });
   const ctaRef = useScrollReveal({ threshold: 0.2, delay: 0.2 });
-  
+
+  const { data: apiServices } = useQuery<ApiService[]>({
+    queryKey: ["public-services"],
+    queryFn: async () => {
+      const res = await fetch(`${API_BASE_URL}/api/services`);
+      if (!res.ok) throw new Error("Failed to fetch services");
+      return res.json();
+    },
+    staleTime: 5 * 60 * 1000,
+  });
+
   // Handle initial hash navigation
   useEffect(() => {
     const hash = window.location.hash;
@@ -132,227 +163,33 @@ const Services = () => {
     }
   }, []);
 
-  const services = [
-    {
-      id: "branding",
-      icon: <Palette className="w-12 h-12" />,
-      title: "Branding & Rebranding",
-      subtitle: "Memorable, Strategic, Impactful",
-      description:
-        "Crafting identities that communicate value and complete brand identity systems that capture your essence and resonate with your target audience.",
-      features: [
-        "Brand Strategy & Positioning",
-        "Logo & Visual Identity Design",
-        "Brand Guidelines & Systems",
-        "Marketing Collateral Design",
-        "Packaging & Print Design",
-        "Digital Asset Creation",
-      ],
-      technologies: ["Adobe Creative Suite", "Figma", "Sketch", "Principle"],
-      startingPrice: "$3,000",
-      image: "/uploads/services/branding-rebranding.jpg",
-    },
-    {
-      id: "printing-and-banners",
-      icon: <Palette className="w-12 h-12" />,
-      title: "Printing and Banners",
-      subtitle: "Distinct visuals that define your brand.",
-      description:
-        "We create eye-catching banners and print designs that resonate with your target audience.",
-      features: [
-        "Banner Design",
-        "Flyers & Brochures",
-        "Business Cards",
-        "Packaging & Print Design",
-      ],
-      technologies: ["Adobe Illustrator", "Adobe Photoshop", "InDesign"],
-      startingPrice: "$3,000",
-      image: "/uploads/services/printing-banners.jpg",
-    },
-    {
-      id: "web-development",
-      icon: <Code className="w-12 h-12" />,
-      title: "Website Design & Development",
-      subtitle: "Responsive, sleek, and conversion-driven websites.",
-      description:
-        "Custom websites and web applications built with cutting-edge technologies that scale with your business growth.",
-      features: [
-        "Responsive Design & Development",
-        "E-commerce Solutions",
-        "Progressive Web Apps (PWA)",
-        "API Integration & Development",
-        "Performance Optimization",
-        "SEO-Ready Architecture",
-      ],
-      technologies: [
-        "React",
-        "Next.js",
-        "Node.js",
-        "TypeScript",
-        "Tailwind CSS",
-      ],
-      startingPrice: "$5,000",
-      image: "/uploads/services/web-development.jpg",
-    },
-    {
-      id: "ui-ux",
-      icon: <TrendingUp className="w-12 h-12" />,
-      title: "UI/UX Design",
-      subtitle: "User-centered interfaces that boost engagement.",
-      description:
-        "Strategic digital marketing campaigns that drive engagement, conversions, and sustainable growth.",
-      features: [
-        "User-Centered Design",
-        "Wireframing & Prototyping",
-        "Interaction Design",
-        "Information Architecture",
-        "Visual Design",
-      ],
-      technologies: ["Figma", "Sketch", "Adobe XD", "InVision"],
-      startingPrice: "$2,500/mo",
-      image: "/uploads/services/ui-ux-design.jpg",
-    },
-    {
-      id: "design-for-media",
-      icon: <TrendingUp className="w-12 h-12" />,
-      title: "Ads management for media and Google",
-      subtitle: "Strategy, content, and analytics for digital presence.",
-      description:
-        "We manage ads for Google, Facebook, Instagram, LinkedIn, and YouTube to ensure your brand is visible and reaching your target audience.",
-      features: [
-        "Ad Campaign Management",
-        "Ad Optimization",
-        "Ad Targeting",
-        "Ad Creative Development",
-      ],
-      technologies: [
-        "Google Analytics",
-        "SEMrush",
-        "Mailchimp",
-        "Facebook Ads",
-      ],
-      startingPrice: "$2,500/mo",
-      image: "/uploads/services/ads-management.jpg",
-    },
-    {
-      id: "marketing",
-      icon: <TrendingUp className="w-12 h-12" />,
-      title: "Digital Marketing & Advertisment",
-      subtitle: "Targeted campaigns that deliver measurable ROI.",
-      description:
-        "Strategic digital marketing campaigns that drive engagement, conversions, and sustainable growth.",
-      features: [
-        "SEO & Content Strategy",
-        "Social Media Marketing",
-        "Pay-Per-Click Advertising",
-        "Email Marketing Automation",
-        "Analytics & Reporting",
-        "Conversion Optimization",
-      ],
-      technologies: [
-        "Google Analytics",
-        "SEMrush",
-        "Mailchimp",
-        "Facebook Ads",
-      ],
-      startingPrice: "$2,500/mo",
-      image: "/uploads/services/digital-marketing.jpg",
-    },
-    {
-      id: "tech-solutions",
-      icon: <Cog className="w-12 h-12" />,
-      title: "Tech Solutions",
-      subtitle: "Custom, Scalable, Innovative",
-      description:
-        "Bespoke technology solutions including mobile apps, automation systems, and enterprise platforms.",
-      features: [
-        "Mobile App Development",
-        "Custom Software Solutions",
-        "System Integration",
-        "Process Automation",
-        "Cloud Solutions",
-        "Technical Consulting",
-      ],
-      technologies: ["React Native", "Python", "AWS", "Docker", "PostgreSQL"],
-      startingPrice: "$10,000",
-      image: "/uploads/services/tech-solutions.jpg",
-    },
-    {
-      id: "ai-generation",
-      icon: <Cog className="w-12 h-12" />,
-      title: "AI Generation",
-      subtitle: "Innovative AI-Driven Solutions",
-      description:
-        "We leverage cutting-edge AI technologies to generate compelling content that engages and converts visitors.",
-      features: [
-        "AI-Driven Content Creation",
-        "AI-Powered Writing Assistance",
-        "AI-Inspired Storytelling",
-        "AI-Enhanced Creativity",
-      ],
-      technologies: [
-        "AI",
-        "Machine Learning",
-        "Natural Language Processing",
-        "Generative AI",
-      ],
-      startingPrice: "$10,000",
-      image: "/uploads/services/ai-generation.jpg",
-    },
-    {
-      id: "video-production",
-      icon: <Cog className="w-12 h-12" />,
-      title: "Video Production",
-      subtitle: "Engaging visuals that elevate brand emotion.",
-      description:
-        "Bespoke technology solutions including mobile apps, automation systems, and enterprise platforms.",
-      features: [
-        "Video Editing",
-        "Motion Graphics",
-        "VFX & VFX Compositing",
-        "Animation & Motion Design",
-        "Color Grading & Correction",
-      ],
-      technologies: ["Adobe Premiere Pro", "Final Cut Pro", "After Effects"],
-      startingPrice: "$10,000",
-      image: "/uploads/services/video-production.jpg",
-    },
-    {
-      id: "recruitment-talent",
-      icon: <Cog className="w-12 h-12" />,
-      title: "Recruitment Services",
-      subtitle: "Talent Acquisition & Hiring",
-      description:
-        "We help you find the right talent for your business. We offer a range of services to help you attract, hire, and retain top talent.",
-      features: [
-        "Talent Acquisition",
-        "Talent Hiring",
-        "Talent Retention",
-        "Talent Development",
-        "Employer Branding",
-      ],
-      technologies: ["LinkedIn Recruiter", "Indeed", "Glassdoor"],
-      startingPrice: "$10,000",
-      image: "/uploads/services/recruitment-services.jpg",
-    },
-    {
-      id: "seo",
-      icon: <Cog className="w-12 h-12" />,
-      title: "SEO (Search Engine Optimization)",
-      subtitle: "– Visibility through strategy and ranking.",
-      description:
-        "We help you optimize your website for search engines and drive organic traffic to your site.",
-      features: [
-        "Keyword Research",
-        "On-Page Optimization",
-        "Off-Page Optimization",
-        "Content Marketing",
-      ],
-      technologies: ["Google Analytics", "SEMrush", "Ahrefs"],
-      startingPrice: "$1,500/mo",
-      image: "/uploads/services/seo.jpg",
-    },
+  const FALLBACK_SERVICES = [
+    { id: "branding", icon: iconMap["Palette"], title: "Branding & Rebranding", subtitle: "Memorable, Strategic, Impactful", description: "Crafting identities that communicate value and complete brand identity systems that capture your essence and resonate with your target audience.", features: ["Brand Strategy & Positioning", "Logo & Visual Identity Design", "Brand Guidelines & Systems", "Marketing Collateral Design", "Packaging & Print Design", "Digital Asset Creation"], technologies: ["Adobe Creative Suite", "Figma", "Sketch", "Principle"], startingPrice: "$3,000", image: "/uploads/services/branding-rebranding.jpg" },
+    { id: "printing-and-banners", icon: iconMap["Palette"], title: "Printing and Banners", subtitle: "Distinct visuals that define your brand.", description: "We create eye-catching banners and print designs that resonate with your target audience.", features: ["Banner Design", "Flyers & Brochures", "Business Cards", "Packaging & Print Design"], technologies: ["Adobe Illustrator", "Adobe Photoshop", "InDesign"], startingPrice: "$3,000", image: "/uploads/services/printing-banners.jpg" },
+    { id: "web-development", icon: iconMap["Code"], title: "Website Design & Development", subtitle: "Responsive, sleek, and conversion-driven websites.", description: "Custom websites and web applications built with cutting-edge technologies that scale with your business growth.", features: ["Responsive Design & Development", "E-commerce Solutions", "Progressive Web Apps (PWA)", "API Integration & Development", "Performance Optimization", "SEO-Ready Architecture"], technologies: ["React", "Next.js", "Node.js", "TypeScript", "Tailwind CSS"], startingPrice: "$5,000", image: "/uploads/services/web-development.jpg" },
+    { id: "ui-ux", icon: iconMap["TrendingUp"], title: "UI/UX Design", subtitle: "User-centered interfaces that boost engagement.", description: "Strategic digital marketing campaigns that drive engagement, conversions, and sustainable growth.", features: ["User-Centered Design", "Wireframing & Prototyping", "Interaction Design", "Information Architecture", "Visual Design"], technologies: ["Figma", "Sketch", "Adobe XD", "InVision"], startingPrice: "$2,500/mo", image: "/uploads/services/ui-ux-design.jpg" },
+    { id: "design-for-media", icon: iconMap["TrendingUp"], title: "Ads management for media and Google", subtitle: "Strategy, content, and analytics for digital presence.", description: "We manage ads for Google, Facebook, Instagram, LinkedIn, and YouTube to ensure your brand is visible and reaching your target audience.", features: ["Ad Campaign Management", "Ad Optimization", "Ad Targeting", "Ad Creative Development"], technologies: ["Google Analytics", "SEMrush", "Mailchimp", "Facebook Ads"], startingPrice: "$2,500/mo", image: "/uploads/services/ads-management.jpg" },
+    { id: "marketing", icon: iconMap["TrendingUp"], title: "Digital Marketing & Advertisement", subtitle: "Targeted campaigns that deliver measurable ROI.", description: "Strategic digital marketing campaigns that drive engagement, conversions, and sustainable growth.", features: ["SEO & Content Strategy", "Social Media Marketing", "Pay-Per-Click Advertising", "Email Marketing Automation", "Analytics & Reporting", "Conversion Optimization"], technologies: ["Google Analytics", "SEMrush", "Mailchimp", "Facebook Ads"], startingPrice: "$2,500/mo", image: "/uploads/services/digital-marketing.jpg" },
+    { id: "tech-solutions", icon: iconMap["Cog"], title: "Tech Solutions", subtitle: "Custom, Scalable, Innovative", description: "Bespoke technology solutions including mobile apps, automation systems, and enterprise platforms.", features: ["Mobile App Development", "Custom Software Solutions", "System Integration", "Process Automation", "Cloud Solutions", "Technical Consulting"], technologies: ["React Native", "Python", "AWS", "Docker", "PostgreSQL"], startingPrice: "$10,000", image: "/uploads/services/tech-solutions.jpg" },
+    { id: "ai-generation", icon: iconMap["Cog"], title: "AI Generation", subtitle: "Innovative AI-Driven Solutions", description: "We leverage cutting-edge AI technologies to generate compelling content that engages and converts visitors.", features: ["AI-Driven Content Creation", "AI-Powered Writing Assistance", "AI-Inspired Storytelling", "AI-Enhanced Creativity"], technologies: ["AI", "Machine Learning", "Natural Language Processing", "Generative AI"], startingPrice: "$10,000", image: "/uploads/services/ai-generation.jpg" },
+    { id: "video-production", icon: iconMap["Cog"], title: "Video Production", subtitle: "Engaging visuals that elevate brand emotion.", description: "Bespoke technology solutions including mobile apps, automation systems, and enterprise platforms.", features: ["Video Editing", "Motion Graphics", "VFX & VFX Compositing", "Animation & Motion Design", "Color Grading & Correction"], technologies: ["Adobe Premiere Pro", "Final Cut Pro", "After Effects"], startingPrice: "$10,000", image: "/uploads/services/video-production.jpg" },
+    { id: "recruitment-talent", icon: iconMap["Cog"], title: "Recruitment Services", subtitle: "Talent Acquisition & Hiring", description: "We help you find the right talent for your business. We offer a range of services to help you attract, hire, and retain top talent.", features: ["Talent Acquisition", "Talent Hiring", "Talent Retention", "Talent Development", "Employer Branding"], technologies: ["LinkedIn Recruiter", "Indeed", "Glassdoor"], startingPrice: "$10,000", image: "/uploads/services/recruitment-services.jpg" },
+    { id: "seo", icon: iconMap["Cog"], title: "SEO (Search Engine Optimization)", subtitle: "– Visibility through strategy and ranking.", description: "We help you optimize your website for search engines and drive organic traffic to your site.", features: ["Keyword Research", "On-Page Optimization", "Off-Page Optimization", "Content Marketing"], technologies: ["Google Analytics", "SEMrush", "Ahrefs"], startingPrice: "$1,500/mo", image: "/uploads/services/seo.jpg" },
   ];
+
+  const services = apiServices && apiServices.length > 0
+    ? apiServices.map((s) => ({
+        id: s.serviceId,
+        icon: iconMap[s.icon] ?? iconMap["Cog"],
+        title: s.title,
+        subtitle: s.subtitle,
+        description: s.description,
+        features: s.features,
+        technologies: s.technologies,
+        startingPrice: s.startingPrice,
+        image: s.image,
+      }))
+    : FALLBACK_SERVICES;
 
   const process = [
     {
@@ -410,7 +247,7 @@ const Services = () => {
             <div className="max-w-4xl mx-auto text-center">
               <h1 className="text-5xl md:text-7xl font-serif font-bold mb-8 leading-tight">
                 Premium Digital
-                <span className="block gradient-text animate-gradient italic">
+                <span className="block gradient-text italic">
                   Services
                 </span>
                 That Deliver Results
@@ -483,13 +320,17 @@ const Services = () => {
               results and exceeds your expectations.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button className="btn-luxury group text-lg px-10 py-5">
-                Get Free Consultation
-                <ArrowRight className="ml-3 w-5 h-5 group-hover:translate-x-2 transition-transform" />
-              </Button>
-              <Button className="btn-outline-luxury text-lg px-10 py-5">
-                View Our Work
-              </Button>
+              <Link to="/contact">
+                <Button className="btn-luxury group text-lg px-10 py-5">
+                  Get Free Consultation
+                  <ArrowRight className="ml-3 w-5 h-5 group-hover:translate-x-2 transition-transform" />
+                </Button>
+              </Link>
+              <Link to="/portfolio">
+                <Button className="btn-outline-luxury text-lg px-10 py-5">
+                  View Our Work
+                </Button>
+              </Link>
             </div>
           </div>
 

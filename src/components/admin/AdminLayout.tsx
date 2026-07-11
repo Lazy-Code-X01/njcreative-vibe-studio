@@ -9,10 +9,10 @@ import {
   LogOut,
   Menu,
   Briefcase,
+  Settings2,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
-import logo from "@/assets/webp/creative-firm-logo.webp";
 
 interface AdminLayoutProps {
   children: ReactNode;
@@ -24,34 +24,28 @@ const navItems = [
   { path: "/admin/blog", icon: FileText, label: "Blog Posts" },
   { path: "/admin/categories", icon: FolderTree, label: "Categories" },
   { path: "/admin/portfolio", icon: Briefcase, label: "Portfolio" },
+  { path: "/admin/services", icon: Settings2, label: "Services" },
 ];
 
 const Sidebar = ({ mobile = false }: { mobile?: boolean }) => {
   const location = useLocation();
-  const { logout, username } = useAdminAuth();
+  const { logout } = useAdminAuth();
 
   return (
-    <div
-      className="flex flex-col h-full rounded-none border-r border-border/50"
-      style={{ background: "var(--glass-sidebar)" }}
-    >
-      {/* Logo Header */}
-      <div className="p-6 border-b border-border/50">
+    <div className="flex flex-col h-full border-r border-border" style={{ background: "hsl(var(--sidebar-background))" }}>
+      {/* Logo */}
+      <div className="px-5 py-4 border-b border-border">
         <div className="flex items-center gap-3">
-          <img
-            src={logo}
-            alt="NJ Creative Firm"
-            className="w-10 h-10 object-contain"
-          />
+          <img src="/uploads/logo.png" alt="NJ Creative Firm" className="h-8 w-8 object-contain shrink-0" />
           <div>
-            <h2 className="text-lg font-bold text-foreground">NJ Creative</h2>
+            <h2 className="text-sm font-semibold text-foreground leading-tight">NJ Creative</h2>
             <p className="text-xs text-muted-foreground">Admin Portal</p>
           </div>
         </div>
       </div>
 
       {/* Navigation */}
-      <nav className="flex-1 p-4 space-y-1.5">
+      <nav className="flex-1 px-3 py-4 space-y-1">
         {navItems.map((item) => {
           const isActive = location.pathname === item.path;
           const Icon = item.icon;
@@ -59,32 +53,28 @@ const Sidebar = ({ mobile = false }: { mobile?: boolean }) => {
             <Link
               key={item.path}
               to={item.path}
-              className={`flex items-center gap-3 px-4 py-3 rounded-lg font-medium transition-all duration-300 ${
+              className={`flex items-center gap-3 px-3 py-2.5 rounded-md text-sm font-medium transition-colors ${
                 isActive
-                  ? "bg-secondary text-secondary-foreground shadow-lemon"
-                  : "text-muted-foreground"
+                  ? "bg-primary text-primary-foreground"
+                  : "text-muted-foreground hover:text-foreground hover:bg-muted"
               }`}
             >
-              <Icon className="h-5 w-5" />
+              <Icon className="h-4 w-4 shrink-0" />
               <span>{item.label}</span>
             </Link>
           );
         })}
       </nav>
 
-      {/* User Section */}
-      <div className="p-4 border-t border-border/50">
-        <div className="mb-3 px-4 py-2 rounded-lg bg-muted/30">
-          <p className="text-xs text-muted-foreground">Logged in as</p>
-          <p className="text-sm font-semibold text-foreground">{username}</p>
-        </div>
+      {/* Logout */}
+      <div className="px-3 py-3 border-t border-border">
         <Button
           variant="ghost"
-          className="w-full justify-start gap-3 text-destructive"
+          className="w-full justify-start gap-3 px-3 h-9 text-sm text-muted-foreground hover:text-destructive hover:bg-destructive/10 transition-colors"
           onClick={logout}
         >
-          <LogOut className="h-5 w-5" />
-          Logout
+          <LogOut className="h-4 w-4 shrink-0" />
+          Sign out
         </Button>
       </div>
     </div>
@@ -101,7 +91,7 @@ export const AdminLayout = ({ children }: AdminLayoutProps) => {
   return (
     <div className="flex h-screen bg-background">
       {/* Desktop Sidebar */}
-      <aside className="hidden md:block w-72 shrink-0">
+      <aside className="hidden md:block w-56 shrink-0">
         <Sidebar />
       </aside>
 
@@ -115,7 +105,7 @@ export const AdminLayout = ({ children }: AdminLayoutProps) => {
           </SheetTrigger>
           <SheetContent
             side="left"
-            className="p-0 w-72 bg-sidebar-background rounded-none"
+            className="p-0 w-56 bg-sidebar-background rounded-none"
           >
             <Sidebar mobile />
           </SheetContent>
@@ -124,14 +114,13 @@ export const AdminLayout = ({ children }: AdminLayoutProps) => {
 
       {/* Main Content Area */}
       <main className="flex-1 overflow-auto">
-        {/* Top Navbar */}
-        <div className="sticky bg-black top-0 z-40 border-b border-border/50 px-6 py-4 md:px-8 rounded-none">
-          <div className="flex items-center justify-between">
-            <div className="md:hidden" />
-            <div className="flex-1 md:flex-none" />
-            <div className="flex items-center gap-4">
-              <div className="w-8 h-8 rounded-full bg-gradient-to-br from-secondary to-secondary-glow flex items-center justify-center">
-                <span className="text-xs font-bold text-secondary-foreground">
+        {/* Top bar */}
+        <div className="sticky top-0 z-40 border-b border-border bg-background px-6 py-3 md:px-8">
+          <div className="flex items-center justify-end">
+            <div className="flex items-center gap-3">
+              <span className="text-sm text-muted-foreground hidden md:block">{username}</span>
+              <div className="w-8 h-8 rounded-full bg-primary flex items-center justify-center">
+                <span className="text-xs font-semibold text-primary-foreground">
                   {username?.charAt(0).toUpperCase()}
                 </span>
               </div>

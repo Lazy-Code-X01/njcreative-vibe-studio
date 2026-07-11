@@ -12,6 +12,7 @@ const messageSchema = new Schema({
   dateTime: { type: String },
   signature: { type: String },
   companyLogo: { type: String },
+  read: { type: Boolean, default: false },
   createdAt: { type: Date, default: Date.now }
 });
 

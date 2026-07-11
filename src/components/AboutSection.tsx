@@ -24,7 +24,7 @@ const AboutSection = () => {
       icon: MegaphoneIcon,
       title: "Innovation",
       description:
-        "Staying ahead of trends to offer cuttingedge branding solutions.",
+        "Staying ahead of trends to offer cutting-edge branding solutions.",
     },
     {
       icon: ShieldCheck,
@@ -36,26 +36,13 @@ const AboutSection = () => {
       icon: Star,
       title: "Excellence",
       description:
-        "Committed to delivering highquality services that exceed expectations..",
+        "Committed to delivering high-quality services that exceed expectations.",
     },
   ];
 
   return (
     <section id="about" className="py-20" ref={sectionRef}>
       <div className="container mx-auto px-6">
-        {/* Section Header */}
-        <div className="text-center mb-16" ref={headerRef}>
-          <div className="inline-flex items-center px-4 py-2 rounded-full glass-card mb-6">
-            <span className="text-secondary text-sm font-medium">
-              💡 About Us
-            </span>
-          </div>
-          <h2 className="text-4xl md:text-6xl font-bold mb-6">
-            Transforming Ideas Into
-            <span className="block gradient-text">Digital Reality</span>
-          </h2>
-        </div>
-
         {/* Main Content Grid */}
         <div className="grid lg:grid-cols-2 gap-16 items-center mb-20" ref={contentRef}>
           {/* Left: Story */}
@@ -98,8 +85,8 @@ const AboutSection = () => {
           {/* Right: Team Highlight */}
           <div className="glass-card p-8">
             <div className="text-center mb-6">
-              <div className="w-24 h-24 rounded-full bg-gradient-to-br from-primary to-secondary mx-auto mb-4 flex items-center justify-center">
-                <span className="text-2xl font-bold text-white">NJ</span>
+              <div className="w-24 h-24 rounded-full bg-primary mx-auto mb-4 flex items-center justify-center">
+                <span className="text-2xl font-bold text-primary-foreground">NJ</span>
               </div>
               <h4 className="text-xl font-bold mb-2">Founded by Visionaries</h4>
               <p className="text-muted-foreground">
@@ -128,20 +115,36 @@ const AboutSection = () => {
             Our Core Values
           </h3>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
             {values.map((value, index) => {
               const IconComponent = value.icon;
               return (
-                <div key={index} className="text-center group">
-                  <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-primary to-secondary mx-auto mb-6 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
-                    <IconComponent className="w-8 h-8 text-white" />
+                <div
+                  key={index}
+                  className="glass-card group relative overflow-hidden p-6 flex flex-col gap-5 hover:border-primary/40 transition-colors duration-300"
+                >
+                  {/* Top accent line */}
+                  <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-primary to-primary-glow scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left" />
+
+                  {/* Number + Icon row */}
+                  <div className="flex items-center justify-between">
+                    <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center group-hover:bg-primary/20 transition-colors duration-300">
+                      <IconComponent className="w-6 h-6 text-primary" />
+                    </div>
+                    <span className="text-4xl font-black text-muted/20 select-none leading-none">
+                      0{index + 1}
+                    </span>
                   </div>
-                  <h4 className="text-xl font-bold mb-3 group-hover:text-secondary transition-colors duration-300">
-                    {value.title}
-                  </h4>
-                  <p className="text-muted-foreground leading-relaxed">
-                    {value.description}
-                  </p>
+
+                  {/* Text */}
+                  <div>
+                    <h4 className="text-lg font-bold mb-2 group-hover:text-secondary transition-colors duration-300">
+                      {value.title}
+                    </h4>
+                    <p className="text-sm text-muted-foreground leading-relaxed">
+                      {value.description}
+                    </p>
+                  </div>
                 </div>
               );
             })}
@@ -159,7 +162,7 @@ const AboutSection = () => {
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link to="/contact">
-                <button className="btn-hero btn-outline-luxury">
+                <button className="btn-luxury">
                   Start a Project
                 </button>
               </Link>

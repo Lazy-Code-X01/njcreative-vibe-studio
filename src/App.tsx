@@ -21,6 +21,7 @@ import AdminMessages from "./pages/admin/Messages";
 import AdminBlog from "./pages/admin/Blog";
 import AdminCategories from "./pages/admin/Categories";
 import AdminPortfolio from "./pages/admin/Portfolio";
+import AdminServices from "./pages/admin/Services";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -52,6 +53,7 @@ const App = () => (
               <Route path="/admin/blog" element={<AdminBlog />} />
               <Route path="/admin/categories" element={<AdminCategories />} />
               <Route path="/admin/portfolio" element={<AdminPortfolio />} />
+              <Route path="/admin/services" element={<AdminServices />} />
               
               {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
               <Route path="*" element={<NotFound />} />

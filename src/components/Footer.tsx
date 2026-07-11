@@ -26,19 +26,19 @@ interface SocialLink extends LinkItem {
 
 const Footer: React.FC = () => {
   const quickLinks: LinkItem[] = [
-    { label: "About Us", href: "about" },
-    { label: "Services", href: "services" },
-    { label: "Portfolio", href: "portfolio" },
-    { label: "Blog", href: "blog" },
-    { label: "Contact", href: "contact" },
+    { label: "About Us", href: "/about" },
+    { label: "Services", href: "/services" },
+    { label: "Portfolio", href: "/portfolio" },
+    { label: "Blog", href: "/blog" },
+    { label: "Contact", href: "/contact" },
   ];
 
   const services: LinkItem[] = [
-    { label: "Web Development", href: "services/#web-development" },
-    { label: "Branding & Design", href: "services/#branding" },
-    { label: "Digital Marketing", href: "services/#marketing" },
-    { label: "Tech Solutions", href: "services/#tech-solutions" },
-    { label: "Video Production", href: "services/#video-production" },
+    { label: "Web Development", href: "/services#web-development" },
+    { label: "Branding & Design", href: "/services#branding" },
+    { label: "Digital Marketing", href: "/services#marketing" },
+    { label: "Tech Solutions", href: "/services#tech-solutions" },
+    { label: "Video Production", href: "/services#video-production" },
   ];
 
   const socialLinks: SocialLink[] = [
@@ -88,15 +88,8 @@ const Footer: React.FC = () => {
           <div className="grid lg:grid-cols-4 md:grid-cols-2 gap-8">
             {/* Company Info */}
             <div className="lg:col-span-2">
-              <div className="flex items-center space-x-2 mb-6">
-                <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-primary to-secondary flex items-center justify-center">
-                  <span className="text-primary-foreground font-bold text-xl">
-                    NJ
-                  </span>
-                </div>
-                <span className="font-playfair text-2xl font-bold text-foreground">
-                  Creative Firm
-                </span>
+              <div className="flex items-center space-x-3 mb-6">
+                <img src="/uploads/logo.png" alt="NJ Creative Firm" className="h-10 w-auto object-contain" />
               </div>
 
               <p className="text-muted-foreground mb-6 leading-relaxed max-w-md">
@@ -169,37 +162,10 @@ const Footer: React.FC = () => {
           </div>
         </div>
 
-        {/* Newsletter Signup */}
-        <div className="py-8 border-t border-border">
-          <div className="glass-card p-8 rounded-2xl">
-            <div className="grid md:grid-cols-2 gap-8 items-center">
-              <div>
-                <h3 className="text-2xl font-bold mb-4 text-foreground">Stay In The Loop</h3>
-                <p className="text-muted-foreground">
-                  Get the latest insights on design, development, and digital
-                  strategy delivered straight to your inbox.
-                </p>
-              </div>
-              <div>
-                <div className="flex flex-col sm:flex-row gap-3">
-                  <input
-                    type="email"
-                    placeholder="Enter your email"
-                    className="flex-1 px-4 py-3 rounded-lg bg-input border border-border focus:ring-2 focus:ring-secondary focus:border-transparent outline-none text-foreground"
-                  />
-                  <button className="btn-hero bg-primary text-primary-foreground hover:bg-primary/90 px-6 py-3 rounded-lg transition-colors whitespace-nowrap">
-                    Subscribe
-                  </button>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
         {/* Bottom Bar - Restructured for Mobile & Desktop */}
         <div className="py-8 border-t border-border flex flex-col gap-8">
           
-          {/* Company Details & Legal Links Tier */}
+          {/* Company Details Tier */}
           <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
             <div className="space-y-1 text-sm text-muted-foreground">
               <p><span className="font-semibold text-foreground">Registration No:</span> 8136817 <span className="mx-2">|</span> <span className="font-semibold text-foreground">TIN:</span> 32608398-0001</p>
@@ -222,7 +188,7 @@ const Footer: React.FC = () => {
                     href={social.href}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="w-10 h-10 rounded-lg bg-accent hover:bg-secondary flex items-center justify-center text-accent-foreground hover:text-white transition-all duration-300 hover:-translate-y-1"
+                    className="w-10 h-10 rounded-lg bg-muted hover:bg-primary flex items-center justify-center text-muted-foreground hover:text-primary-foreground transition-all duration-300 hover:-translate-y-1"
                     aria-label={social.label}
                   >
                     <IconComponent className="w-5 h-5" />

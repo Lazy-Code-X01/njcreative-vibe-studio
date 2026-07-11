@@ -25,6 +25,7 @@ const ServicesSection = () => {
         "Performance Optimization",
       ],
       color: "from-primary to-primary-glow",
+      href: "/services#web-development",
     },
     {
       icon: Palette,
@@ -38,6 +39,7 @@ const ServicesSection = () => {
         "Creative Direction",
       ],
       color: "from-secondary to-secondary-glow",
+      href: "/services#branding",
     },
     {
       icon: Megaphone,
@@ -50,11 +52,12 @@ const ServicesSection = () => {
         "Content Strategy",
         "PPC Campaigns",
       ],
-      color: "from-accent to-accent-premium",
+      color: "from-primary to-primary-glow",
+      href: "/services#marketing",
     },
     {
       icon: Smartphone,
-      title: "Recuiment Services",
+      title: "Recruitment Services",
       description:
         "Connecting top tech talent with innovative companies for mutual growth.",
       features: [
@@ -64,6 +67,7 @@ const ServicesSection = () => {
         "Onboarding Support",
       ],
       color: "from-primary to-secondary",
+      href: "/services#recruitment-talent",
     },
   ];
 
@@ -72,11 +76,6 @@ const ServicesSection = () => {
       <div className="container mx-auto px-6">
         {/* Section Header */}
         <div className="text-center mb-16" ref={headerRef}>
-          <div className="inline-flex items-center px-4 py-2 rounded-full glass-card mb-6">
-            <span className="text-secondary text-sm font-medium">
-              ⚡ Our Expertise
-            </span>
-          </div>
           <h2 className="text-4xl md:text-6xl font-bold mb-6">
             Services That Drive
             <span className="block gradient-text">Success</span>
@@ -92,9 +91,10 @@ const ServicesSection = () => {
           {services.map((service, index) => {
             const IconComponent = service.icon;
             return (
-              <div
+              <Link
                 key={index}
-                className="service-card group relative overflow-hidden"
+                to={service.href}
+                className="service-card group relative overflow-hidden cursor-pointer block"
               >
                 {/* Background Gradient */}
                 <div
@@ -132,14 +132,12 @@ const ServicesSection = () => {
                   </ul>
 
                   {/* CTA */}
-                  <Link to="/services" className="inline-block">
-                    <div className="flex items-center text-secondary group-hover:text-secondary-glow transition-colors duration-300">
-                      <span className="font-medium">Learn More</span>
-                      <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-2 transition-transform duration-300" />
-                    </div>
-                  </Link>
+                  <div className="flex items-center text-secondary group-hover:text-secondary-glow transition-colors duration-300">
+                    <span className="font-medium">Learn More</span>
+                    <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-2 transition-transform duration-300" />
+                  </div>
                 </div>
-              </div>
+              </Link>
             );
           })}
         </div>
@@ -155,7 +153,7 @@ const ServicesSection = () => {
               goals.
             </p>
             <Link to="/contact">
-              <button className=" btn-outline-luxury group text-muted-foreground">
+              <button className="btn-outline-luxury group">
                 Schedule a Consultation
               </button>
             </Link>

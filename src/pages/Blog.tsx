@@ -1,7 +1,7 @@
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
-import { Calendar, Clock, User, Search, Tag } from "lucide-react";
+import { Calendar, Clock, User, Search, Tag, ArrowRight } from "lucide-react";
 import { useState, useEffect, useMemo } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
@@ -107,7 +107,7 @@ const Blog = () => {
   }, [postsData]);
 
   // Function to handle navigation to a blog post
-  const handlePostClick = (post) => {
+  const handlePostClick = (post: { slug: string }) => {
     navigate(`/blog/${post.slug}`);
   };
 
@@ -130,7 +130,7 @@ const Blog = () => {
             <div className="max-w-4xl mx-auto text-center">
               <h1 className="text-5xl md:text-7xl font-serif font-bold mb-8 leading-tight">
                 Digital Insights &
-                <span className="block gradient-text animate-gradient italic">
+                <span className="block gradient-text italic">
                   Expert
                 </span>
                 Perspectives
@@ -215,7 +215,7 @@ const Blog = () => {
                         <img
                           src={featuredPost.featuredImage || "/placeholder.svg"}
                           alt={featuredPost.title}
-                          className="w-full h-80 lg:h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                          className="w-full h-56 lg:h-64 object-cover group-hover:scale-110 transition-transform duration-500"
                         />
                         <div className="absolute top-4 left-4">
                           <span className="px-3 py-1 bg-primary text-primary-foreground rounded-full text-sm font-medium">
@@ -224,7 +224,7 @@ const Blog = () => {
                         </div>
                       </div>
 
-                      <div className="p-8 lg:p-12 flex flex-col justify-center">
+                      <div className="p-6 lg:p-8 flex flex-col justify-center">
                         <div className="flex items-center space-x-4 text-sm text-muted-foreground mb-4">
                           <div className="flex items-center space-x-1">
                             <Calendar className="w-4 h-4" />
@@ -248,7 +248,7 @@ const Blog = () => {
 
                         <Button className="btn-luxury group w-fit">
                           Read Full Article
-                          <Calendar className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                          <ArrowRight className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
                         </Button>
                       </div>
                     </div>
@@ -306,9 +306,10 @@ const Blog = () => {
                   ))}
                 </div>
               ) : filteredPosts.length === 0 ? (
-                <div className="text-center py-20">
+                <div className="text-center py-24 glass-card">
+                  <h3 className="text-2xl font-serif font-bold mb-3">No articles found</h3>
                   <p className="text-muted-foreground text-lg">
-                    No articles found. Try adjusting your search or filters.
+                    Try adjusting your search terms or browse a different category.
                   </p>
                 </div>
               ) : (
@@ -366,23 +367,12 @@ const Blog = () => {
 
                             <Button className="btn-outline-luxury group w-full">
                               Read More
-                              <Calendar className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                              <ArrowRight className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
                             </Button>
                           </div>
                         </div>
                       </article>
                     ))}
-                </div>
-              )}
-
-              {filteredPosts.length === 0 && (
-                <div className="text-center py-16">
-                  <div className="text-6xl mb-4">📝</div>
-                  <h3 className="text-2xl font-bold mb-4">No articles found</h3>
-                  <p className="text-muted-foreground">
-                    Try adjusting your search terms or browse different
-                    categories.
-                  </p>
                 </div>
               )}
 

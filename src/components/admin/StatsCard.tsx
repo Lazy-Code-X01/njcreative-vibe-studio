@@ -10,23 +10,19 @@ interface StatsCardProps {
 
 export const StatsCard = ({ title, value, icon: Icon, description }: StatsCardProps) => {
   return (
-    <Card className="glass-card group cursor-default">
+    <Card className="glass-card">
       <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-3">
-        <CardTitle className="text-sm font-medium text-muted-foreground group-hover:text-foreground transition-colors">
+        <CardTitle className="text-xs font-medium text-muted-foreground uppercase tracking-wide">
           {title}
         </CardTitle>
-        <div className="p-2 rounded-lg bg-secondary/10 group-hover:bg-secondary/20 transition-colors">
-          <Icon className="h-5 w-5 text-secondary" />
+        <div className="p-2 rounded-md bg-primary/10">
+          <Icon className="h-4 w-4 text-primary-glow" style={{ color: 'hsl(var(--primary-glow))' }} />
         </div>
       </CardHeader>
       <CardContent>
-        <div className="text-3xl font-bold bg-gradient-to-br from-foreground to-foreground/70 bg-clip-text text-transparent">
-          {value}
-        </div>
+        <div className="text-3xl font-bold text-foreground">{value}</div>
         {description && (
-          <p className="text-xs text-muted-foreground mt-2 group-hover:text-muted-foreground/80 transition-colors">
-            {description}
-          </p>
+          <p className="text-xs text-muted-foreground mt-1">{description}</p>
         )}
       </CardContent>
     </Card>

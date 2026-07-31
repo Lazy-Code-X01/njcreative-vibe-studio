@@ -17,7 +17,7 @@ import FloatingElements from "@/components/FloatingElements";
 import { useScrollReveal } from "@/hooks/useScrollReveal";
 
 const API_BASE_URL = import.meta.env.PROD
-  ? "https://api.njcreativefirm.com"
+  ? import.meta.env.VITE_API_BASE_URL || "https://api.njcreativefirm.com"
   : import.meta.env.VITE_API_BASE_URL || "http://localhost:8787";
 
 const iconMap: Record<string, React.ReactNode> = {

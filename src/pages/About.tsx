@@ -14,7 +14,7 @@ import FloatingElements from "@/components/FloatingElements";
 import MouseInteractive from "@/components/MouseInteractive";
 
 import wealthImg from "@/assets/wealth-favour.jpeg";
-import natashaImg from "@/assets/natasha-jumbo.jpg";
+import natashaImg from "@/assets/ceo-img.jpeg";
 import idahImg from "@/assets/IdahShidu.jpeg";
 import alexandraImg from "@/assets/alexandra-aprah.jpeg";
 import { Link } from "react-router-dom";

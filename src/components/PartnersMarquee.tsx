@@ -1,12 +1,13 @@
 import Marquee from "react-fast-marquee";
 
 const companyLogos = [
-  { name: "JumboTreats", src: new URL("../assets/companyLogo/JumboTreats.png", import.meta.url).href },
-  { name: "BuksSkills",  src: new URL("../assets/companyLogo/BuksSkills.png",  import.meta.url).href },
-  { name: "Ocean21",     src: new URL("../assets/companyLogo/Ocean21.png",     import.meta.url).href },
-  { name: "Auitria",     src: new URL("../assets/companyLogo/Auitira.png",     import.meta.url).href },
-  { name: "Kingress",    src: new URL("../assets/companyLogo/Kingress.png",    import.meta.url).href },
-  { name: "BlueDutch",   src: new URL("../assets/companyLogo/Bluedutch.png",   import.meta.url).href },
+  { name: "JumboTreats",  src: new URL("../assets/companyLogo/JumboTreats.png",   import.meta.url).href },
+  { name: "BuksSkills",   src: new URL("../assets/companyLogo/BuksSkills.png",    import.meta.url).href },
+  { name: "Ocean21",      src: new URL("../assets/companyLogo/Ocean21.png",       import.meta.url).href },
+  { name: "Auitria",      src: new URL("../assets/companyLogo/Auitira.png",       import.meta.url).href },
+  { name: "Kingress",     src: new URL("../assets/companyLogo/Kingress.png",      import.meta.url).href },
+  { name: "Cavedwellers", src: new URL("../assets/companyLogo/cavedwellers.png",  import.meta.url).href },
+  { name: "Sytt",         src: new URL("../assets/companyLogo/sytt.png",          import.meta.url).href },
 ];
 
 const PartnersMarquee = () => (

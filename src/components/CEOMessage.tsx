@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
 import { Link } from "react-router-dom";
-import ceoMessagePicture from "@/assets/cei-message-picturejpg.jpg";
+import ceoMessagePicture from "@/assets/ceo-img.jpeg";
 import { useScrollReveal } from "@/hooks/useScrollReveal";
 
 const CEOMessage = () => {

@@ -1,5 +1,5 @@
 const API_BASE_URL = import.meta.env.PROD
-  ? import.meta.env.VITE_API_BASE_URL || "https://api.njcreativefirm.com"
+  ? import.meta.env.VITE_API_BASE_URL || "https://nj.symplax.app"
   : import.meta.env.VITE_API_BASE_URL || "http://localhost:8787";
 const API_PATH = `${API_BASE_URL}/api`;
 

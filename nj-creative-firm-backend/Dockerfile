@@ -7,8 +7,8 @@ WORKDIR /app
 # Install dependencies first (caching)
 COPY package*.json ./
 
-# Install all dependencies including devDependencies
-RUN npm install
+# Install all dependencies including devDependencies for build
+RUN npm ci
 
 # Copy source code
 COPY . .
@@ -16,8 +16,8 @@ COPY . .
 # Build the application
 RUN npm run build
 
-# Clean and install only production dependencies
-RUN npm ci --only=production
+# Remove dev dependencies
+RUN npm ci --omit=dev
 
 # Set environment variables
 ENV NODE_ENV=production

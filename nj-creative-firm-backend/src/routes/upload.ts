@@ -1,4 +1,5 @@
 import { Router } from "express";
+import { randomUUID } from "crypto";
 import multer from "multer";
 import { uploadImage } from "../services/cloudinary";
 import { requireAuth } from "../middleware/auth";
@@ -12,11 +13,10 @@ router.post(
   requireAuth,
   upload.single("image"),
   async (req, res, next) => {
-    const { v4: uuidv4 } = await import("uuid");
     try {
       if (!req.file)
         return res.status(400).json({ message: "No file uploaded" });
-      const filename = `njcreative_${uuidv4()}`;
+      const filename = `njcreative_${randomUUID()}`;
       const result: any = await uploadImage(req.file.buffer, filename);
       res.json({ url: result.secure_url, raw: result });
     } catch (err) {
